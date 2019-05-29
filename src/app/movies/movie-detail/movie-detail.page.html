@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/movies"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ loadedMovie.title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col no-padding>
+        <ion-img [src]="loadedMovie.poster_path"></ion-img>
+      </ion-col>
+      <ion-col>
+        <h2>{{ loadedMovie.rating }}</h2>
+        <p>{{ loadedMovie.overview }}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <h3>{{ loadedMovie.release_date }}</h3>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

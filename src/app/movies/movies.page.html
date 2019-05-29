@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>MOVIES</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let movie of movies" [routerLink]="['/movies', movie.id]">
+      <ion-thumbnail slot="start" size="200">
+        <ion-img [src]="movie.poster_path"></ion-img>
+      </ion-thumbnail>
+      <ion-label> {{ movie.title }}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
