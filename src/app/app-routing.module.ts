@@ -5,30 +5,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
   {
     path: 'main',
-    children: [
-      {
-        path: '',
-        loadChildren: './main/main.module#MainPageModule'
-      },
-      {
-        path: 'movies',
-        children: [
-          {
-            path: '',
-            loadChildren: './movies/movies.module#MoviesPageModule'
-          },
-          {
-            path: ':movieId',
-            loadChildren:
-              './movies/movie-detail/movie-detail.module#MovieDetailPageModule'
-          }
-        ]
-      },
-      {
-        path: 'actors',
-        loadChildren: './actors/actors.module#ActorsPageModule'
-      }
-    ]
+    loadChildren: './main/main.module#MainPageModule'
   }
 ];
 

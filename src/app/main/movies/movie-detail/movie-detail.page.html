@@ -1,13 +1,18 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/movies"></ion-back-button>
+      <ion-back-button defaultHref="/main/tabs/movies"></ion-back-button>
     </ion-buttons>
     <ion-title>{{ loadedMovie.title }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-segment>
+    <ion-segment-button value="main" checked>Main</ion-segment-button>
+    <ion-segment-button value="cast">Cast</ion-segment-button>
+    <ion-segment-button value="gallery">Gallery</ion-segment-button>
+  </ion-segment>
   <ion-grid no-padding>
     <ion-row>
       <ion-col no-padding>

@@ -9,8 +9,38 @@ import { MainPage } from './main.page';
 
 const routes: Routes = [
   {
+    path: 'tabs',
+    component: MainPage,
+    children: [
+      {
+        path: 'movies',
+        children: [
+          {
+            path: '',
+            loadChildren: './movies/movies.module#MoviesPageModule'
+          },
+          {
+            path: ':movieId',
+            loadChildren:
+              './movies/movie-detail/movie-detail.module#MovieDetailPageModule'
+          }
+        ]
+      },
+      {
+        path: 'actors',
+        children: [
+          {
+            path: '',
+            loadChildren: './actors/actors.module#ActorsPageModule'
+          }
+        ]
+      }
+    ]
+  },
+  {
     path: '',
-    component: MainPage
+    redirectTo: 'tabs',
+    pathMatch: 'full'
   }
 ];
 
