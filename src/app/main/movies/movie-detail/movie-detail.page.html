@@ -3,7 +3,9 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/main/tabs/movies"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ loadedMovie.title }}</ion-title>
+    <ion-title *ngIf="loadedMovie"
+      >{{ loadedMovie.title }} ({{ movieYear }})</ion-title
+    >
   </ion-toolbar>
 </ion-header>
 
@@ -13,20 +15,50 @@
     <ion-segment-button value="cast">Cast</ion-segment-button>
     <ion-segment-button value="gallery">Gallery</ion-segment-button>
   </ion-segment>
-  <ion-grid no-padding>
+  <ion-grid no-padding *ngIf="loadedMovie" class="movie-main-area">
     <ion-row>
-      <ion-col no-padding>
-        <ion-img [src]="loadedMovie.poster_path"></ion-img>
+      <ion-col no-padding size="7">
+        <ion-img [src]="getFullImgPath(loadedMovie, 'hi')"></ion-img>
       </ion-col>
-      <ion-col>
-        <h2>{{ loadedMovie.rating }}</h2>
-        <p>{{ loadedMovie.overview }}</p>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <h3>{{ loadedMovie.release_date }}</h3>
+      <ion-col padding size="5">
+        <div class="movie-stat-item">
+          <p>Rating</p>
+          <h6>{{ loadedMovie.vote_average }}</h6>
+        </div>
+        <div class="movie-stat-item">
+          <p>Runtime</p>
+          <h6>{{ loadedMovie.runtime }}</h6>
+        </div>
+        <div class="movie-stat-item">
+          <p>Budget</p>
+          <h6>{{ loadedMovie.budget }}</h6>
+        </div>
+        <div class="movie-stat-item">
+          <p>Revenue</p>
+          <h6>{{ loadedMovie.revenue }}</h6>
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>
+  <ion-grid *ngIf="loadedMovie">
+    <ion-row>
+      <ion-col>
+        <h6>Overview</h6>
+        <p>{{ loadedMovie.overview }}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list *ngIf="movieCast">
+    <ion-item
+      *ngFor="let actor of movieCast"
+      [routerLink]="['/main/tabs/actors', actor.id]"
+    >
+      <ion-thumbnail slot="start" size="200">
+        <ion-img [src]="this.getFullImgPath(actor, 'low')"></ion-img>
+      </ion-thumbnail>
+      <p>{{ actor.name }}</p>
+      <p>as</p>
+      <p>{{ actor.character }}</p>
+    </ion-item>
+  </ion-list>
 </ion-content>

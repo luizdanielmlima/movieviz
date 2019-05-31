@@ -13,6 +13,11 @@ const routes: Routes = [
     component: MainPage,
     children: [
       {
+        path: '',
+        redirectTo: 'movies',
+        pathMatch: 'full'
+      },
+      {
         path: 'movies',
         children: [
           {
