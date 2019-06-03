@@ -5,6 +5,7 @@ import { SegmentChangeEventDetail } from '@ionic/core';
 import { MoviesService } from '../../../shared/movies.service';
 import { Movie } from '../../../shared/movie.model';
 import { Cast } from 'src/app/shared/cast.model';
+import { Image } from 'src/app/shared/image.model';
 
 @Component({
   selector: 'app-actor-detail',
@@ -14,6 +15,7 @@ import { Cast } from 'src/app/shared/cast.model';
 export class ActorDetailPage implements OnInit {
   loadedActor: Cast;
   movieCredits: any[];
+  actorImages: Image[];
   showMode: string; // defines the information shown, when using the upper tabs
 
   constructor(
@@ -35,13 +37,16 @@ export class ActorDetailPage implements OnInit {
       });
       this.moviesService.getActorMovies(actorId).subscribe((credits: any) => {
         this.movieCredits = credits.cast;
-        console.log(this.movieCredits);
+        // console.log(this.movieCredits);
+      });
+      this.moviesService.getActorImages(actorId).subscribe((images: any) => {
+        this.actorImages = images.profiles;
+        console.log(this.actorImages);
       });
     });
   }
 
   onSegmentChange(event: CustomEvent<SegmentChangeEventDetail>) {
-    console.log(event.detail.value);
     if (event.detail.value === 'main') {
       this.showMode = 'main';
     } else if (event.detail.value === 'credits') {

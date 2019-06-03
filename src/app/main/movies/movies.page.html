@@ -83,7 +83,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-list *ngIf="movies">
+  <ion-list *ngIf="movies"  lines="none">
     <ion-item
       *ngFor="let movie of movies"
       [routerLink]="['/main/tabs/movies', movie.id]"

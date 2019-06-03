@@ -93,9 +93,7 @@ export class MoviesService {
     }
   ];
 
-  constructor(private http: HttpClient) {
-    //console.log(environment.mdbAPIKey);
-  }
+  constructor(private http: HttpClient) {}
 
   getAPIKey() {
     return environment.mdbAPIKey;
@@ -131,6 +129,30 @@ export class MoviesService {
     );
   }
 
+  getMovieCredits(movieId: string) {
+    return this.http.get(
+      `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${
+        this.apiKey
+      }&language=en-US`
+    );
+  }
+
+  getMovieImages(movieId: string) {
+    return this.http.get(
+      `https://api.themoviedb.org/3/movie/${movieId}/images?api_key=${
+        this.apiKey
+      }`
+    );
+  }
+
+  getActors() {
+    return this.http.get(
+      `https://api.themoviedb.org/3/person/popular?api_key=${
+        this.apiKey
+      }&language=en-US`
+    );
+  }
+
   getActor(actorId: string) {
     return this.http.get(
       `https://api.themoviedb.org/3/person/${actorId}?api_key=${
@@ -147,19 +169,11 @@ export class MoviesService {
     );
   }
 
-  getMovieCredits(movieId: string) {
+  getActorImages(actorId: string) {
     return this.http.get(
-      `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${
+      `https://api.themoviedb.org/3/person/${actorId}/images?api_key=${
         this.apiKey
       }&language=en-US`
-    );
-  }
-
-  getMovieImages(movieId: string) {
-    return this.http.get(
-      `https://api.themoviedb.org/3/movie/${movieId}/images?api_key=${
-        this.apiKey
-      }`
     );
   }
 

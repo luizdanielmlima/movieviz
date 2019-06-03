@@ -101,7 +101,6 @@
   </ion-list>
 
   <ion-grid *ngIf="movieImages && showMode === 'gallery'">
-    <p>Gallery??</p>
     <ion-row>
       <ion-col size="6" *ngFor="let img of movieImages">
         <ion-img [src]="this.getFullImgPath(img, 'backdrop', 'low')"></ion-img>
@@ -110,7 +109,6 @@
   </ion-grid>
 
   <ion-grid *ngIf="moviePosters && showMode === 'posters'">
-    <p>Posters??</p>
     <ion-row>
       <ion-col size="6" *ngFor="let poster of moviePosters">
         <ion-img [src]="this.getFullImgPath(poster, 'poster', 'low')"></ion-img>
