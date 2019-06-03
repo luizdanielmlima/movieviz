@@ -10,17 +10,24 @@
 </ion-header>
 
 <ion-content>
-  <ion-segment>
+  <ion-segment (ionChange)="onSegmentChange($event)">
     <ion-segment-button value="main" checked>Main</ion-segment-button>
     <ion-segment-button value="cast">Cast</ion-segment-button>
     <ion-segment-button value="gallery">Gallery</ion-segment-button>
+    <ion-segment-button value="posters">Posters</ion-segment-button>
   </ion-segment>
-  <ion-grid no-padding *ngIf="loadedMovie" class="movie-main-area">
+  <ion-grid
+    no-padding
+    *ngIf="loadedMovie && showMode === 'main'"
+    class="movie-main-area"
+  >
     <ion-row>
-      <ion-col no-padding size="7">
-        <ion-img [src]="getFullImgPath(loadedMovie, 'hi')"></ion-img>
+      <ion-col no-padding size="7" size-sm="4" offset-sm="4">
+        <ion-img
+          [src]="this.getFullImgPath(loadedMovie, 'profile', 'low')"
+        ></ion-img>
       </ion-col>
-      <ion-col padding size="5">
+      <ion-col padding size="5" size-sm="4" offset-sm="4">
         <div class="movie-stat-item">
           <p>Rating</p>
           <h6>{{ loadedMovie.vote_average }}</h6>
@@ -40,25 +47,74 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-grid *ngIf="loadedMovie">
+  <ion-grid padding="8" *ngIf="loadedMovie && showMode === 'main'">
     <ion-row>
-      <ion-col>
-        <h6>Overview</h6>
+      <ion-col size="12" size-sm="6" offset-sm="2">
+        <h4>Overview</h4>
         <p>{{ loadedMovie.overview }}</p>
       </ion-col>
     </ion-row>
+    <ion-row>
+      <ion-col size="12" size-sm="6" offset-sm="2">
+        <h4>Featured Crew</h4>
+        <ion-list no-padding *ngIf="movieCrew && showMode === 'main'">
+          <ion-item
+            class="crew-item"
+            no-padding
+            lines="none"
+            *ngFor="let crewMember of movieCrew"
+          >
+            <ion-grid no-padding>
+              <ion-row no-padding>
+                <ion-col class="ion-justify-self-start">
+                  <p class="crew-item-name">{{ crewMember.name }}</p>
+                </ion-col>
+                <ion-col class="ion-justify-self-center">
+                  <p text-center>......</p>
+                </ion-col>
+                <ion-col class="ion-justify-self-end">
+                  <p>{{ crewMember.job }}</p>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
   </ion-grid>
-  <ion-list *ngIf="movieCast">
+
+  <ion-list *ngIf="movieCast && showMode === 'cast'" lines="none">
     <ion-item
+      class="cast-item"
       *ngFor="let actor of movieCast"
       [routerLink]="['/main/tabs/actors', actor.id]"
     >
       <ion-thumbnail slot="start" size="200">
-        <ion-img [src]="this.getFullImgPath(actor, 'low')"></ion-img>
+        <ion-img [src]="this.getFullImgPath(actor, 'cast', 'low')"></ion-img>
       </ion-thumbnail>
-      <p>{{ actor.name }}</p>
-      <p>as</p>
-      <p>{{ actor.character }}</p>
+      <div class="movie-cast-textarea">
+        <p>{{ actor.name }}</p>
+        <ion-note>as</ion-note>
+        <p>{{ actor.character }}</p>
+      </div>
     </ion-item>
   </ion-list>
+
+  <ion-grid *ngIf="movieImages && showMode === 'gallery'">
+    <p>Gallery??</p>
+    <ion-row>
+      <ion-col size="6" *ngFor="let img of movieImages">
+        <ion-img [src]="this.getFullImgPath(img, 'backdrop', 'low')"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="moviePosters && showMode === 'posters'">
+    <p>Posters??</p>
+    <ion-row>
+      <ion-col size="6" *ngFor="let poster of moviePosters">
+        <ion-img [src]="this.getFullImgPath(poster, 'poster', 'low')"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

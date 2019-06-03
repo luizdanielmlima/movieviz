@@ -102,7 +102,6 @@ export class MoviesService {
   }
 
   getMDBMovies(genre: string, sortBy: string, year: string) {
-    console.log(`movies.service|getMDBMovies|${year}`);
     // set query values
     let genreQuery: string;
     if (genre === 'all') {
@@ -132,11 +131,35 @@ export class MoviesService {
     );
   }
 
+  getActor(actorId: string) {
+    return this.http.get(
+      `https://api.themoviedb.org/3/person/${actorId}?api_key=${
+        this.apiKey
+      }&language=en-US`
+    );
+  }
+
+  getActorMovies(actorId: string) {
+    return this.http.get(
+      `https://api.themoviedb.org/3/person/${actorId}/movie_credits?api_key=${
+        this.apiKey
+      }&language=en-US`
+    );
+  }
+
   getMovieCredits(movieId: string) {
     return this.http.get(
       `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${
         this.apiKey
       }&language=en-US`
+    );
+  }
+
+  getMovieImages(movieId: string) {
+    return this.http.get(
+      `https://api.themoviedb.org/3/movie/${movieId}/images?api_key=${
+        this.apiKey
+      }`
     );
   }
 

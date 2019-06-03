@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main/tabs/actors"></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="loadedActor">{{ loadedActor.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="loadedActor">
+  <ion-segment (ionChange)="onSegmentChange($event)">
+    <ion-segment-button value="main" checked>Main</ion-segment-button>
+    <ion-segment-button value="credits">Filmography</ion-segment-button>
+    <ion-segment-button value="gallery">Gallery</ion-segment-button>
+  </ion-segment>
+  <ion-grid
+    no-padding
+    *ngIf="loadedActor && showMode === 'main'"
+    class="actor-main-area"
+  >
+    <ion-row>
+      <ion-col no-padding size="7" size-sm="4" offset-sm="4">
+        <ion-img
+          [src]="this.getFullImgPath(loadedActor, 'actor', 'low')"
+        ></ion-img>
+      </ion-col>
+      <ion-col padding size="5" size-sm="4" offset-sm="4">
+        <div class="actor-stat-item">
+          <p>Popularity</p>
+          <h6>{{ loadedActor.popularity }}</h6>
+        </div>
+        <div class="actor-stat-item">
+          <p>Birthday</p>
+          <h6>{{ loadedActor.birthday }}</h6>
+        </div>
+        <div class="actor-stat-item">
+          <p>Place of Birth</p>
+          <h6>{{ loadedActor.place_of_birth }}</h6>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid padding="8" *ngIf="loadedActor && showMode === 'main'">
+    <ion-row>
+      <ion-col size="12" size-sm="6" offset-sm="2">
+        <h4>Biography</h4>
+        <p>{{ loadedActor.biography }}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-list *ngIf="movieCredits && showMode === 'credits'" lines="none">
+    <ion-item
+      class="credits-item"
+      *ngFor="let role of movieCredits"
+      [routerLink]="['/main/tabs/movies', role.id]"
+    >
+      <ion-thumbnail slot="start" size="200">
+        <ion-img [src]="this.getFullImgPath(role, 'poster', 'low')"></ion-img>
+      </ion-thumbnail>
+      <div class="actor-filmg-textarea">
+        <p>{{ role.original_title }}</p>
+        <ion-note>as</ion-note>
+        <p>{{ role.character }}</p>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

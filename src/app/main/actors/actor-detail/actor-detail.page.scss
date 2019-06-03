@@ -1,10 +1,10 @@
 @import '../../../../theme/variables.scss';
 
-.movie-main-area {
-  background-color: #333;
+.actor-main-area {
+  background-color: var(--ion-color-dark);
 }
 
-.movie-stat-item {
+.actor-stat-item {
   padding: 0;
   margin: 0 0 24px 0;
   text-align: center;
@@ -26,7 +26,7 @@
   }
 }
 
-.movie-cast-textarea {
+.actor-filmg-textarea {
   // background-color: palegoldenrod;
   display: flex;
   flex-direction: column;
@@ -39,15 +39,11 @@
 }
 
 ion-thumbnail {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 120px;
 }
 
-.crew-item-name {
-  color: var(--ion-color-primary);
-}
-
-.cast-item {
+.credits-item {
   p:first-child {
     color: var(--ion-color-primary);
   }

@@ -37,6 +37,11 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: './actors/actors.module#ActorsPageModule'
+          },
+          {
+            path: ':actorId',
+            loadChildren:
+              './actors/actor-detail/actor-detail.module#ActorDetailPageModule'
           }
         ]
       }
