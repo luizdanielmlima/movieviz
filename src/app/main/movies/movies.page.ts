@@ -41,11 +41,19 @@ export class MoviesPage implements OnInit {
       });
   }
 
-  getFullPosterPath(movie: Movie, resolution: string) {
+  getFullPosterPathOLD(movie: Movie, resolution: string) {
     const posterW = resolution === 'hi' ? '600' : '300';
     const posterH = resolution === 'hi' ? '900' : '450';
     const imgBasePath = `https://image.tmdb.org/t/p/w${posterW}_and_h${posterH}_bestv2`;
     const fullPosterPath = imgBasePath + movie.poster_path;
+    return fullPosterPath;
+  }
+
+  getFullPosterPath(movie: Movie, res: string) {
+    let fullPosterPath: string;
+    const imgBasePath = `https://image.tmdb.org/t/p`;
+    const baseW = res === 'hi' ? '780' : '342';
+    fullPosterPath = `${imgBasePath}/w${baseW}${movie.poster_path}`;
     return fullPosterPath;
   }
 }

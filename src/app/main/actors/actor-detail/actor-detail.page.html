@@ -21,7 +21,7 @@
     <ion-row>
       <ion-col no-padding size="7" size-sm="4" offset-sm="4">
         <ion-img
-          [src]="this.getFullImgPath(loadedActor, 'actor', 'low')"
+          [src]="this.getFullImgPath(loadedActor, 'actor', 'hi')"
         ></ion-img>
       </ion-col>
       <ion-col padding size="5" size-sm="4" offset-sm="4">
@@ -59,7 +59,7 @@
         <ion-img [src]="this.getFullImgPath(role, 'poster', 'low')"></ion-img>
       </ion-thumbnail>
       <div class="actor-filmg-textarea">
-        <p>{{ role.original_title }}</p>
+        <p>{{ role.original_title }} ({{ getYear(role.release_date) }})</p>
         <ion-note>as</ion-note>
         <p>{{ role.character }}</p>
       </div>

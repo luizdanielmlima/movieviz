@@ -35,15 +35,37 @@ export class ActorDetailPage implements OnInit {
         this.showMode = 'main';
         // console.log(this.loadedActor);
       });
-      this.moviesService.getActorMovies(actorId).subscribe((credits: any) => {
-        this.movieCredits = credits.cast;
-        // console.log(this.movieCredits);
-      });
+      this.getActorFilmography(actorId);
       this.moviesService.getActorImages(actorId).subscribe((images: any) => {
         this.actorImages = images.profiles;
-        console.log(this.actorImages);
+        // console.log(this.actorImages);
       });
     });
+  }
+
+  getActorFilmography(actorId: string) {
+    this.moviesService.getActorMovies(actorId).subscribe((credits: any) => {
+      const tempMovieCredits = [...credits.cast];
+      this.movieCredits = tempMovieCredits
+        .filter(item => item.poster_path !== null)
+        .sort((a, b) => {
+          return (
+            this.dateToNum(a.release_date) - this.dateToNum(b.release_date)
+          );
+        })
+        .reverse();
+      // console.log(this.movieCredits);
+    });
+  }
+
+  dateToNum(date: string) {
+    let dateAsNumber: number;
+    if (!date) {
+      dateAsNumber = 0;
+    } else {
+      dateAsNumber = Number(date.replace(/-/g, ''));
+    }
+    return dateAsNumber;
   }
 
   onSegmentChange(event: CustomEvent<SegmentChangeEventDetail>) {
@@ -63,7 +85,7 @@ export class ActorDetailPage implements OnInit {
     let fullImgPath: string;
     const imgBasePath = `https://image.tmdb.org/t/p`;
     if (type === 'actor') {
-      const baseW = res === 'hi' ? '632' : '185';
+      const baseW = res === 'hi' ? '780' : '342';
       fullImgPath = `${imgBasePath}/w${baseW}${target.profile_path}`;
     } else if (type === 'backdrop') {
       const baseW = res === 'hi' ? '1280' : '300';
@@ -73,5 +95,14 @@ export class ActorDetailPage implements OnInit {
       fullImgPath = `${imgBasePath}/w${baseW}${target.poster_path}`;
     }
     return fullImgPath;
+  }
+
+  getYear(fullDate: string) {
+    if (fullDate) {
+      const movieYear = fullDate.substring(0, 4);
+      return movieYear;
+    } else {
+      return '';
+    }
   }
 }

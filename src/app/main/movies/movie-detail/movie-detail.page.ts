@@ -96,8 +96,8 @@ export class MovieDetailPage implements OnInit {
     } else if (type === 'backdrop') {
       const baseW = res === 'hi' ? '1280' : '300';
       fullImgPath = `${imgBasePath}/w${baseW}${target.file_path}`;
-    } else if (type === 'profile') {
-      const baseW = res === 'hi' ? '632' : '185';
+    } else if (type === 'main-poster') {
+      const baseW = res === 'hi' ? '780' : '342';
       fullImgPath = `${imgBasePath}/w${baseW}${this.loadedMovie.poster_path}`;
     }
 
