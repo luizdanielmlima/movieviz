@@ -77,8 +77,47 @@ export class MovieDetailPage implements OnInit {
         this.moviePosters = imgData.posters.filter(
           poster => poster.iso_639_1 === 'en'
         );
-        //console.table(this.movieImages);
+        // console.table(this.movieImages);
       });
+  }
+
+  getMovieDuration(totalMin: number) {
+    const hours = totalMin / 60;
+    const rhours = Math.floor(hours);
+    const minutes = (hours - rhours) * 60;
+    const rminutes = Math.round(minutes);
+    if (rminutes === 0) {
+      return rhours + ' h';
+    } else {
+      return rhours + ' h  ' + rminutes + ' min';
+    }
+  }
+
+  moneyToString(money: number) {
+    const moneyStr = money.toString();
+    const numLength = moneyStr.length;
+    const rest = numLength % 3;
+    const lastNum = rest === 0 ? 3 : rest;
+    let hundreds, thousands, millions, billions;
+    if (numLength <= 3) {
+      hundreds = moneyStr.substr(-3, numLength);
+      return `$ ${hundreds}.00`;
+    } else if (numLength > 3 && numLength <= 6) {
+      hundreds = moneyStr.substr(-3, 3);
+      thousands = moneyStr.substr(-6, lastNum);
+      return `$ ${thousands},${hundreds}.00`;
+    } else if (numLength > 6 && numLength <= 9) {
+      hundreds = moneyStr.substr(-3, 3);
+      thousands = moneyStr.substr(-6, 3);
+      millions = moneyStr.substr(-9, lastNum);
+      return `$ ${millions},${thousands},${hundreds}.00`;
+    } else if (numLength > 9 && numLength <= 12) {
+      hundreds = moneyStr.substr(-3, 3);
+      thousands = moneyStr.substr(-6, 3);
+      millions = moneyStr.substr(-9, 3);
+      billions = moneyStr.substr(-12, lastNum);
+      return `$ ${billions},${millions},${thousands},${hundreds}.00`;
+    }
   }
 
   // IMPORTANT: image resolutions avaiable are described in the API here:

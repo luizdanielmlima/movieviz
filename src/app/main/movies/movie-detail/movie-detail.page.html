@@ -30,19 +30,19 @@
       <ion-col padding size="5" size-sm="4" offset-sm="4">
         <div class="movie-stat-item">
           <p>Rating</p>
-          <h6>{{ loadedMovie.vote_average }}</h6>
+          <h5>{{ loadedMovie.vote_average }}</h5>
         </div>
         <div class="movie-stat-item">
           <p>Runtime</p>
-          <h6>{{ loadedMovie.runtime }}</h6>
+          <h5>{{ getMovieDuration(loadedMovie.runtime) }}</h5>
         </div>
         <div class="movie-stat-item">
           <p>Budget</p>
-          <h6>{{ loadedMovie.budget }}</h6>
+          <h6>{{ moneyToString(loadedMovie.budget) }}</h6>
         </div>
         <div class="movie-stat-item">
           <p>Revenue</p>
-          <h6>{{ loadedMovie.revenue }}</h6>
+          <h6>{{ moneyToString(loadedMovie.revenue) }}</h6>
         </div>
       </ion-col>
     </ion-row>
