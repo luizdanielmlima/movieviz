@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>TOP MOVIES</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title text-center>TOP MOVIES</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -8,7 +8,7 @@
   <form (ngSubmit)="onSetFilters()" #f="ngForm">
     <ion-grid>
       <ion-row>
-        <ion-col size-sm="3">
+        <ion-col size-sm="2">
           <ion-item>
             <ion-label position="floating">Genre</ion-label>
             <ion-select [ngModel]="'all'" name="genre">
@@ -33,9 +33,9 @@
             </ion-select>
           </ion-item>
         </ion-col>
-        <ion-col size-sm="3">
+        <ion-col size-sm="2">
           <ion-item>
-            <ion-label position="floating">Top Movies By:</ion-label>
+            <ion-label position="floating">Order By:</ion-label>
             <ion-select [ngModel]="'popularity.desc'" name="sortBy">
               <ion-select-option value="popularity.desc"
                 >Popularity</ion-select-option
@@ -54,7 +54,7 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col size-sm="3">
+        <ion-col size-sm="2">
           <ion-item>
             <ion-label position="floating">Year</ion-label>
             <ion-datetime
@@ -68,7 +68,7 @@
             ></ion-datetime>
           </ion-item>
         </ion-col>
-        <ion-col size-sm="3">
+        <ion-col size-sm="2">
           <ion-button type="submit" color="primary" expand="block">
             FILTER
           </ion-button>

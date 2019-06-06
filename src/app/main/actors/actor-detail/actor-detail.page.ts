@@ -44,20 +44,41 @@ export class ActorDetailPage implements OnInit {
   loadActorData() {
     this.isLoading = true;
     this.loadingCtrl
-    .create({ keyboardClose: true, message: 'Loading Data..' })
-    .then(loadingEl => {
-      loadingEl.present();
-      this.moviesService.getActor(this.actorId).subscribe((actor: Cast) => {
-        this.loadedActor = actor;
-        this.showMode = 'main';
+      .create({ keyboardClose: true, message: 'Loading Data..' })
+      .then(loadingEl => {
+        loadingEl.present();
+        this.moviesService.getActor(this.actorId).subscribe((actor: Cast) => {
+          this.loadedActor = actor;
+          this.showMode = 'main';
+          this.getActorFilmography();
+          this.getActorImages();
+          this.isLoading = false;
+          loadingEl.dismiss();
+        });
       });
-      this.getActorFilmography(this.actorId);
-      this.moviesService.getActorImages(this.actorId).subscribe((images: any) => {
-        this.actorImages = images.profiles;
-        this.isLoading = false;
-        loadingEl.dismiss();
+  }
+
+  getActorImages() {
+    this.moviesService.getActorImages(this.actorId).subscribe((images: any) => {
+      this.actorImages = images.profiles;
+    });
+  }
+
+  getActorFilmography() {
+    this.moviesService
+      .getActorMovies(this.actorId)
+      .subscribe((credits: any) => {
+        const tempMovieCredits = [...credits.cast];
+        this.movieCredits = tempMovieCredits
+          .filter(item => item.poster_path !== null)
+          .sort((a, b) => {
+            return (
+              this.dateToNum(a.release_date) - this.dateToNum(b.release_date)
+            );
+          })
+          .reverse();
+        // console.log(this.movieCredits);
       });
-    });  
   }
 
   openGalleryModal(imagePath: Image) {
@@ -72,21 +93,6 @@ export class ActorDetailPage implements OnInit {
       .then(modalEl => {
         modalEl.present();
       });
-  }
-
-  getActorFilmography(actorId: string) {
-    this.moviesService.getActorMovies(actorId).subscribe((credits: any) => {
-      const tempMovieCredits = [...credits.cast];
-      this.movieCredits = tempMovieCredits
-        .filter(item => item.poster_path !== null)
-        .sort((a, b) => {
-          return (
-            this.dateToNum(a.release_date) - this.dateToNum(b.release_date)
-          );
-        })
-        .reverse();
-      // console.log(this.movieCredits);
-    });
   }
 
   dateToNum(date: string) {

@@ -21,6 +21,7 @@ export class MovieDetailPage implements OnInit {
   movieId: string;
   movieCast: Cast[];
   movieCrew: Crew[];
+  movieRatingPct: string;
   movieImages: Image[];
   moviePosters: Image[];
   movieYear: string;
@@ -56,12 +57,13 @@ export class MovieDetailPage implements OnInit {
         this.getMovieCredits();
         this.getMovieImages();
         this.movieYear = movie.release_date.substring(0, 4);
+        this.movieRatingPct = (movie.vote_average * 10) +"%";
         this.showMode = 'main';
         this.isLoading = false;
         loadingEl.dismiss();
         // console.log(this.loadedMovie);
       });
-    });    
+    });
   }
 
   onSegmentChange(event: CustomEvent<SegmentChangeEventDetail>) {

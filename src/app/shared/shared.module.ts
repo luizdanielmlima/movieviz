@@ -6,11 +6,6 @@ import { ImageviewerModalComponent } from './imageviewer-modal/imageviewer-modal
 
 
 @NgModule({
-  declarations: [
-    LocationPickerComponent,
-    MapModalComponent,
-    ImagePickerComponent
-  ],
   imports: [CommonModule, IonicModule],
   declarations: [ImageviewerModalComponent],
   entryComponents: [ImageviewerModalComponent]

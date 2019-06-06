@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="secondary">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/main/tabs/actors"></ion-back-button>
     </ion-buttons>
@@ -13,41 +13,42 @@
     <ion-segment-button value="credits">Filmography</ion-segment-button>
     <ion-segment-button value="gallery">Gallery</ion-segment-button>
   </ion-segment>
-  <ion-grid
-    no-padding
-    *ngIf="loadedActor && showMode === 'main'"
-    class="actor-main-area"
-  >
-    <ion-row>
-      <ion-col no-padding size="7" size-sm="4" offset-sm="4">
-        <ion-img
-          [src]="this.getFullImgPath(loadedActor, 'actor', 'hi')"
-        ></ion-img>
-      </ion-col>
-      <ion-col padding size="5" size-sm="4" offset-sm="4">
-        <div class="actor-stat-item">
-          <p>Popularity</p>
-          <h6>{{ loadedActor.popularity }}</h6>
-        </div>
-        <div class="actor-stat-item">
-          <p>Birthday</p>
-          <h6>{{ loadedActor.birthday }}</h6>
-        </div>
-        <div class="actor-stat-item">
-          <p>Place of Birth</p>
-          <h6>{{ loadedActor.place_of_birth }}</h6>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <ion-grid padding="8" *ngIf="loadedActor && showMode === 'main'">
-    <ion-row>
-      <ion-col size="12" size-sm="6" offset-sm="2">
-        <h4>Biography</h4>
-        <p>{{ loadedActor.biography }}</p>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+
+  <!-- ACTOR MAIN SEGMENT / PHOTO -->
+  <div class="main-segment" *ngIf="loadedActor && showMode === 'main'">
+    <ion-grid no-padding class="actor-main-area">
+      <ion-row>
+        <ion-col no-padding size="7" size-sm="4" offset-sm="4">
+          <ion-img
+            [src]="this.getFullImgPath(loadedActor, 'actor', 'hi')"
+          ></ion-img>
+        </ion-col>
+        <ion-col padding size="5" size-sm="4" offset-sm="4">
+          <div class="actor-stat-item">
+            <p>Popularity</p>
+            <h6>{{ loadedActor.popularity }}</h6>
+          </div>
+          <div class="actor-stat-item">
+            <p>Birthday</p>
+            <h6>{{ loadedActor.birthday }}</h6>
+          </div>
+          <div class="actor-stat-item">
+            <p>Place of Birth</p>
+            <h6>{{ loadedActor.place_of_birth }}</h6>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <!-- ACTOR MAIN SEGMENT / BIOGRAPHY -->
+    <ion-grid no-padding class="main-info-area">
+      <ion-row>
+        <ion-col size="12" size-sm="6" offset-sm="2">
+          <h4>Biography</h4>
+          <p>{{ loadedActor.biography }}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 
   <ion-list *ngIf="movieCredits && showMode === 'credits'" lines="none">
     <ion-item
@@ -69,7 +70,10 @@
   <ion-grid *ngIf="actorImages && showMode === 'gallery'">
     <ion-row>
       <ion-col size="6" *ngFor="let img of actorImages">
-        <ion-img [src]="this.getFullImgPath(img, 'backdrop', 'low')" (click)="openGalleryModal(img.file_path)"></ion-img>
+        <ion-img
+          [src]="this.getFullImgPath(img, 'backdrop', 'low')"
+          (click)="openGalleryModal(img.file_path)"
+        ></ion-img>
       </ion-col>
     </ion-row>
   </ion-grid>
