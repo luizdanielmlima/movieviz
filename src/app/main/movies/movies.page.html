@@ -77,11 +77,11 @@
     </ion-grid>
   </form>
   <ion-grid *ngIf="!movies || movies.length <= 0">
-    <ion-row class="ion-justify-content-center">
-      <ion-col size-sm="6">
+    <!-- <ion-row class="ion-justify-content-center">
+      <ion-col size="6" offset="3" padding>
         <ion-spinner></ion-spinner>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
   </ion-grid>
   <ion-list *ngIf="movies" lines="none">
     <ion-item

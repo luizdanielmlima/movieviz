@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { LoadingController, AlertController } from '@ionic/angular';
 
 import { Movie } from '../../shared/movie.model';
-
 import { MoviesService } from '../../shared/movies.service';
 
 @Component({
@@ -16,8 +16,12 @@ export class MoviesPage implements OnInit {
   movieYear = '2019-05-31T00:14:09.369Z';
   genre = 'all';
   sortBy = 'popularity.desc';
+  isLoading = false;
 
-  constructor(private moviesService: MoviesService) {}
+  constructor(
+    private moviesService: MoviesService,
+    private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController) {}
 
   ngOnInit() {
     this.showMDBData();
@@ -27,17 +31,24 @@ export class MoviesPage implements OnInit {
     this.genre = this.form.value['genre'];
     this.sortBy = this.form.value['sortBy'];
     this.movieYear = this.form.value['date-picker'];
-    //console.log(`movies.page|onSetFilters|${this.movieYear}`);
+    // console.log(`movies.page|onSetFilters|${this.movieYear}`);
     this.showMDBData();
   }
 
   showMDBData() {
     this.movies = [];
-    this.moviesService
-      .getMDBMovies(this.genre, this.sortBy, this.movieYear)
-      .subscribe((data: any) => {
-        this.movies = data.results;
-        //console.log(`movies.page|showMDBData|${this.movies}`);
+    this.isLoading = true;
+    this.loadingCtrl
+      .create({ keyboardClose: true, message: 'Loading Data..' })
+      .then(loadingEl => {
+        loadingEl.present();
+        this.moviesService
+          .getMDBMovies(this.genre, this.sortBy, this.movieYear)
+          .subscribe((data: any) => {
+            this.movies = data.results;
+            this.isLoading = false;
+            loadingEl.dismiss();
+          });
       });
   }
 

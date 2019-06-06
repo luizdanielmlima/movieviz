@@ -69,7 +69,7 @@
   <ion-grid *ngIf="actorImages && showMode === 'gallery'">
     <ion-row>
       <ion-col size="6" *ngFor="let img of actorImages">
-        <ion-img [src]="this.getFullImgPath(img, 'backdrop', 'low')"></ion-img>
+        <ion-img [src]="this.getFullImgPath(img, 'backdrop', 'low')" (click)="openGalleryModal(img.file_path)"></ion-img>
       </ion-col>
     </ion-row>
   </ion-grid>

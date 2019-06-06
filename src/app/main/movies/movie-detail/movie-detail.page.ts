@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { SegmentChangeEventDetail } from '@ionic/core';
+import { ModalController } from '@ionic/angular';
 
 import { MoviesService } from '../../../shared/movies.service';
 import { Movie } from '../../../shared/movie.model';
 import { Cast } from 'src/app/shared/cast.model';
 import { Crew } from 'src/app/shared/crew.model';
 import { Image } from 'src/app/shared/image.model';
+import { ImageviewerModalComponent } from 'src/app/shared/imageviewer-modal/imageviewer-modal.component';
 
 @Component({
   selector: 'app-movie-detail',
@@ -24,7 +27,8 @@ export class MovieDetailPage implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private moviesService: MoviesService
+    private moviesService: MoviesService,
+    private modalCtrl: ModalController
   ) {}
 
   ngOnInit() {
@@ -55,6 +59,20 @@ export class MovieDetailPage implements OnInit {
     } else if (event.detail.value === 'posters') {
       this.showMode = 'posters';
     }
+  }
+
+  openGalleryModal(imagePath: Image) {
+    this.modalCtrl
+      .create({
+        component: ImageviewerModalComponent,
+        componentProps: {
+          imgPath: imagePath,
+          title: 'Movie Gallery'
+        }
+      })
+      .then(modalEl => {
+        modalEl.present();
+      });
   }
 
   getMovieCredits() {
@@ -93,6 +111,7 @@ export class MovieDetailPage implements OnInit {
     }
   }
 
+  // THIS FUNCTION WAS REPLACED BY JUST USING PIPES IN THE HTML...!!
   moneyToString(money: number) {
     const moneyStr = money.toString();
     const numLength = moneyStr.length;

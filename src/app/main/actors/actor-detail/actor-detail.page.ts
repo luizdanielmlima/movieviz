@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { SegmentChangeEventDetail } from '@ionic/core';
+import { ModalController } from '@ionic/angular';
 
 import { MoviesService } from '../../../shared/movies.service';
 import { Movie } from '../../../shared/movie.model';
 import { Cast } from 'src/app/shared/cast.model';
 import { Image } from 'src/app/shared/image.model';
+import { ImageviewerModalComponent } from 'src/app/shared/imageviewer-modal/imageviewer-modal.component';
 
 @Component({
   selector: 'app-actor-detail',
@@ -20,7 +23,8 @@ export class ActorDetailPage implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private moviesService: MoviesService
+    private moviesService: MoviesService,
+    private modalCtrl: ModalController
   ) {}
 
   ngOnInit() {
@@ -41,6 +45,20 @@ export class ActorDetailPage implements OnInit {
         // console.log(this.actorImages);
       });
     });
+  }
+
+  openGalleryModal(imagePath: Image) {
+    this.modalCtrl
+      .create({
+        component: ImageviewerModalComponent,
+        componentProps: {
+          imgPath: imagePath,
+          title: 'Actor Gallery'
+        }
+      })
+      .then(modalEl => {
+        modalEl.present();
+      });
   }
 
   getActorFilmography(actorId: string) {
