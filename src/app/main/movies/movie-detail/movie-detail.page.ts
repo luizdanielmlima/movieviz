@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { SegmentChangeEventDetail } from '@ionic/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, LoadingController } from '@ionic/angular';
 
 import { MoviesService } from '../../../shared/movies.service';
 import { Movie } from '../../../shared/movie.model';
@@ -18,17 +18,20 @@ import { ImageviewerModalComponent } from 'src/app/shared/imageviewer-modal/imag
 })
 export class MovieDetailPage implements OnInit {
   loadedMovie: Movie;
+  movieId: string;
   movieCast: Cast[];
   movieCrew: Crew[];
   movieImages: Image[];
   moviePosters: Image[];
   movieYear: string;
   showMode: string; // defines the information shown, when using the upper tabs
+  isLoading = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private moviesService: MoviesService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
@@ -37,16 +40,28 @@ export class MovieDetailPage implements OnInit {
         // redirect
         return;
       }
-      const movieId = paramMap.get('movieId');
-      this.moviesService.getMDBMovie(movieId).subscribe((movie: Movie) => {
+      this.movieId = paramMap.get('movieId');
+      this.loadMovieData();
+    });
+  }
+
+  loadMovieData() {
+    this.isLoading = true;
+    this.loadingCtrl
+    .create({ keyboardClose: true, message: 'Loading Data..' })
+    .then(loadingEl => {
+      loadingEl.present();
+      this.moviesService.getMDBMovie(this.movieId).subscribe((movie: Movie) => {
         this.loadedMovie = movie;
         this.getMovieCredits();
         this.getMovieImages();
         this.movieYear = movie.release_date.substring(0, 4);
         this.showMode = 'main';
+        this.isLoading = false;
+        loadingEl.dismiss();
         // console.log(this.loadedMovie);
       });
-    });
+    });    
   }
 
   onSegmentChange(event: CustomEvent<SegmentChangeEventDetail>) {

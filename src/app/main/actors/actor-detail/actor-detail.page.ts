@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { SegmentChangeEventDetail } from '@ionic/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, LoadingController } from '@ionic/angular';
 
 import { MoviesService } from '../../../shared/movies.service';
 import { Movie } from '../../../shared/movie.model';
@@ -17,14 +17,17 @@ import { ImageviewerModalComponent } from 'src/app/shared/imageviewer-modal/imag
 })
 export class ActorDetailPage implements OnInit {
   loadedActor: Cast;
+  actorId: string;
   movieCredits: any[];
   actorImages: Image[];
   showMode: string; // defines the information shown, when using the upper tabs
+  isLoading = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private moviesService: MoviesService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
@@ -33,18 +36,28 @@ export class ActorDetailPage implements OnInit {
         // redirect
         return;
       }
-      const actorId = paramMap.get('actorId');
-      this.moviesService.getActor(actorId).subscribe((actor: Cast) => {
+      this.actorId = paramMap.get('actorId');
+      this.loadActorData();
+    });
+  }
+
+  loadActorData() {
+    this.isLoading = true;
+    this.loadingCtrl
+    .create({ keyboardClose: true, message: 'Loading Data..' })
+    .then(loadingEl => {
+      loadingEl.present();
+      this.moviesService.getActor(this.actorId).subscribe((actor: Cast) => {
         this.loadedActor = actor;
         this.showMode = 'main';
-        // console.log(this.loadedActor);
       });
-      this.getActorFilmography(actorId);
-      this.moviesService.getActorImages(actorId).subscribe((images: any) => {
+      this.getActorFilmography(this.actorId);
+      this.moviesService.getActorImages(this.actorId).subscribe((images: any) => {
         this.actorImages = images.profiles;
-        // console.log(this.actorImages);
+        this.isLoading = false;
+        loadingEl.dismiss();
       });
-    });
+    });  
   }
 
   openGalleryModal(imagePath: Image) {

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 
 import { Movie } from '../../shared/movie.model';
 import { MoviesService } from '../../shared/movies.service';
@@ -20,8 +20,7 @@ export class MoviesPage implements OnInit {
 
   constructor(
     private moviesService: MoviesService,
-    private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController) {}
+    private loadingCtrl: LoadingController) {}
 
   ngOnInit() {
     this.showMDBData();

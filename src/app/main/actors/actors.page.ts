@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { LoadingController } from '@ionic/angular';
+
 import { MoviesService } from 'src/app/shared/movies.service';
 import { Cast } from 'src/app/shared/cast.model';
 
@@ -10,8 +12,11 @@ import { Cast } from 'src/app/shared/cast.model';
 })
 export class ActorsPage implements OnInit {
   actors: Cast[];
+  isLoading = false;
 
-  constructor(private moviesService: MoviesService) {}
+  constructor(
+    private moviesService: MoviesService,
+    private loadingCtrl: LoadingController) {}
 
   ngOnInit() {
     this.getActorsData();
@@ -19,10 +24,18 @@ export class ActorsPage implements OnInit {
 
   getActorsData() {
     this.actors = [];
-    this.moviesService.getActors().subscribe((data: any) => {
-      this.actors = data.results;
-      //console.log(`actors.page|showMDBData|${this.actors}`);
-    });
+    this.isLoading = true;
+    this.loadingCtrl
+      .create({ keyboardClose: true, message: 'Loading Data..' })
+      .then(loadingEl => {
+        loadingEl.present();
+        this.moviesService
+          .getActors().subscribe((data: any) => {
+            this.actors = data.results;
+            this.isLoading = false;
+            loadingEl.dismiss();
+          });
+      });    
   }
 
   // IMPORTANT: image resolutions avaiable are described in the API here:
