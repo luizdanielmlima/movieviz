@@ -17,10 +17,24 @@
       *ngFor="let actor of actors"
       [routerLink]="['/main/tabs/actors', actor.id]"
     >
-      <ion-thumbnail slot="start" size="200">
+      <ion-thumbnail slot="start">
         <ion-img [src]="this.getFullImgPath(actor, 'actor', 'low')"></ion-img>
       </ion-thumbnail>
-      <ion-label> {{ actor.name }}</ion-label>
+      <div class="actor-text-items">
+        <p>{{ actor.name }}</p>
+        <div>
+          <p class="light-text">Known for:</p>
+          <p
+            ><span *ngIf="actor.known_for[0].original_title">{{
+              actor.known_for[0].original_title
+            }}</span
+            ><span  class="light-text" *ngIf="actor.known_for[0].original_title && actor.known_for[1].original_title"> and </span>
+            <span *ngIf="actor.known_for[1].original_title">
+              {{ actor.known_for[1].original_title }}</span
+            >
+            </p>
+        </div>
+      </div>
     </ion-item>
   </ion-list>
 </ion-content>

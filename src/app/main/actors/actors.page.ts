@@ -16,7 +16,8 @@ export class ActorsPage implements OnInit {
 
   constructor(
     private moviesService: MoviesService,
-    private loadingCtrl: LoadingController) {}
+    private loadingCtrl: LoadingController
+  ) {}
 
   ngOnInit() {
     this.getActorsData();
@@ -29,13 +30,12 @@ export class ActorsPage implements OnInit {
       .create({ keyboardClose: true, message: 'Loading Data..' })
       .then(loadingEl => {
         loadingEl.present();
-        this.moviesService
-          .getActors().subscribe((data: any) => {
-            this.actors = data.results;
-            this.isLoading = false;
-            loadingEl.dismiss();
-          });
-      });    
+        this.moviesService.getActors().subscribe((data: any) => {
+          this.actors = data.results;
+          this.isLoading = false;
+          loadingEl.dismiss();
+        });
+      });
   }
 
   // IMPORTANT: image resolutions avaiable are described in the API here:

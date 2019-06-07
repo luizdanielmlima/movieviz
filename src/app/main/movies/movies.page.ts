@@ -14,13 +14,15 @@ export class MoviesPage implements OnInit {
   @ViewChild('f') form: NgForm;
   movies: Movie[];
   movieYear = '2019-05-31T00:14:09.369Z';
+  movieRatingPct: string;
   genre = 'all';
   sortBy = 'popularity.desc';
   isLoading = false;
 
   constructor(
     private moviesService: MoviesService,
-    private loadingCtrl: LoadingController) {}
+    private loadingCtrl: LoadingController
+  ) {}
 
   ngOnInit() {
     this.showMDBData();
@@ -51,6 +53,10 @@ export class MoviesPage implements OnInit {
       });
   }
 
+  getMovieRatingPct(movie: Movie) {
+    return (this.movieRatingPct = movie.vote_average * 10 + '%');
+  }
+
   getFullPosterPathOLD(movie: Movie, resolution: string) {
     const posterW = resolution === 'hi' ? '600' : '300';
     const posterH = resolution === 'hi' ? '900' : '450';
@@ -65,5 +71,14 @@ export class MoviesPage implements OnInit {
     const baseW = res === 'hi' ? '780' : '342';
     fullPosterPath = `${imgBasePath}/w${baseW}${movie.poster_path}`;
     return fullPosterPath;
+  }
+
+  getYear(fullDate: string) {
+    if (fullDate) {
+      const movieYear = fullDate.substring(0, 4);
+      return movieYear;
+    } else {
+      return '';
+    }
   }
 }

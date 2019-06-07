@@ -52,14 +52,14 @@
 
   <ion-list *ngIf="movieCredits && showMode === 'credits'" lines="none">
     <ion-item
-      class="credits-item"
+      class="actor-info-area"
       *ngFor="let role of movieCredits"
       [routerLink]="['/main/tabs/movies', role.id]"
     >
       <ion-thumbnail slot="start" size="200">
         <ion-img [src]="this.getFullImgPath(role, 'poster', 'low')"></ion-img>
       </ion-thumbnail>
-      <div class="actor-filmg-textarea">
+      <div class="actor-text-items">
         <p>{{ role.original_title }} ({{ getYear(role.release_date) }})</p>
         <ion-note>as</ion-note>
         <p>{{ role.character }}</p>
@@ -69,7 +69,7 @@
 
   <ion-grid *ngIf="actorImages && showMode === 'gallery'">
     <ion-row>
-      <ion-col size="6" *ngFor="let img of actorImages">
+      <ion-col size="6" size-sm="4" size-md="2" *ngFor="let img of actorImages">
         <ion-img
           [src]="this.getFullImgPath(img, 'backdrop', 'low')"
           (click)="openGalleryModal(img.file_path)"

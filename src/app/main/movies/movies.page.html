@@ -8,7 +8,7 @@
   <form (ngSubmit)="onSetFilters()" #f="ngForm">
     <ion-grid>
       <ion-row>
-        <ion-col size-sm="2">
+        <ion-col size="12" size-sm="4">
           <ion-item>
             <ion-label position="floating">Genre</ion-label>
             <ion-select [ngModel]="'all'" name="genre">
@@ -33,7 +33,7 @@
             </ion-select>
           </ion-item>
         </ion-col>
-        <ion-col size-sm="2">
+        <ion-col  size="12" size-sm="4">
           <ion-item>
             <ion-label position="floating">Order By:</ion-label>
             <ion-select [ngModel]="'popularity.desc'" name="sortBy">
@@ -52,46 +52,44 @@
             </ion-select>
           </ion-item>
         </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size-sm="2">
-          <ion-item>
-            <ion-label position="floating">Year</ion-label>
-            <ion-datetime
-              display-format="YYYY"
-              picker-format="YYYY"
-              [ngModel]="movieYear"
-              name="date-picker"
-              min="1900"
-              max="2022"
-              required
-            ></ion-datetime>
-          </ion-item>
-        </ion-col>
-        <ion-col size-sm="2">
-          <ion-button type="submit" color="primary" expand="block">
-            FILTER
-          </ion-button>
-        </ion-col>
-      </ion-row>
+        <ion-col size="12" size-sm="2">
+            <ion-item>
+              <ion-label position="floating">Year</ion-label>
+              <ion-datetime
+                display-format="YYYY"
+                picker-format="YYYY"
+                [ngModel]="movieYear"
+                name="date-picker"
+                min="1900"
+                max="2022"
+                required
+              ></ion-datetime>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-sm="2">
+            <ion-button type="submit" color="primary" expand="block">
+              FILTER
+            </ion-button>
+          </ion-col>
+      </ion-row> 
     </ion-grid>
   </form>
-  <ion-grid *ngIf="!movies || movies.length <= 0">
-    <!-- <ion-row class="ion-justify-content-center">
-      <ion-col size="6" offset="3" padding>
-        <ion-spinner></ion-spinner>
-      </ion-col>
-    </ion-row> -->
-  </ion-grid>
   <ion-list *ngIf="movies" lines="none">
     <ion-item
+      class="movie-info-area"
       *ngFor="let movie of movies"
       [routerLink]="['/main/tabs/movies', movie.id]"
     >
-      <ion-thumbnail slot="start" size="200">
+      <ion-thumbnail slot="start" size="300">
         <ion-img [src]="this.getFullPosterPath(movie, 'low')"></ion-img>
       </ion-thumbnail>
-      <ion-label> {{ movie.title }}</ion-label>
+      <div class="movie-text-items">
+        <p>{{ movie.title }}</p>
+        <ion-note>{{ getYear(movie.release_date) }}</ion-note>
+        <div class="star-rating">
+          <span [style.width]="getMovieRatingPct(movie)"></span>
+        </div>
+      </div>
     </ion-item>
   </ion-list>
 </ion-content>

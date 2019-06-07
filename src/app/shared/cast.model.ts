@@ -1,6 +1,9 @@
+import { Movie } from './movie.model';
+
 export interface Cast {
   biography?: string;
   birthday?: string;
+  known_for?: Movie[];
   cast_id?: number;
   character?: string;
   credit_id?: string;

@@ -49,21 +49,23 @@ export class MovieDetailPage implements OnInit {
   loadMovieData() {
     this.isLoading = true;
     this.loadingCtrl
-    .create({ keyboardClose: true, message: 'Loading Data..' })
-    .then(loadingEl => {
-      loadingEl.present();
-      this.moviesService.getMDBMovie(this.movieId).subscribe((movie: Movie) => {
-        this.loadedMovie = movie;
-        this.getMovieCredits();
-        this.getMovieImages();
-        this.movieYear = movie.release_date.substring(0, 4);
-        this.movieRatingPct = (movie.vote_average * 10) +"%";
-        this.showMode = 'main';
-        this.isLoading = false;
-        loadingEl.dismiss();
-        // console.log(this.loadedMovie);
+      .create({ keyboardClose: true, message: 'Loading Data..' })
+      .then(loadingEl => {
+        loadingEl.present();
+        this.moviesService
+          .getMDBMovie(this.movieId)
+          .subscribe((movie: Movie) => {
+            this.loadedMovie = movie;
+            this.getMovieCredits();
+            this.getMovieImages();
+            this.movieYear = movie.release_date.substring(0, 4);
+            this.movieRatingPct = movie.vote_average * 10 + '%';
+            this.showMode = 'main';
+            this.isLoading = false;
+            loadingEl.dismiss();
+            // console.log(this.loadedMovie);
+          });
       });
-    });
   }
 
   onSegmentChange(event: CustomEvent<SegmentChangeEventDetail>) {
