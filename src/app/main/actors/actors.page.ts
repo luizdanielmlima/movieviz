@@ -32,10 +32,17 @@ export class ActorsPage implements OnInit {
         loadingEl.present();
         this.moviesService.getActors().subscribe((data: any) => {
           this.actors = data.results;
+          // console.table(this.actors);
           this.isLoading = false;
           loadingEl.dismiss();
         });
       });
+  }
+
+  // I created this function to filter TV series, since it doesn´t have a title
+  // it was generating erros when trying to display it below the actor´s name
+  getKnownMoviesOnly(actor: Cast) {
+    return actor.known_for.filter(item => item.media_type === 'movie');
   }
 
   // IMPORTANT: image resolutions avaiable are described in the API here:

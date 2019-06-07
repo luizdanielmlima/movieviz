@@ -50,14 +50,25 @@
     </ion-grid>
     <!-- MOVIE MAIN SEGMENT / OVERVIEW AND CREW MEMBERS -->
     <ion-grid no-padding class="main-info-area">
+      <ion-row *ngIf="genres">
+        <ion-col size="12" size-sm="8" offset-sm="2">
+          <ion-chip
+            outline
+            color="dark"
+            *ngFor="let genre of loadedMovie.genres"
+          >
+            <ion-label color="dark">{{ getGenreName(genre.id) }}</ion-label>
+          </ion-chip>
+        </ion-col>
+      </ion-row>
       <ion-row>
-        <ion-col size="12" size-sm="10" offset-sm="1">
+        <ion-col size="12" size-sm="8" offset-sm="2">
           <h4>Overview</h4>
           <p>{{ loadedMovie.overview }}</p>
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col size="12" size-sm="10" offset-sm="1">
+        <ion-col size="12" size-sm="8" offset-sm="2">
           <h4>Featured Crew</h4>
           <ion-list no-padding *ngIf="movieCrew && showMode === 'main'">
             <ion-item
@@ -90,24 +101,26 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12" size-sm="4" offset-sm="4">
-            <ion-list *ngIf="movieCast && showMode === 'cast'" lines="none">
-                <ion-item
-                  *ngFor="let actor of movieCast"
-                  [routerLink]="['/main/tabs/actors', actor.id]"
-                >
-                  <ion-thumbnail slot="start" size="200">
-                    <ion-img [src]="this.getFullImgPath(actor, 'cast', 'low')"></ion-img>
-                  </ion-thumbnail>
-                  <div class="movie-cast-textarea">
-                    <p>{{ actor.name }}</p>
-                    <ion-note>as</ion-note>
-                    <p>{{ actor.character }}</p>
-                  </div>
-                </ion-item>
-              </ion-list>
+        <ion-list *ngIf="movieCast && showMode === 'cast'" lines="none">
+          <ion-item
+            *ngFor="let actor of movieCast"
+            [routerLink]="['/main/tabs/actors', actor.id]"
+          >
+            <ion-thumbnail slot="start" size="200">
+              <ion-img
+                [src]="this.getFullImgPath(actor, 'cast', 'low')"
+              ></ion-img>
+            </ion-thumbnail>
+            <div class="movie-cast-textarea">
+              <p>{{ actor.name }}</p>
+              <ion-note>as</ion-note>
+              <p>{{ actor.character }}</p>
+            </div>
+          </ion-item>
+        </ion-list>
       </ion-col>
     </ion-row>
-  </ion-grid>  
+  </ion-grid>
 
   <!-- MOVIE GALLERY SEGMENT -->
   <ion-grid *ngIf="movieImages && showMode === 'gallery'">
@@ -124,7 +137,12 @@
   <!-- MOVIE POSTERS SEGMENT -->
   <ion-grid *ngIf="moviePosters && showMode === 'posters'">
     <ion-row>
-      <ion-col size="6" size-sm="4" size-md="2" *ngFor="let poster of moviePosters">
+      <ion-col
+        size="6"
+        size-sm="4"
+        size-md="2"
+        *ngFor="let poster of moviePosters"
+      >
         <ion-img
           [src]="this.getFullImgPath(poster, 'poster', 'low')"
           (click)="openGalleryModal(poster.file_path)"

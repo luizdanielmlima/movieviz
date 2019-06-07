@@ -22,17 +22,24 @@
       </ion-thumbnail>
       <div class="actor-text-items">
         <p>{{ actor.name }}</p>
-        <div>
+        <div *ngIf="getKnownMoviesOnly(actor).length > 0">
           <p class="light-text">Known for:</p>
-          <p
-            ><span *ngIf="actor.known_for[0].original_title">{{
-              actor.known_for[0].original_title
+          <p>
+            <span *ngIf="getKnownMoviesOnly(actor)[0]">{{
+              getKnownMoviesOnly(actor)[0].title
             }}</span
-            ><span  class="light-text" *ngIf="actor.known_for[0].original_title && actor.known_for[1].original_title"> and </span>
-            <span *ngIf="actor.known_for[1].original_title">
-              {{ actor.known_for[1].original_title }}</span
+            ><span
+              class="light-text"
+              *ngIf="
+                getKnownMoviesOnly(actor)[0] && getKnownMoviesOnly(actor)[1]
+              "
             >
-            </p>
+              and
+            </span>
+            <span *ngIf="getKnownMoviesOnly(actor)[1]">
+              {{ getKnownMoviesOnly(actor)[1].title }}</span
+            >
+          </p>
         </div>
       </div>
     </ion-item>

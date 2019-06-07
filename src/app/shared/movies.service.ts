@@ -18,8 +18,7 @@ export class MoviesService {
         'https://image.tmdb.org/t/p/w600_and_h900_bestv2/or06FN3Dka5tukK1e9sl16pB3iy.jpg',
       release_date: '2019',
       vote_average: 8.3,
-      overview:
-        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti reiciendis quam soluta cumque earum quo. Explicabo magni nemo iste voluptatibus, unde facilis deserunt, adipisci in sequi aperiam ex blanditiis. Nesciunt.'
+      overview: 'Lorem ipsum '
     },
     {
       id: 'm2',
@@ -28,8 +27,7 @@ export class MoviesService {
         'https://image.tmdb.org/t/p/w600_and_h900_bestv2/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg',
       release_date: '2019',
       vote_average: 8.1,
-      overview:
-        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti reiciendis quam soluta cumque earum quo. Explicabo magni nemo iste voluptatibus, unde facilis deserunt, adipisci in sequi aperiam ex blanditiis. Nesciunt.'
+      overview: 'Lorem ipsum '
     },
     {
       id: 'm3',
@@ -38,8 +36,7 @@ export class MoviesService {
         'https://image.tmdb.org/t/p/w600_and_h900_bestv2/xnopI5Xtky18MPhK40cZAGAOVeV.jpg',
       release_date: '2019',
       vote_average: 7.8,
-      overview:
-        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti reiciendis quam soluta cumque earum quo. Explicabo magni nemo iste voluptatibus, unde facilis deserunt, adipisci in sequi aperiam ex blanditiis. Nesciunt.'
+      overview: 'Lorem ipsum '
     },
     {
       id: 'm4',
@@ -48,48 +45,7 @@ export class MoviesService {
         'https://image.tmdb.org/t/p/w600_and_h900_bestv2/3iYQTLGoy7QnjcUYRJy4YrAgGvp.jpg',
       release_date: '2019',
       vote_average: 7.9,
-      overview:
-        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti reiciendis quam soluta cumque earum quo. Explicabo magni nemo iste voluptatibus, unde facilis deserunt, adipisci in sequi aperiam ex blanditiis. Nesciunt.'
-    },
-    {
-      id: 'm5',
-      title: 'The Hustle',
-      poster_path:
-        'https://image.tmdb.org/t/p/w600_and_h900_bestv2/qibqW5Dnvqp4hcEnoTARbQgxwJy.jpg',
-      release_date: '2019',
-      vote_average: 6.7,
-      overview:
-        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti reiciendis quam soluta cumque earum quo. Explicabo magni nemo iste voluptatibus, unde facilis deserunt, adipisci in sequi aperiam ex blanditiis. Nesciunt.'
-    },
-    {
-      id: 'm6',
-      title: 'Glass',
-      poster_path:
-        'https://image.tmdb.org/t/p/w600_and_h900_bestv2/svIDTNUoajS8dLEo7EosxvyAsgJ.jpg',
-      release_date: '2019',
-      vote_average: 6.2,
-      overview:
-        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti reiciendis quam soluta cumque earum quo. Explicabo magni nemo iste voluptatibus, unde facilis deserunt, adipisci in sequi aperiam ex blanditiis. Nesciunt.'
-    },
-    {
-      id: 'm7',
-      title: 'A Hidden Life',
-      poster_path:
-        'https://image.tmdb.org/t/p/w600_and_h900_bestv2/gRgkGpaeoBY6IrHP9FbLrVwdb6F.jpg',
-      release_date: '2019',
-      vote_average: 6.4,
-      overview:
-        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti reiciendis quam soluta cumque earum quo. Explicabo magni nemo iste voluptatibus, unde facilis deserunt, adipisci in sequi aperiam ex blanditiis. Nesciunt.'
-    },
-    {
-      id: 'm8',
-      title: 'Cold Pursuit',
-      poster_path:
-        'https://image.tmdb.org/t/p/w600_and_h900_bestv2/otK0H9H1w3JVGJjad5Kzx3Z9kt2.jpg',
-      release_date: '2019',
-      vote_average: 7.2,
-      overview:
-        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti reiciendis quam soluta cumque earum quo. Explicabo magni nemo iste voluptatibus, unde facilis deserunt, adipisci in sequi aperiam ex blanditiis. Nesciunt.'
+      overview: 'Lorem ipsum '
     }
   ];
 
@@ -142,6 +98,12 @@ export class MoviesService {
       `https://api.themoviedb.org/3/movie/${movieId}/images?api_key=${
         this.apiKey
       }`
+    );
+  }
+
+  getGenres() {
+    return this.http.get(
+      `https://api.themoviedb.org/3/genre/movie/list?api_key=${this.apiKey}`
     );
   }
 

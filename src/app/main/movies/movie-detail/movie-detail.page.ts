@@ -27,6 +27,7 @@ export class MovieDetailPage implements OnInit {
   movieYear: string;
   showMode: string; // defines the information shown, when using the upper tabs
   isLoading = false;
+  genres: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -58,6 +59,7 @@ export class MovieDetailPage implements OnInit {
             this.loadedMovie = movie;
             this.getMovieCredits();
             this.getMovieImages();
+            this.getGenres();
             this.movieYear = movie.release_date.substring(0, 4);
             this.movieRatingPct = movie.vote_average * 10 + '%';
             this.showMode = 'main';
@@ -66,6 +68,17 @@ export class MovieDetailPage implements OnInit {
             // console.log(this.loadedMovie);
           });
       });
+  }
+
+  getGenres() {
+    this.moviesService.getGenres().subscribe((data: any) => {
+      this.genres = data.genres;
+    });
+  }
+
+  getGenreName(genreId: number) {
+    const result = this.genres.filter(genre => genre.id === genreId);
+    return result[0].name;
   }
 
   onSegmentChange(event: CustomEvent<SegmentChangeEventDetail>) {

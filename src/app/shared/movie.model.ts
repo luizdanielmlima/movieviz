@@ -1,7 +1,8 @@
 export interface Movie {
   budget?: number;
-  genre_ids?: number[];
+  genres?: any[];
   id: string;
+  media_type?: string;
   original_language?: string;
   overview?: string;
   popularity?: number;
