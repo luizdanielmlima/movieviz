@@ -33,7 +33,7 @@
             </ion-select>
           </ion-item>
         </ion-col>
-        <ion-col  size="12" size-sm="4">
+        <ion-col size="12" size-sm="4">
           <ion-item>
             <ion-label position="floating">Order By:</ion-label>
             <ion-select [ngModel]="'popularity.desc'" name="sortBy">
@@ -53,37 +53,38 @@
           </ion-item>
         </ion-col>
         <ion-col size="12" size-sm="2">
-            <ion-item>
-              <ion-label position="floating">Year</ion-label>
-              <ion-datetime
-                display-format="YYYY"
-                picker-format="YYYY"
-                [ngModel]="movieYear"
-                name="date-picker"
-                min="1900"
-                max="2022"
-                required
-              ></ion-datetime>
-            </ion-item>
-          </ion-col>
-          <ion-col size="12" size-sm="2">
-            <ion-button type="submit" color="primary" expand="block">
-              FILTER
-            </ion-button>
-          </ion-col>
-      </ion-row> 
+          <ion-item>
+            <ion-label position="floating">Year</ion-label>
+            <ion-datetime
+              display-format="YYYY"
+              picker-format="YYYY"
+              [ngModel]="movieYear"
+              name="date-picker"
+              min="1900"
+              max="2022"
+              required
+            ></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12" size-sm="2">
+          <ion-button type="submit" color="primary" expand="block">
+            FILTER
+          </ion-button>
+        </ion-col>
+      </ion-row>
     </ion-grid>
   </form>
   <ion-list *ngIf="movies" lines="none">
     <ion-item
       class="movie-info-area"
-      *ngFor="let movie of movies"
+      *ngFor="let movie of movies; let i = index"
       [routerLink]="['/main/tabs/movies', movie.id]"
     >
       <ion-thumbnail slot="start" size="300">
         <ion-img [src]="this.getFullPosterPath(movie, 'low')"></ion-img>
       </ion-thumbnail>
       <div class="movie-text-items">
+        <p>{{ i + 1 }}</p>
         <p>{{ movie.title }}</p>
         <ion-note>{{ getYear(movie.release_date) }}</ion-note>
         <div class="star-rating">

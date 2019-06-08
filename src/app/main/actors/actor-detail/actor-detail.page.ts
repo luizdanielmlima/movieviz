@@ -9,6 +9,7 @@ import { Movie } from '../../../shared/movie.model';
 import { Cast } from 'src/app/shared/cast.model';
 import { Image } from 'src/app/shared/image.model';
 import { ImageviewerModalComponent } from 'src/app/shared/imageviewer-modal/imageviewer-modal.component';
+import { NavigationService } from 'src/app/shared/navigation.service';
 
 @Component({
   selector: 'app-actor-detail',
@@ -26,22 +27,32 @@ export class ActorDetailPage implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private moviesService: MoviesService,
+    private navigationService: NavigationService,
     private modalCtrl: ModalController,
     private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
+    this.showMode = 'main';
+    this.navigationService.setActorNavMode(this.showMode);
     this.activatedRoute.paramMap.subscribe(paramMap => {
       if (!paramMap.has('actorId')) {
         // redirect
         return;
       }
       this.actorId = paramMap.get('actorId');
-      this.loadActorData();
+
+      // Should only load new Data if current actor is different!
+      const currentLoadedActor = this.navigationService.getCurrentActor();
+      if (this.actorId !== currentLoadedActor) {
+        this.navigationService.setCurrentActor(this.actorId);
+        this.loadActorData();
+      }
     });
   }
 
   loadActorData() {
+    console.log(`ActorDetail|loadActorData()`);
     this.isLoading = true;
     this.loadingCtrl
       .create({ keyboardClose: true, message: 'Loading Data..' })
@@ -52,6 +63,11 @@ export class ActorDetailPage implements OnInit {
           this.showMode = 'main';
           this.getActorFilmography();
           this.getActorImages();
+
+          // sets the active segment, so when navigating back from Actors content, it shows the last segment visited
+          this.showMode = this.navigationService.getActorNavMode();
+
+          // hides loader
           this.isLoading = false;
           loadingEl.dismiss();
         });
@@ -113,6 +129,7 @@ export class ActorDetailPage implements OnInit {
     } else if (event.detail.value === 'gallery') {
       this.showMode = 'gallery';
     }
+    this.navigationService.setActorNavMode(this.showMode);
   }
 
   // IMPORTANT: image resolutions avaiable are described in the API here:

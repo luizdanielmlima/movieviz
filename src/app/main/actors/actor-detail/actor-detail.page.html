@@ -8,8 +8,8 @@
 </ion-header>
 
 <ion-content *ngIf="loadedActor">
-  <ion-segment (ionChange)="onSegmentChange($event)">
-    <ion-segment-button value="main" checked>Main</ion-segment-button>
+  <ion-segment [(ngModel)]="showMode" (ionChange)="onSegmentChange($event)">
+    <ion-segment-button value="main">Main</ion-segment-button>
     <ion-segment-button value="credits">Filmography</ion-segment-button>
     <ion-segment-button value="gallery">Gallery</ion-segment-button>
   </ion-segment>

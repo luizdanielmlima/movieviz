@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { SegmentChangeEventDetail } from '@ionic/core';
 import { ModalController, LoadingController } from '@ionic/angular';
 
 import { MoviesService } from '../../../shared/movies.service';
+import { NavigationService } from 'src/app/shared/navigation.service';
 import { Movie } from '../../../shared/movie.model';
 import { Cast } from 'src/app/shared/cast.model';
 import { Crew } from 'src/app/shared/crew.model';
@@ -17,6 +18,7 @@ import { ImageviewerModalComponent } from 'src/app/shared/imageviewer-modal/imag
   styleUrls: ['./movie-detail.page.scss']
 })
 export class MovieDetailPage implements OnInit {
+  // @ViewChild('segment') segment: ElementRef;
   loadedMovie: Movie;
   movieId: string;
   movieCast: Cast[];
@@ -30,24 +32,35 @@ export class MovieDetailPage implements OnInit {
   genres: any;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
+    private route: ActivatedRoute,
     private moviesService: MoviesService,
+    private navigationService: NavigationService,
     private modalCtrl: ModalController,
     private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe(paramMap => {
+    // console.log('movie-detail|ngOnInit');
+    this.showMode = 'main';
+    this.navigationService.setMovieNavMode(this.showMode);
+    this.route.paramMap.subscribe(paramMap => {
       if (!paramMap.has('movieId')) {
         // redirect
         return;
       }
       this.movieId = paramMap.get('movieId');
-      this.loadMovieData();
+
+      // Should only load new Data if current movie is different!
+      const currentLoadedMovie = this.navigationService.getCurrentMovie();
+      if (this.movieId !== currentLoadedMovie) {
+        this.navigationService.setCurrentMovie(this.movieId);
+        this.loadMovieData();
+      }
     });
   }
 
   loadMovieData() {
+    console.log(`MovieDetail|loadActorData()`);
     this.isLoading = true;
     this.loadingCtrl
       .create({ keyboardClose: true, message: 'Loading Data..' })
@@ -62,10 +75,13 @@ export class MovieDetailPage implements OnInit {
             this.getGenres();
             this.movieYear = movie.release_date.substring(0, 4);
             this.movieRatingPct = movie.vote_average * 10 + '%';
-            this.showMode = 'main';
+
+            // sets the active segment, so when navigating back from Actors content, it shows the last segment visited
+            this.showMode = this.navigationService.getMovieNavMode();
+
+            // hides loader
             this.isLoading = false;
             loadingEl.dismiss();
-            // console.log(this.loadedMovie);
           });
       });
   }
@@ -91,6 +107,7 @@ export class MovieDetailPage implements OnInit {
     } else if (event.detail.value === 'posters') {
       this.showMode = 'posters';
     }
+    this.navigationService.setMovieNavMode(this.showMode);
   }
 
   openGalleryModal(imagePath: Image) {
