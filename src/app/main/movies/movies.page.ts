@@ -4,6 +4,7 @@ import { LoadingController } from '@ionic/angular';
 
 import { Movie } from '../../shared/movie.model';
 import { MoviesService } from '../../shared/movies.service';
+import { NavigationService } from 'src/app/shared/navigation.service';
 
 @Component({
   selector: 'app-movies',
@@ -21,6 +22,7 @@ export class MoviesPage implements OnInit {
 
   constructor(
     private moviesService: MoviesService,
+    private navigationService: NavigationService,
     private loadingCtrl: LoadingController
   ) {}
 
@@ -47,6 +49,7 @@ export class MoviesPage implements OnInit {
           .getMDBMovies(this.genre, this.sortBy, this.movieYear)
           .subscribe((data: any) => {
             this.movies = data.results;
+            this.navigationService.setCurrentMovie('noMovieDataYet'); // resets current actor
             this.isLoading = false;
             loadingEl.dismiss();
           });

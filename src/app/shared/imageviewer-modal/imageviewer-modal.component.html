@@ -1,14 +1,20 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
-    <ion-title>{{ title }}</ion-title>
+    <ion-text
+      >Picture from: <span>{{ title }}</span></ion-text
+    >
     <ion-buttons slot="primary">
       <ion-button (click)="onCancel()">Close</ion-button>
     </ion-buttons>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
   <div *ngIf="imgPath">
+    <ion-chip color="light" (click)="onCancel()">
+      <ion-label>CLOSE</ion-label>
+      <ion-icon name="close-circle"></ion-icon>
+    </ion-chip>
     <ion-img [src]="this.getFullImgPath('backdrop', 'hi')"></ion-img>
   </div>
 </ion-content>

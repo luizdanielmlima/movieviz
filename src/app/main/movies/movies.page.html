@@ -5,92 +5,105 @@
 </ion-header>
 
 <ion-content>
-  <form (ngSubmit)="onSetFilters()" #f="ngForm">
-    <ion-grid>
-      <ion-row>
-        <ion-col size="12" size-sm="4">
-          <ion-item>
-            <ion-label position="floating">Genre</ion-label>
-            <ion-select [ngModel]="'all'" name="genre">
-              <ion-select-option value="all">All Genres</ion-select-option>
-              <ion-select-option value="28">Action</ion-select-option>
-              <ion-select-option value="12">Adventure</ion-select-option>
-              <ion-select-option value="16">Animated</ion-select-option>
-              <ion-select-option value="35">Comedy</ion-select-option>
-              <ion-select-option value="80">Crime</ion-select-option>
-              <ion-select-option value="99">Documentary</ion-select-option>
-              <ion-select-option value="18">Drama</ion-select-option>
-              <ion-select-option value="10751">Family</ion-select-option>
-              <ion-select-option value="14">Fantasy</ion-select-option>
-              <ion-select-option value="36">History</ion-select-option>
-              <ion-select-option value="27">Horror</ion-select-option>
-              <ion-select-option value="9648">Mistery</ion-select-option>
-              <ion-select-option value="10402">Music</ion-select-option>
-              <ion-select-option value="10749">Romance</ion-select-option>
-              <ion-select-option value="878">Sci-Fi</ion-select-option>
-              <ion-select-option value="53">Thriller</ion-select-option>
-              <ion-select-option value="37">Western</ion-select-option>
-            </ion-select>
+  <ion-grid no-padding>
+    <ion-row no-padding>
+      <ion-col size="12" size-md="4">
+        <form no-padding (ngSubmit)="onSetFilters()" #f="ngForm">
+          <ion-grid no-padding>
+            <ion-row no-padding>
+              <ion-col no-padding size="12" size-sm="4" size-md="12">
+                <ion-item>
+                  <ion-label position="floating">Genre</ion-label>
+                  <ion-select [ngModel]="'all'" name="genre">
+                    <ion-select-option value="all"
+                      >All Genres</ion-select-option
+                    >
+                    <ion-select-option value="28">Action</ion-select-option>
+                    <ion-select-option value="12">Adventure</ion-select-option>
+                    <ion-select-option value="16">Animated</ion-select-option>
+                    <ion-select-option value="35">Comedy</ion-select-option>
+                    <ion-select-option value="80">Crime</ion-select-option>
+                    <ion-select-option value="99"
+                      >Documentary</ion-select-option
+                    >
+                    <ion-select-option value="18">Drama</ion-select-option>
+                    <ion-select-option value="10751">Family</ion-select-option>
+                    <ion-select-option value="14">Fantasy</ion-select-option>
+                    <ion-select-option value="36">History</ion-select-option>
+                    <ion-select-option value="27">Horror</ion-select-option>
+                    <ion-select-option value="9648">Mistery</ion-select-option>
+                    <ion-select-option value="10402">Music</ion-select-option>
+                    <ion-select-option value="10749">Romance</ion-select-option>
+                    <ion-select-option value="878">Sci-Fi</ion-select-option>
+                    <ion-select-option value="53">Thriller</ion-select-option>
+                    <ion-select-option value="37">Western</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-sm="4" size-md="12">
+                <ion-item>
+                  <ion-label position="floating">Order By:</ion-label>
+                  <ion-select [ngModel]="'popularity.desc'" name="sortBy">
+                    <ion-select-option value="popularity.desc"
+                      >Popularity</ion-select-option
+                    >
+                    <ion-select-option value="revenue.desc"
+                      >Revenue</ion-select-option
+                    >
+                    <ion-select-option value="vote_average.desc"
+                      >Rating</ion-select-option
+                    >
+                    <ion-select-option value="vote_count.desc"
+                      >Number of Votes</ion-select-option
+                    >
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-sm="2" size-md="12">
+                <ion-item>
+                  <ion-label position="floating">Year</ion-label>
+                  <ion-datetime
+                    display-format="YYYY"
+                    picker-format="YYYY"
+                    [ngModel]="movieYear"
+                    name="date-picker"
+                    min="1900"
+                    max="2022"
+                    required
+                  ></ion-datetime>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-sm="2" size-md="4" offset-md="4">
+                <ion-button type="submit" color="primary" expand="block">
+                  FILTER
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
+      </ion-col>
+      <ion-col size="12" size-md="8">
+        <ion-list no-padding class="movie-list" *ngIf="movies" lines="none">
+          <ion-item
+            no-padding
+            class="movie-info-area"
+            *ngFor="let movie of movies; let i = index"
+            [routerLink]="['/main/tabs/movies', movie.id]"
+          >
+            <ion-thumbnail slot="start" size="300">
+              <ion-img [src]="this.getFullPosterPath(movie, 'low')"></ion-img>
+            </ion-thumbnail>
+            <div class="movie-text-items">
+              <p>{{ i + 1 }}</p>
+              <p class="title">{{ movie.title }}</p>
+              <ion-note>{{ getYear(movie.release_date) }}</ion-note>
+              <div class="star-rating">
+                <span [style.width]="getMovieRatingPct(movie)"></span>
+              </div>
+            </div>
           </ion-item>
-        </ion-col>
-        <ion-col size="12" size-sm="4">
-          <ion-item>
-            <ion-label position="floating">Order By:</ion-label>
-            <ion-select [ngModel]="'popularity.desc'" name="sortBy">
-              <ion-select-option value="popularity.desc"
-                >Popularity</ion-select-option
-              >
-              <ion-select-option value="revenue.desc"
-                >Revenue</ion-select-option
-              >
-              <ion-select-option value="vote_average.desc"
-                >Rating</ion-select-option
-              >
-              <ion-select-option value="vote_count.desc"
-                >Number of Votes</ion-select-option
-              >
-            </ion-select>
-          </ion-item>
-        </ion-col>
-        <ion-col size="12" size-sm="2">
-          <ion-item>
-            <ion-label position="floating">Year</ion-label>
-            <ion-datetime
-              display-format="YYYY"
-              picker-format="YYYY"
-              [ngModel]="movieYear"
-              name="date-picker"
-              min="1900"
-              max="2022"
-              required
-            ></ion-datetime>
-          </ion-item>
-        </ion-col>
-        <ion-col size="12" size-sm="2">
-          <ion-button type="submit" color="primary" expand="block">
-            FILTER
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </form>
-  <ion-list *ngIf="movies" lines="none">
-    <ion-item
-      class="movie-info-area"
-      *ngFor="let movie of movies; let i = index"
-      [routerLink]="['/main/tabs/movies', movie.id]"
-    >
-      <ion-thumbnail slot="start" size="300">
-        <ion-img [src]="this.getFullPosterPath(movie, 'low')"></ion-img>
-      </ion-thumbnail>
-      <div class="movie-text-items">
-        <p>{{ i + 1 }}</p>
-        <p>{{ movie.title }}</p>
-        <ion-note>{{ getYear(movie.release_date) }}</ion-note>
-        <div class="star-rating">
-          <span [style.width]="getMovieRatingPct(movie)"></span>
-        </div>
-      </div>
-    </ion-item>
-  </ion-list>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

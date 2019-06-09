@@ -60,7 +60,7 @@ export class MovieDetailPage implements OnInit {
   }
 
   loadMovieData() {
-    console.log(`MovieDetail|loadActorData()`);
+    // console.log(`MovieDetail|loadActorData()`);
     this.isLoading = true;
     this.loadingCtrl
       .create({ keyboardClose: true, message: 'Loading Data..' })
@@ -116,7 +116,7 @@ export class MovieDetailPage implements OnInit {
         component: ImageviewerModalComponent,
         componentProps: {
           imgPath: imagePath,
-          title: 'Movie Gallery'
+          title: this.loadedMovie.title
         }
       })
       .then(modalEl => {

@@ -1,0 +1,18 @@
+ion-text {
+  padding: 12px;
+  span {
+    font-weight: 700;
+  }
+}
+
+ion-content {
+  position: relative;
+
+  ion-chip {
+    // background-color: rgba(255, 255, 255, 0.8);
+    color: white;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+  }
+}

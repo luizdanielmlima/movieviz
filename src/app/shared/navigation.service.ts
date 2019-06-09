@@ -31,12 +31,11 @@ export class NavigationService {
   // Methods to save current actor and movie, to avoid re-loading data
   setCurrentMovie(id: string) {
     this.currentMovie = id;
-    console.log(`NavigationService|setCurrentMovie: ${this.currentMovie}`);
+    // console.log(`NavigationService|setCurrentMovie: ${this.currentMovie}`);
   }
 
   setCurrentActor(id: string) {
     this.currentActor = id;
-    console.log(`NavigationService|setCurrentActor: ${this.currentActor}`);
   }
 
   getCurrentMovie() {
