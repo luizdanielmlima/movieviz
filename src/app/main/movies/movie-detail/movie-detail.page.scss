@@ -26,52 +26,71 @@ ion-img {
   background-color: black;
 }
 
+.movie-stats {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  // padding: 40px;
+
+  .movie-stat-item {
+    padding: 0;
+    margin: 0 0 24px 0;
+    text-align: center;
+
+    p,
+    h6 {
+      padding: 0;
+      margin: 0;
+    }
+
+    p {
+      font-size: 0.8rem;
+      color: var(--ion-color-light);
+    }
+
+    h6 {
+      margin-top: 8px;
+      color: var(--ion-color-primary);
+    }
+
+    h6 {
+      font-size: 0.8rem;
+    }
+  }
+}
+
 .main-info-area {
-  position: absolute;
   background-color: white;
-  padding: 8px 16px;
-  top: 298px;
+  padding: 16px 24px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }
 
-.crew-item-name {
-  color: var(--ion-color-primary);
-}
-
-.movie-stat-item {
+.crew-item {
+  display: grid;
+  margin: 0;
   padding: 0;
-  margin: 0 0 24px 0;
-  text-align: center;
-
-  p,
-  h6 {
-    padding: 0;
-    margin: 0;
-  }
+  grid-template-columns: 2fr 40px 2fr;
 
   p {
-    font-size: 0.8rem;
-    color: var(--ion-color-light);
+    margin: 12px 2px;
   }
 
-  h5,
-  h6 {
-    margin-top: 8px;
+  p:first-child {
+    margin-top: 18px;
     color: var(--ion-color-primary);
   }
 
-  h6 {
-    font-size: 0.8rem;
+  p:last-child {
+    justify-self: end;
+    text-align: right;
   }
 }
 
 .movie-cast-textarea {
   // background-color: palegoldenrod;
-  display: flex;
-  flex-direction: column;
   border: none;
 
   p {
@@ -144,5 +163,13 @@ $ratingSize: 110px;
       text-indent: 10000px;
       top: 0;
     }
+  }
+}
+
+/* MEDIA QUERIES */
+@media screen and (min-width: 992px) {
+  .main-info-area {
+    border-radius: 20px;
+    margin: 16px;
   }
 }
