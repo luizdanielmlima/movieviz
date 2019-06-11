@@ -50,26 +50,45 @@ ion-img {
   border-top-right-radius: 20px;
 }
 
-.actor-stat-item {
-  padding: 0;
-  margin: 0 0 24px 0;
-  text-align: center;
+.actor-stats {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
-  p,
-  h6 {
+  .actor-stat-item {
     padding: 0;
-    margin: 0;
-  }
+    margin: 0 0 24px 0;
+    text-align: center;
 
-  p {
-    font-size: 0.8rem;
-    color: var(--ion-color-light);
-  }
+    p,
+    h6 {
+      padding: 0;
+      margin: 0;
+    }
 
-  h6 {
-    margin-top: 8px;
-    color: var(--ion-color-secondary);
+    p {
+      font-size: 0.8rem;
+      color: var(--ion-color-light);
+    }
+
+    h6 {
+      margin-top: 8px;
+      color: var(--ion-color-primary);
+    }
+
+    h6 {
+      font-size: 0.8rem;
+    }
   }
+}
+
+.biography {
+  background-color: white;
+  padding: 16px 24px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }
 
 .actor-info-area {

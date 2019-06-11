@@ -9,6 +9,20 @@ ion-img {
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }
 
+.app-logo {
+  position: absolute;
+  top: 16px;
+  left: 12px;
+  max-height: 22px;
+  fill: white;
+}
+
+.main-segment {
+  position: relative;
+  background-color: black;
+}
+
+// CREDITS SEGMENT
 .actor-text-items {
   p:first-child {
     color: var(--ion-color-secondary);

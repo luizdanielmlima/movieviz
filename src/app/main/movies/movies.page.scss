@@ -3,13 +3,17 @@ ion-content {
   --margin: 16px;
 }
 
-form {
-  // border: 1px solid palevioletred;
+.app-logo {
+  position: absolute;
+  top: 16px;
+  left: 12px;
+  max-height: 22px;
+  fill: white;
 }
 
 .movie-list {
   ion-item {
-    margin: 8px 8px 16px 8px;
+    margin: 8px 12px 16px 12px;
     border-radius: 10px;
     // border: 1px solid yellowgreen;
     background-color: #eee;
@@ -116,5 +120,13 @@ $ratingSize: 110px;
       text-indent: 10000px;
       top: 0;
     }
+  }
+}
+
+/* MEDIA QUERIES */
+@media screen and (min-width: 720px) {
+  .form-container {
+    position: sticky;
+    top: 0;
   }
 }

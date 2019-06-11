@@ -6,21 +6,24 @@ import { Image } from '../image.model';
 @Component({
   selector: 'app-imageviewer-modal',
   templateUrl: './imageviewer-modal.component.html',
-  styleUrls: ['./imageviewer-modal.component.scss'],
+  styleUrls: ['./imageviewer-modal.component.scss']
 })
 export class ImageviewerModalComponent implements OnInit {
   @Input() title = 'Pick Location';
   @Input() imgPath: string;
+  fulllImgPath: string;
 
-  constructor(private modalCtrl: ModalController) { }
+  constructor(private modalCtrl: ModalController) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.fulllImgPath = this.getFullPath('backdrop', 'hi');
+  }
 
   onCancel() {
     this.modalCtrl.dismiss();
   }
 
-  getFullImgPath(type: string, res: string) {
+  getFullPath(type: string, res: string) {
     let fullImgPath: string;
     const imgBasePath = `https://image.tmdb.org/t/p`;
     let baseW: string;
@@ -29,10 +32,10 @@ export class ImageviewerModalComponent implements OnInit {
     } else if (type === 'poster') {
       baseW = res === 'hi' ? '780' : '342';
     } else if (type === 'backdrop') {
-      baseW = res === 'hi' ? '1280' : '300';      
+      baseW = res === 'hi' ? '1280' : '300';
     }
     fullImgPath = `${imgBasePath}/w${baseW}${this.imgPath}`;
+    console.log(fullImgPath);
     return fullImgPath;
   }
-
 }

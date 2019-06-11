@@ -10,11 +10,11 @@
 </ion-header> -->
 
 <ion-content>
-  <div *ngIf="imgPath">
-    <ion-chip color="light" (click)="onCancel()">
+  <div>
+    <ion-chip color="dark" (click)="onCancel()">
       <ion-label>CLOSE</ion-label>
       <ion-icon name="close-circle"></ion-icon>
     </ion-chip>
-    <ion-img [src]="this.getFullImgPath('backdrop', 'hi')"></ion-img>
+    <ion-img *ngIf="fulllImgPath" [src]="fulllImgPath"></ion-img>
   </div>
 </ion-content>

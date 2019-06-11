@@ -160,6 +160,29 @@ export class MovieDetailPage implements OnInit {
     }
   }
 
+  // IMPORTANT: image resolutions avaiable are described in the API here:
+  // https://developers.themoviedb.org/3/configuration/get-api-configuration
+  // --
+  getFullImgPath(target: any, type: string, res: string) {
+    let fullImgPath: string;
+    const imgBasePath = `https://image.tmdb.org/t/p`;
+    if (type === 'cast') {
+      const baseW = res === 'hi' ? '632' : '185';
+      fullImgPath = `${imgBasePath}/w${baseW}${target.profile_path}`;
+    } else if (type === 'poster') {
+      const baseW = res === 'hi' ? '780' : '342';
+      fullImgPath = `${imgBasePath}/w${baseW}${target.file_path}`;
+    } else if (type === 'backdrop') {
+      const baseW = res === 'hi' ? '1280' : '300';
+      fullImgPath = `${imgBasePath}/w${baseW}${target.file_path}`;
+    } else if (type === 'main-poster') {
+      const baseW = res === 'hi' ? '780' : '342';
+      fullImgPath = `${imgBasePath}/w${baseW}${this.loadedMovie.poster_path}`;
+    }
+
+    return fullImgPath;
+  }
+
   // THIS FUNCTION WAS REPLACED BY JUST USING PIPES IN THE HTML...!!
   moneyToString(money: number) {
     const moneyStr = money.toString();
@@ -186,28 +209,5 @@ export class MovieDetailPage implements OnInit {
       billions = moneyStr.substr(-12, lastNum);
       return `$ ${billions},${millions},${thousands},${hundreds}.00`;
     }
-  }
-
-  // IMPORTANT: image resolutions avaiable are described in the API here:
-  // https://developers.themoviedb.org/3/configuration/get-api-configuration
-  // --
-  getFullImgPath(target: any, type: string, res: string) {
-    let fullImgPath: string;
-    const imgBasePath = `https://image.tmdb.org/t/p`;
-    if (type === 'cast') {
-      const baseW = res === 'hi' ? '632' : '185';
-      fullImgPath = `${imgBasePath}/w${baseW}${target.profile_path}`;
-    } else if (type === 'poster') {
-      const baseW = res === 'hi' ? '780' : '342';
-      fullImgPath = `${imgBasePath}/w${baseW}${target.file_path}`;
-    } else if (type === 'backdrop') {
-      const baseW = res === 'hi' ? '1280' : '300';
-      fullImgPath = `${imgBasePath}/w${baseW}${target.file_path}`;
-    } else if (type === 'main-poster') {
-      const baseW = res === 'hi' ? '780' : '342';
-      fullImgPath = `${imgBasePath}/w${baseW}${this.loadedMovie.poster_path}`;
-    }
-
-    return fullImgPath;
   }
 }
