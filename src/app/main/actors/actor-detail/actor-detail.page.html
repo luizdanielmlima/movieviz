@@ -21,7 +21,9 @@
         <!-- ACTOR´s PHOTO -->
         <ion-col no-padding size="7" size-sm="7" size-md="3" offset-md="3">
           <ion-img
-            [src]="this.getFullImgPath(loadedActor, 'actor', 'hi')"
+            [src]="
+              this.getFullImgPath('profile', 'hi', loadedActor.profile_path)
+            "
           ></ion-img>
         </ion-col>
 
@@ -52,6 +54,7 @@
     </ion-grid>
   </div>
 
+  <!-- ACTOR´s FILMOGRAPHY -->
   <ion-grid *ngIf="movieCredits && showMode === 'credits'">
     <ion-row no-padding>
       <ion-col no-padding size="12" size-sm="4" offset-sm="4">
@@ -63,7 +66,7 @@
           >
             <ion-thumbnail slot="start" size="200">
               <ion-img
-                [src]="this.getFullImgPath(role, 'poster', 'low')"
+                [src]="this.getFullImgPath('poster', 'low', role.poster_path)"
               ></ion-img>
             </ion-thumbnail>
             <div class="actor-text-items">
@@ -79,12 +82,13 @@
     </ion-row>
   </ion-grid>
 
+  <!-- ACTOR´s GALLERY -->
   <ion-grid *ngIf="actorImages && showMode === 'gallery'">
     <ion-row>
       <ion-col size="6" size-sm="4" size-md="2" *ngFor="let img of actorImages">
         <ion-img
-          [src]="this.getFullImgPath(img, 'backdrop', 'low')"
-          (click)="openGalleryModal(img.file_path)"
+          [src]="this.getFullImgPath('backdrop', 'low', img.file_path)"
+          (click)="openGalleryModal(this.getFullImgPath('backdrop', 'hi', img.file_path))"
         ></ion-img>
       </ion-col>
     </ion-row>

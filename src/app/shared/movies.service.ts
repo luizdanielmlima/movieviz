@@ -10,6 +10,8 @@ import { Movie } from './movie.model';
 })
 export class MoviesService {
   private apiKey = environment.mdbAPIKey;
+  private imgConfig: any;
+  private baseURL: string;
   private movies: Movie[] = [
     {
       id: 'm1',
@@ -54,6 +56,73 @@ export class MoviesService {
   getAPIKey() {
     return environment.mdbAPIKey;
   }
+
+  setMDBImgConfig() {
+    this.http
+      .get(
+        `https://api.themoviedb.org/3/configuration?api_key=${
+          this.apiKey
+        }&language=en-US`
+      )
+      .subscribe((config: any) => {
+        this.imgConfig = config.images;
+        this.baseURL = this.imgConfig.base_url;
+        // console.log(this.imgConfig);
+      });
+  }
+
+  // IMPORTANT: image resolutions avaiable are described in the API here:
+  // https://developers.themoviedb.org/3/configuration/get-api-configuration
+  getPostersParams() {
+    const posterParams = {
+      baseURL: this.baseURL,
+      hiRes: this.imgConfig.poster_sizes[5],
+      lowRes: this.imgConfig.poster_sizes[2]
+    };
+    return posterParams;
+  }
+
+  getProfileImgParams() {
+    const profileImgParams = {
+      baseURL: this.baseURL,
+      hiRes: this.imgConfig.profile_sizes[2],
+      lowRes: this.imgConfig.profile_sizes[1]
+    };
+    return profileImgParams;
+  }
+
+  getBackdropImgParams() {
+    const backdropImgParams = {
+      baseURL: this.baseURL,
+      hiRes: this.imgConfig.backdrop_sizes[3],
+      lowRes: this.imgConfig.backdrop_sizes[0]
+    };
+    return backdropImgParams;
+  }
+
+  // getFullImgPath(type: string, res: string, filePath: string) {
+  //   let fullImgPath: string;
+  //   const imgBasePath = this.imgConfig.base_url;
+  //   let size: string;
+  //   if (type === 'profile') {
+  //     size =
+  //       res === 'hi'
+  //         ? this.imgConfig.profile_sizes[2]
+  //         : this.imgConfig.profile_sizes[1];
+  //   } else if (type === 'poster') {
+  //     size =
+  //       res === 'hi'
+  //         ? this.imgConfig.poster_sizes[5]
+  //         : this.imgConfig.poster_sizes[3];
+  //   } else if (type === 'backdrop') {
+  //     size =
+  //       res === 'hi'
+  //         ? this.imgConfig.backdrop_sizes[3]
+  //         : this.imgConfig.backdrop_sizes[0];
+  //   }
+  //   fullImgPath = `${imgBasePath}/${size}${filePath}`;
+  //   return fullImgPath;
+  // }
 
   getMDBMovies(genre: string, sortBy: string, year: string) {
     // set query values

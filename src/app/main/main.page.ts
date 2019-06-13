@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { NavigationService } from '../shared/navigation.service';
+import { MoviesService } from '../shared/movies.service';
 
 @Component({
   selector: 'app-main',
@@ -9,10 +10,17 @@ import { NavigationService } from '../shared/navigation.service';
 })
 export class MainPage implements OnInit {
   activeTab = 'movies';
+  imgConfig: any;
 
-  constructor(private navigationService: NavigationService) {}
+  constructor(
+    private navigationService: NavigationService,
+    private moviesService: MoviesService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // this saves, in the Service, the image resolutions for posters, backdrops, etc.
+    this.moviesService.setMDBImgConfig();
+  }
 
   onTabClicked(whichTab: string) {
     // console.log('Current Tab: ' + this.activeTab);

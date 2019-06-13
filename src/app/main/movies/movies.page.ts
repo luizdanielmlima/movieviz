@@ -19,6 +19,7 @@ export class MoviesPage implements OnInit {
   genre = 'all';
   sortBy = 'popularity.desc';
   isLoading = false;
+  posterParams: any;
 
   constructor(
     private moviesService: MoviesService,
@@ -50,6 +51,7 @@ export class MoviesPage implements OnInit {
           .subscribe((data: any) => {
             this.movies = data.results;
             this.navigationService.setCurrentMovie('noMovieDataYet'); // resets current actor
+            this.posterParams = this.moviesService.getPostersParams();
             this.isLoading = false;
             loadingEl.dismiss();
           });
@@ -60,20 +62,13 @@ export class MoviesPage implements OnInit {
     return (this.movieRatingPct = movie.vote_average * 10 + '%');
   }
 
-  getFullPosterPathOLD(movie: Movie, resolution: string) {
-    const posterW = resolution === 'hi' ? '600' : '300';
-    const posterH = resolution === 'hi' ? '900' : '450';
-    const imgBasePath = `https://image.tmdb.org/t/p/w${posterW}_and_h${posterH}_bestv2`;
-    const fullPosterPath = imgBasePath + movie.poster_path;
-    return fullPosterPath;
-  }
-
-  getFullPosterPath(movie: Movie, res: string) {
-    let fullPosterPath: string;
-    const imgBasePath = `https://image.tmdb.org/t/p`;
-    const baseW = res === 'hi' ? '780' : '342';
-    fullPosterPath = `${imgBasePath}/w${baseW}${movie.poster_path}`;
-    return fullPosterPath;
+  getFullImgPath(type: string, res: string, filePath: string) {
+    const baseURL = this.posterParams.baseURL;
+    const size =
+      res === 'hi' ? this.posterParams.hiRes : this.posterParams.lowRes;
+    const fullImgPath = `${baseURL}/${size}${filePath}`;
+    // console.log(fullImgPath);
+    return fullImgPath;
   }
 
   getYear(fullDate: string) {

@@ -9,33 +9,13 @@ import { Image } from '../image.model';
   styleUrls: ['./imageviewer-modal.component.scss']
 })
 export class ImageviewerModalComponent implements OnInit {
-  @Input() title = 'Pick Location';
-  @Input() imgPath: string;
-  fulllImgPath: string;
+  @Input() fullPath: string;
 
   constructor(private modalCtrl: ModalController) {}
 
-  ngOnInit() {
-    this.fulllImgPath = this.getFullPath('backdrop', 'hi');
-  }
+  ngOnInit() {}
 
   onCancel() {
     this.modalCtrl.dismiss();
-  }
-
-  getFullPath(type: string, res: string) {
-    let fullImgPath: string;
-    const imgBasePath = `https://image.tmdb.org/t/p`;
-    let baseW: string;
-    if (type === 'cast') {
-      baseW = res === 'hi' ? '632' : '185';
-    } else if (type === 'poster') {
-      baseW = res === 'hi' ? '780' : '342';
-    } else if (type === 'backdrop') {
-      baseW = res === 'hi' ? '1280' : '300';
-    }
-    fullImgPath = `${imgBasePath}/w${baseW}${this.imgPath}`;
-    console.log(fullImgPath);
-    return fullImgPath;
   }
 }

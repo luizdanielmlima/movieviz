@@ -14,6 +14,7 @@ import { Cast } from 'src/app/shared/cast.model';
 export class ActorsPage implements OnInit {
   actors: Cast[];
   isLoading = false;
+  profileImgParams: any;
 
   constructor(
     private moviesService: MoviesService,
@@ -36,28 +37,26 @@ export class ActorsPage implements OnInit {
           this.actors = data.results;
           // console.table(this.actors);
           this.navigationService.setCurrentActor('noActorDataYet');
+          this.profileImgParams = this.moviesService.getProfileImgParams();
           this.isLoading = false;
           loadingEl.dismiss();
         });
       });
   }
 
-  // I created this function to filter TV series, since it doesn´t have a title
+  // I created this function to filter out the TV series
   // it was generating erros when trying to display it below the actor´s name
   getKnownMoviesOnly(actor: Cast) {
     return actor.known_for.filter(item => item.media_type === 'movie');
   }
 
-  // IMPORTANT: image resolutions avaiable are described in the API here:
-  // https://developers.themoviedb.org/3/configuration/get-api-configuration
-  // --
-  getFullImgPath(target: any, type: string, res: string) {
-    let fullImgPath: string;
-    const imgBasePath = `https://image.tmdb.org/t/p`;
-    if (type === 'actor') {
-      const baseW = res === 'hi' ? '632' : '185';
-      fullImgPath = `${imgBasePath}/w${baseW}${target.profile_path}`;
-    }
+  getFullImgPath(type: string, res: string, filePath: string) {
+    const baseURL = this.profileImgParams.baseURL;
+    const size =
+      res === 'low'
+        ? this.profileImgParams.hiRes
+        : this.profileImgParams.lowRes;
+    const fullImgPath = `${baseURL}/${size}${filePath}`;
     return fullImgPath;
   }
 }

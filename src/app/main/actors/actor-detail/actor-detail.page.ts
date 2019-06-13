@@ -23,6 +23,9 @@ export class ActorDetailPage implements OnInit {
   actorImages: Image[];
   showMode: string; // defines the information shown, when using the upper tabs
   isLoading = false;
+  profileParams: any;
+  posterParams: any;
+  backdropParams: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -63,6 +66,9 @@ export class ActorDetailPage implements OnInit {
           this.showMode = 'main';
           this.getActorFilmography();
           this.getActorImages();
+          this.posterParams = this.moviesService.getPostersParams();
+          this.profileParams = this.moviesService.getProfileImgParams();
+          this.backdropParams = this.moviesService.getBackdropImgParams();
 
           // sets the active segment, so when navigating back from Actors content, it shows the last segment visited
           this.showMode = this.navigationService.getActorNavMode();
@@ -97,7 +103,20 @@ export class ActorDetailPage implements OnInit {
       });
   }
 
-  openGalleryModal(imagePath: Image) {
+  openGalleryModal(fullImgPath: string) {
+    this.modalCtrl
+      .create({
+        component: ImageviewerModalComponent,
+        componentProps: {
+          fullPath: fullImgPath
+        }
+      })
+      .then(modalEl => {
+        modalEl.present();
+      });
+  }
+
+  openGalleryModalOLD(imagePath: Image) {
     this.modalCtrl
       .create({
         component: ImageviewerModalComponent,
@@ -132,23 +151,25 @@ export class ActorDetailPage implements OnInit {
     this.navigationService.setActorNavMode(this.showMode);
   }
 
-  // IMPORTANT: image resolutions avaiable are described in the API here:
-  // https://developers.themoviedb.org/3/configuration/get-api-configuration
-  // --
-  getFullImgPath(target: any, type: string, res: string) {
-    let fullImgPath: string;
-    const imgBasePath = `https://image.tmdb.org/t/p`;
-    if (type === 'actor') {
-      const baseW = res === 'hi' ? '780' : '342';
-      fullImgPath = `${imgBasePath}/w${baseW}${target.profile_path}`;
-    } else if (type === 'backdrop') {
-      const baseW = res === 'hi' ? '1280' : '300';
-      fullImgPath = `${imgBasePath}/w${baseW}${target.file_path}`;
+  getFullImgPath(type: string, res: string, filePath: string) {
+    let baseURL: string;
+    let size: string;
+    if (type === 'profile') {
+      baseURL = this.profileParams.baseURL;
+      size =
+        res === 'hi' ? this.profileParams.hiRes : this.profileParams.lowRes;
     } else if (type === 'poster') {
-      const baseW = res === 'hi' ? '780' : '342';
-      fullImgPath = `${imgBasePath}/w${baseW}${target.poster_path}`;
+      baseURL = this.posterParams.baseURL;
+      size =
+        res === 'hi' ? this.posterParams.hiRes : this.posterParams.lowRes;
+    } else if (type === 'backdrop') {
+      baseURL = this.backdropParams.baseURL;
+      size =
+        res === 'hi' ? this.backdropParams.hiRes : this.backdropParams.lowRes;
     }
+    const fullImgPath = `${baseURL}/${size}${filePath}`;
     return fullImgPath;
+    // return this.moviesService.getFullImgPath(type, res, filePath);
   }
 
   getYear(fullDate: string) {

@@ -24,7 +24,7 @@
         <!-- MAIN COVER  -->
         <ion-col no-padding size="7" size-sm="7" size-lg="4">
           <ion-img
-            [src]="this.getFullImgPath(loadedMovie, 'main-poster', 'hi')"
+            [src]="this.getFullImgPath('poster', 'hi', loadedMovie.poster_path)"
           ></ion-img>
         </ion-col>
 
@@ -105,7 +105,9 @@
           >
             <ion-thumbnail slot="start" size="200">
               <ion-img
-                [src]="this.getFullImgPath(actor, 'cast', 'low')"
+                [src]="
+                  this.getFullImgPath('profile', 'low', actor.profile_path)
+                "
               ></ion-img>
             </ion-thumbnail>
             <div class="movie-cast-textarea">
@@ -124,8 +126,12 @@
     <ion-row no-padding>
       <ion-col size="6" size-sm="4" size-md="3" *ngFor="let img of movieImages">
         <ion-img
-          [src]="this.getFullImgPath(img, 'backdrop', 'low')"
-          (click)="openGalleryModal(img.file_path)"
+          [src]="this.getFullImgPath('backdrop', 'low', img.file_path)"
+          (click)="
+            openGalleryModal(
+              this.getFullImgPath('backdrop', 'hi', img.file_path)
+            )
+          "
         ></ion-img>
       </ion-col>
     </ion-row>
@@ -141,8 +147,12 @@
         *ngFor="let poster of moviePosters"
       >
         <ion-img
-          [src]="this.getFullImgPath(poster, 'poster', 'low')"
-          (click)="openGalleryModal(poster.file_path)"
+          [src]="this.getFullImgPath('poster', 'low', poster.file_path)"
+          (click)="
+            openGalleryModal(
+              this.getFullImgPath('poster', 'hi', poster.file_path)
+            )
+          "
         ></ion-img>
       </ion-col>
     </ion-row>

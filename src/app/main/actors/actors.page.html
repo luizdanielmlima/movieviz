@@ -16,7 +16,9 @@
           >
             <ion-thumbnail slot="start">
               <ion-img
-                [src]="this.getFullImgPath(actor, 'actor', 'low')"
+                [src]="
+                  this.getFullImgPath('profile', 'low', actor.profile_path)
+                "
               ></ion-img>
             </ion-thumbnail>
             <div class="actor-text-items">

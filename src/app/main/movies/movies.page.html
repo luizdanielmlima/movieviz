@@ -92,7 +92,9 @@
             [routerLink]="['/main/tabs/movies', movie.id]"
           >
             <ion-thumbnail slot="start" size="300">
-              <ion-img [src]="this.getFullPosterPath(movie, 'low')"></ion-img>
+              <ion-img
+                [src]="this.getFullImgPath('poster', 'low', movie.poster_path)"
+              ></ion-img>
             </ion-thumbnail>
             <div class="movie-text-items">
               <p>{{ i + 1 }}</p>

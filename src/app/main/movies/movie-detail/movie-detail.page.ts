@@ -30,6 +30,9 @@ export class MovieDetailPage implements OnInit {
   showMode: string; // defines the information shown, when using the upper tabs
   isLoading = false;
   genres: any;
+  profileParams: any;
+  posterParams: any;
+  backdropParams: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -73,6 +76,9 @@ export class MovieDetailPage implements OnInit {
             this.getMovieCredits();
             this.getMovieImages();
             this.getGenres();
+            this.posterParams = this.moviesService.getPostersParams();
+            this.profileParams = this.moviesService.getProfileImgParams();
+            this.backdropParams = this.moviesService.getBackdropImgParams();
             this.movieYear = movie.release_date.substring(0, 4);
             this.movieRatingPct = movie.vote_average * 10 + '%';
 
@@ -110,13 +116,12 @@ export class MovieDetailPage implements OnInit {
     this.navigationService.setMovieNavMode(this.showMode);
   }
 
-  openGalleryModal(imagePath: Image) {
+  openGalleryModal(fullImgPath: string) {
     this.modalCtrl
       .create({
         component: ImageviewerModalComponent,
         componentProps: {
-          imgPath: imagePath,
-          title: this.loadedMovie.title
+          fullPath: fullImgPath
         }
       })
       .then(modalEl => {
@@ -160,54 +165,23 @@ export class MovieDetailPage implements OnInit {
     }
   }
 
-  // IMPORTANT: image resolutions avaiable are described in the API here:
-  // https://developers.themoviedb.org/3/configuration/get-api-configuration
-  // --
-  getFullImgPath(target: any, type: string, res: string) {
-    let fullImgPath: string;
-    const imgBasePath = `https://image.tmdb.org/t/p`;
-    if (type === 'cast') {
-      const baseW = res === 'hi' ? '632' : '185';
-      fullImgPath = `${imgBasePath}/w${baseW}${target.profile_path}`;
+  getFullImgPath(type: string, res: string, filePath: string) {
+    let baseURL: string;
+    let size: string;
+    if (type === 'profile') {
+      baseURL = this.profileParams.baseURL;
+      size =
+        res === 'hi' ? this.profileParams.hiRes : this.profileParams.lowRes;
     } else if (type === 'poster') {
-      const baseW = res === 'hi' ? '780' : '342';
-      fullImgPath = `${imgBasePath}/w${baseW}${target.file_path}`;
+      baseURL = this.posterParams.baseURL;
+      size = res === 'hi' ? this.posterParams.hiRes : this.posterParams.lowRes;
     } else if (type === 'backdrop') {
-      const baseW = res === 'hi' ? '1280' : '300';
-      fullImgPath = `${imgBasePath}/w${baseW}${target.file_path}`;
-    } else if (type === 'main-poster') {
-      const baseW = res === 'hi' ? '780' : '342';
-      fullImgPath = `${imgBasePath}/w${baseW}${this.loadedMovie.poster_path}`;
+      baseURL = this.backdropParams.baseURL;
+      size =
+        res === 'hi' ? this.backdropParams.hiRes : this.backdropParams.lowRes;
     }
-
+    const fullImgPath = `${baseURL}/${size}${filePath}`;
     return fullImgPath;
-  }
-
-  // THIS FUNCTION WAS REPLACED BY JUST USING PIPES IN THE HTML...!!
-  moneyToString(money: number) {
-    const moneyStr = money.toString();
-    const numLength = moneyStr.length;
-    const rest = numLength % 3;
-    const lastNum = rest === 0 ? 3 : rest;
-    let hundreds, thousands, millions, billions;
-    if (numLength <= 3) {
-      hundreds = moneyStr.substr(-3, numLength);
-      return `$ ${hundreds}.00`;
-    } else if (numLength > 3 && numLength <= 6) {
-      hundreds = moneyStr.substr(-3, 3);
-      thousands = moneyStr.substr(-6, lastNum);
-      return `$ ${thousands},${hundreds}.00`;
-    } else if (numLength > 6 && numLength <= 9) {
-      hundreds = moneyStr.substr(-3, 3);
-      thousands = moneyStr.substr(-6, 3);
-      millions = moneyStr.substr(-9, lastNum);
-      return `$ ${millions},${thousands},${hundreds}.00`;
-    } else if (numLength > 9 && numLength <= 12) {
-      hundreds = moneyStr.substr(-3, 3);
-      thousands = moneyStr.substr(-6, 3);
-      millions = moneyStr.substr(-9, 3);
-      billions = moneyStr.substr(-12, lastNum);
-      return `$ ${billions},${millions},${thousands},${hundreds}.00`;
-    }
+    // return this.moviesService.getFullImgPath(type, res, filePath);
   }
 }
