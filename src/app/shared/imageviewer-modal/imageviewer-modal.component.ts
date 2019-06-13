@@ -13,7 +13,9 @@ export class ImageviewerModalComponent implements OnInit {
 
   constructor(private modalCtrl: ModalController) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // console.log(this.fullPath);
+  }
 
   onCancel() {
     this.modalCtrl.dismiss();

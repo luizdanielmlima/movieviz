@@ -66,7 +66,7 @@ export class MoviesService {
       )
       .subscribe((config: any) => {
         this.imgConfig = config.images;
-        this.baseURL = this.imgConfig.base_url;
+        this.baseURL = this.imgConfig.secure_base_url;
         // console.log(this.imgConfig);
       });
   }
@@ -79,6 +79,7 @@ export class MoviesService {
       hiRes: this.imgConfig.poster_sizes[5],
       lowRes: this.imgConfig.poster_sizes[2]
     };
+    // console.log(posterParams);
     return posterParams;
   }
 
@@ -88,41 +89,19 @@ export class MoviesService {
       hiRes: this.imgConfig.profile_sizes[2],
       lowRes: this.imgConfig.profile_sizes[1]
     };
+    // console.log(profileImgParams);
     return profileImgParams;
   }
 
   getBackdropImgParams() {
     const backdropImgParams = {
       baseURL: this.baseURL,
-      hiRes: this.imgConfig.backdrop_sizes[3],
+      hiRes: this.imgConfig.backdrop_sizes[2],
       lowRes: this.imgConfig.backdrop_sizes[0]
     };
+    // console.log(backdropImgParams);
     return backdropImgParams;
   }
-
-  // getFullImgPath(type: string, res: string, filePath: string) {
-  //   let fullImgPath: string;
-  //   const imgBasePath = this.imgConfig.base_url;
-  //   let size: string;
-  //   if (type === 'profile') {
-  //     size =
-  //       res === 'hi'
-  //         ? this.imgConfig.profile_sizes[2]
-  //         : this.imgConfig.profile_sizes[1];
-  //   } else if (type === 'poster') {
-  //     size =
-  //       res === 'hi'
-  //         ? this.imgConfig.poster_sizes[5]
-  //         : this.imgConfig.poster_sizes[3];
-  //   } else if (type === 'backdrop') {
-  //     size =
-  //       res === 'hi'
-  //         ? this.imgConfig.backdrop_sizes[3]
-  //         : this.imgConfig.backdrop_sizes[0];
-  //   }
-  //   fullImgPath = `${imgBasePath}/${size}${filePath}`;
-  //   return fullImgPath;
-  // }
 
   getMDBMovies(genre: string, sortBy: string, year: string) {
     // set query values

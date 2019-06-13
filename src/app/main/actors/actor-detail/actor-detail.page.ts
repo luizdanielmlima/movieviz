@@ -55,7 +55,6 @@ export class ActorDetailPage implements OnInit {
   }
 
   loadActorData() {
-    // console.log(`ActorDetail|loadActorData()`);
     this.isLoading = true;
     this.loadingCtrl
       .create({ keyboardClose: true, message: 'Loading Data..' })
@@ -116,20 +115,6 @@ export class ActorDetailPage implements OnInit {
       });
   }
 
-  openGalleryModalOLD(imagePath: Image) {
-    this.modalCtrl
-      .create({
-        component: ImageviewerModalComponent,
-        componentProps: {
-          imgPath: imagePath,
-          title: 'Actor Gallery'
-        }
-      })
-      .then(modalEl => {
-        modalEl.present();
-      });
-  }
-
   dateToNum(date: string) {
     let dateAsNumber: number;
     if (!date) {
@@ -160,16 +145,15 @@ export class ActorDetailPage implements OnInit {
         res === 'hi' ? this.profileParams.hiRes : this.profileParams.lowRes;
     } else if (type === 'poster') {
       baseURL = this.posterParams.baseURL;
-      size =
-        res === 'hi' ? this.posterParams.hiRes : this.posterParams.lowRes;
+      size = res === 'hi' ? this.posterParams.hiRes : this.posterParams.lowRes;
     } else if (type === 'backdrop') {
       baseURL = this.backdropParams.baseURL;
       size =
         res === 'hi' ? this.backdropParams.hiRes : this.backdropParams.lowRes;
     }
-    const fullImgPath = `${baseURL}/${size}${filePath}`;
+    const fullImgPath = `${baseURL}${size}${filePath}`;
+    // console.log(`actor-detail|fullImgPath: ${fullImgPath}`);
     return fullImgPath;
-    // return this.moviesService.getFullImgPath(type, res, filePath);
   }
 
   getYear(fullDate: string) {

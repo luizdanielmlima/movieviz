@@ -63,7 +63,6 @@ export class MovieDetailPage implements OnInit {
   }
 
   loadMovieData() {
-    // console.log(`MovieDetail|loadActorData()`);
     this.isLoading = true;
     this.loadingCtrl
       .create({ keyboardClose: true, message: 'Loading Data..' })
@@ -180,7 +179,8 @@ export class MovieDetailPage implements OnInit {
       size =
         res === 'hi' ? this.backdropParams.hiRes : this.backdropParams.lowRes;
     }
-    const fullImgPath = `${baseURL}/${size}${filePath}`;
+    const fullImgPath = `${baseURL}${size}${filePath}`;
+    // console.log(`movie-detail|fullImgPath: ${fullImgPath}`);
     return fullImgPath;
     // return this.moviesService.getFullImgPath(type, res, filePath);
   }

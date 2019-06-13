@@ -8,11 +8,36 @@ ion-text {
 ion-content {
   position: relative;
 
-  ion-chip {
-    background-color: rgba(55, 55, 55, 0.4);
-    color: white;
-    position: absolute;
-    right: 8px;
-    top: 8px;
+  figure {
+    position: relative;
+    padding: 0;
+    margin: 0;
+
+    img {
+      position: relative;
+      z-index: 10;
+    }
+
+    ion-chip {
+      background-color: rgba(55, 55, 55, 0.4);
+      color: white;
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      z-index: 100;
+    }
+
+    .wait {
+      position: absolute;
+      width: 200px;
+      height: 50px;
+      top: 120px;
+      left: 50%;
+      transform: translate(-50%, 0);
+      color: var(--ion-color-dark);
+      opacity: 0.7;
+      text-align: center;
+      font-weight: 700;
+    }
   }
 }
