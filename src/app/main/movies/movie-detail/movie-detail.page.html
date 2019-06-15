@@ -10,11 +10,34 @@
 </ion-header>
 
 <ion-content>
-  <ion-segment [(ngModel)]="showMode" (ionChange)="onSegmentChange($event)">
+  <!-- <ion-segment [(ngModel)]="showMode" (ionChange)="onSegmentChange($event)">
     <ion-segment-button value="main">Main</ion-segment-button>
     <ion-segment-button value="cast">Cast</ion-segment-button>
     <ion-segment-button value="gallery">Pics</ion-segment-button>
     <ion-segment-button value="posters">Posters</ion-segment-button>
+    <ion-segment-button value="trailers">Trailers</ion-segment-button>
+  </ion-segment> -->
+
+  <ion-segment
+    scrollable
+    [(ngModel)]="showMode"
+    (ionChange)="onSegmentChange($event)"
+  >
+    <ion-segment-button value="main"
+      ><ion-icon name="information-circle"></ion-icon
+    ></ion-segment-button>
+    <ion-segment-button value="cast"
+      ><ion-icon name="people"></ion-icon
+    ></ion-segment-button>
+    <ion-segment-button value="gallery"
+      ><ion-icon name="photos"></ion-icon
+    ></ion-segment-button>
+    <ion-segment-button value="posters"
+      ><ion-icon name="image"></ion-icon
+    ></ion-segment-button>
+    <ion-segment-button value="trailers"
+      ><ion-icon name="logo-youtube"></ion-icon
+    ></ion-segment-button>
   </ion-segment>
 
   <!-- MOVIE MAIN SEGMENT / COVER  -->
@@ -153,6 +176,23 @@
               this.getFullImgPath('poster', 'hi', poster.file_path)
             )
           "
+        ></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- TRAILERS SEGMENT -->
+  <ion-grid class="section" *ngIf="movieTrailers && showMode === 'trailers'">
+    <ion-row no-padding>
+      <ion-col
+        size="6"
+        size-sm="4"
+        size-md="3"
+        *ngFor="let trailer of movieTrailers"
+      >
+        <ion-img
+          [src]="this.getTrailerThumbPath(trailer.key)"
+          (click)="openVideoPlayerModal(trailer.key)"
         ></ion-img>
       </ion-col>
     </ion-row>

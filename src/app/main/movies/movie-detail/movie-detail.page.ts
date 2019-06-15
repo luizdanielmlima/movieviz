@@ -10,7 +10,10 @@ import { Movie } from '../../../shared/movie.model';
 import { Cast } from 'src/app/shared/cast.model';
 import { Crew } from 'src/app/shared/crew.model';
 import { Image } from 'src/app/shared/image.model';
+import { Trailer } from 'src/app/shared/trailer.model';
+
 import { ImageviewerModalComponent } from 'src/app/shared/imageviewer-modal/imageviewer-modal.component';
+import { VideoplayerModalComponent } from 'src/app/shared/videoplayer-modal/videoplayer-modal.component';
 
 @Component({
   selector: 'app-movie-detail',
@@ -26,6 +29,7 @@ export class MovieDetailPage implements OnInit {
   movieRatingPct: string;
   movieImages: Image[];
   moviePosters: Image[];
+  movieTrailers: Trailer[];
   movieYear: string;
   showMode: string; // defines the information shown, when using the upper tabs
   isLoading = false;
@@ -74,6 +78,7 @@ export class MovieDetailPage implements OnInit {
             this.loadedMovie = movie;
             this.getMovieCredits();
             this.getMovieImages();
+            this.getMovieTrailers();
             this.getGenres();
             this.posterParams = this.moviesService.getPostersParams();
             this.profileParams = this.moviesService.getProfileImgParams();
@@ -111,6 +116,8 @@ export class MovieDetailPage implements OnInit {
       this.showMode = 'gallery';
     } else if (event.detail.value === 'posters') {
       this.showMode = 'posters';
+    } else if (event.detail.value === 'trailers') {
+      this.showMode = 'trailers';
     }
     this.navigationService.setMovieNavMode(this.showMode);
   }
@@ -121,6 +128,19 @@ export class MovieDetailPage implements OnInit {
         component: ImageviewerModalComponent,
         componentProps: {
           fullPath: fullImgPath
+        }
+      })
+      .then(modalEl => {
+        modalEl.present();
+      });
+  }
+
+  openVideoPlayerModal(trailerID: string) {
+    this.modalCtrl
+      .create({
+        component: VideoplayerModalComponent,
+        componentProps: {
+          trailerID: trailerID
         }
       })
       .then(modalEl => {
@@ -148,7 +168,16 @@ export class MovieDetailPage implements OnInit {
         this.moviePosters = imgData.posters.filter(
           poster => poster.iso_639_1 === 'en'
         );
-        // console.table(this.movieImages);
+      });
+  }
+
+  getMovieTrailers() {
+    this.moviesService
+      .getMovieTrailers(this.loadedMovie.id)
+      .subscribe((data: any) => {
+        this.movieTrailers = data.results.filter(
+          trailer => trailer.type === 'Trailer'
+        );
       });
   }
 
@@ -162,6 +191,10 @@ export class MovieDetailPage implements OnInit {
     } else {
       return rhours + ' h  ' + rminutes + ' min';
     }
+  }
+
+  getTrailerThumbPath(trailerID: string) {
+    return `https://img.youtube.com/vi/${trailerID}/mqdefault.jpg`;
   }
 
   getFullImgPath(type: string, res: string, filePath: string) {
