@@ -96,6 +96,10 @@ export class MovieDetailPage implements OnInit {
       });
   }
 
+  resetMovie() {
+    this.navigationService.setCurrentMovie('noMovieDataYet'); // resets current movie
+  }
+
   getGenres() {
     this.moviesService.getGenres().subscribe((data: any) => {
       this.genres = data.genres;
@@ -198,23 +202,28 @@ export class MovieDetailPage implements OnInit {
   }
 
   getFullImgPath(type: string, res: string, filePath: string) {
-    let baseURL: string;
-    let size: string;
-    if (type === 'profile') {
-      baseURL = this.profileParams.baseURL;
-      size =
-        res === 'hi' ? this.profileParams.hiRes : this.profileParams.lowRes;
-    } else if (type === 'poster') {
-      baseURL = this.posterParams.baseURL;
-      size = res === 'hi' ? this.posterParams.hiRes : this.posterParams.lowRes;
-    } else if (type === 'backdrop') {
-      baseURL = this.backdropParams.baseURL;
-      size =
-        res === 'hi' ? this.backdropParams.hiRes : this.backdropParams.lowRes;
+    let fullImgPath: string;
+    if (filePath === null) {
+      fullImgPath = '../../../../assets/placeholder.png';
+    } else {
+      let baseURL: string;
+      let size: string;
+      if (type === 'profile') {
+        baseURL = this.profileParams.baseURL;
+        size =
+          res === 'hi' ? this.profileParams.hiRes : this.profileParams.lowRes;
+      } else if (type === 'poster') {
+        baseURL = this.posterParams.baseURL;
+        size =
+          res === 'hi' ? this.posterParams.hiRes : this.posterParams.lowRes;
+      } else if (type === 'backdrop') {
+        baseURL = this.backdropParams.baseURL;
+        size =
+          res === 'hi' ? this.backdropParams.hiRes : this.backdropParams.lowRes;
+      }
+      fullImgPath = `${baseURL}${size}${filePath}`;
     }
-    const fullImgPath = `${baseURL}${size}${filePath}`;
     // console.log(`movie-detail|fullImgPath: ${fullImgPath}`);
     return fullImgPath;
-    // return this.moviesService.getFullImgPath(type, res, filePath);
   }
 }

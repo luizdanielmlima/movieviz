@@ -36,6 +36,7 @@ export class NavigationService {
 
   setCurrentActor(id: string) {
     this.currentActor = id;
+    // console.log(`NavigationService|setCurrentActor: ${this.currentActor}`);
   }
 
   getCurrentMovie() {

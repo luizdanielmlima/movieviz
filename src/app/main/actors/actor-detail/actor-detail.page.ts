@@ -79,6 +79,10 @@ export class ActorDetailPage implements OnInit {
       });
   }
 
+  resetActor() {
+    this.navigationService.setCurrentActor('noActorDataYet');
+  }
+
   getActorImages() {
     this.moviesService.getActorImages(this.actorId).subscribe((images: any) => {
       this.actorImages = images.profiles;
@@ -137,21 +141,27 @@ export class ActorDetailPage implements OnInit {
   }
 
   getFullImgPath(type: string, res: string, filePath: string) {
-    let baseURL: string;
-    let size: string;
-    if (type === 'profile') {
-      baseURL = this.profileParams.baseURL;
-      size =
-        res === 'hi' ? this.profileParams.hiRes : this.profileParams.lowRes;
-    } else if (type === 'poster') {
-      baseURL = this.posterParams.baseURL;
-      size = res === 'hi' ? this.posterParams.hiRes : this.posterParams.lowRes;
-    } else if (type === 'backdrop') {
-      baseURL = this.backdropParams.baseURL;
-      size =
-        res === 'hi' ? this.backdropParams.hiRes : this.backdropParams.lowRes;
+    let fullImgPath: string;
+    if (filePath === null) {
+      fullImgPath = '../../../../assets/placeholder.png';
+    } else {
+      let baseURL: string;
+      let size: string;
+      if (type === 'profile') {
+        baseURL = this.profileParams.baseURL;
+        size =
+          res === 'hi' ? this.profileParams.hiRes : this.profileParams.lowRes;
+      } else if (type === 'poster') {
+        baseURL = this.posterParams.baseURL;
+        size =
+          res === 'hi' ? this.posterParams.hiRes : this.posterParams.lowRes;
+      } else if (type === 'backdrop') {
+        baseURL = this.backdropParams.baseURL;
+        size =
+          res === 'hi' ? this.backdropParams.hiRes : this.backdropParams.lowRes;
+      }
+      fullImgPath = `${baseURL}${size}${filePath}`;
     }
-    const fullImgPath = `${baseURL}${size}${filePath}`;
     // console.log(`actor-detail|fullImgPath: ${fullImgPath}`);
     return fullImgPath;
   }

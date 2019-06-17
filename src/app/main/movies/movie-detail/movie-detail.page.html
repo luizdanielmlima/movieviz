@@ -1,7 +1,10 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/main/tabs/movies"></ion-back-button>
+      <ion-back-button
+        defaultHref="/main/tabs/movies"
+        (click)="resetMovie()"
+      ></ion-back-button>
     </ion-buttons>
     <ion-title *ngIf="loadedMovie"
       >{{ loadedMovie.title }} ({{ movieYear }})</ion-title
@@ -10,19 +13,7 @@
 </ion-header>
 
 <ion-content>
-  <!-- <ion-segment [(ngModel)]="showMode" (ionChange)="onSegmentChange($event)">
-    <ion-segment-button value="main">Main</ion-segment-button>
-    <ion-segment-button value="cast">Cast</ion-segment-button>
-    <ion-segment-button value="gallery">Pics</ion-segment-button>
-    <ion-segment-button value="posters">Posters</ion-segment-button>
-    <ion-segment-button value="trailers">Trailers</ion-segment-button>
-  </ion-segment> -->
-
-  <ion-segment
-    scrollable
-    [(ngModel)]="showMode"
-    (ionChange)="onSegmentChange($event)"
-  >
+  <ion-segment [(ngModel)]="showMode" (ionChange)="onSegmentChange($event)">
     <ion-segment-button value="main"
       ><ion-icon name="information-circle"></ion-icon
     ></ion-segment-button>
@@ -32,9 +23,9 @@
     <ion-segment-button value="gallery"
       ><ion-icon name="photos"></ion-icon
     ></ion-segment-button>
-    <ion-segment-button value="posters"
-      ><ion-icon name="image"></ion-icon
-    ></ion-segment-button>
+    <!-- <ion-segment-button value="posters"
+      ><ion-icon name="easel"></ion-icon
+    ></ion-segment-button> -->
     <ion-segment-button value="trailers"
       ><ion-icon name="logo-youtube"></ion-icon
     ></ion-segment-button>
@@ -145,38 +136,54 @@
   </ion-grid>
 
   <!-- MOVIE GALLERY SEGMENT -->
-  <ion-grid class="section" *ngIf="movieImages && showMode === 'gallery'">
+  <ion-grid
+    class="section"
+    *ngIf="movieImages && moviePosters && showMode === 'gallery'"
+  >
     <ion-row no-padding>
-      <ion-col size="6" size-sm="4" size-md="3" *ngFor="let img of movieImages">
-        <ion-img
-          [src]="this.getFullImgPath('backdrop', 'low', img.file_path)"
-          (click)="
-            openGalleryModal(
-              this.getFullImgPath('backdrop', 'hi', img.file_path)
-            )
-          "
-        ></ion-img>
+      <ion-col text-center>
+        <ion-grid>
+          <ion-note>IMAGES</ion-note>
+          <ion-row>
+            <ion-col
+              size="12"
+              size-sm="6"
+              size-md="4"
+              *ngFor="let img of movieImages"
+            >
+              <ion-img
+                [src]="this.getFullImgPath('backdrop', 'low', img.file_path)"
+                (click)="
+                  openGalleryModal(
+                    this.getFullImgPath('backdrop', 'hi', img.file_path)
+                  )
+                "
+              ></ion-img>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <!-- MOVIE POSTERS SEGMENT -->
-  <ion-grid class="section" *ngIf="moviePosters && showMode === 'posters'">
-    <ion-row no-padding>
-      <ion-col
-        size="6"
-        size-sm="4"
-        size-md="2"
-        *ngFor="let poster of moviePosters"
-      >
-        <ion-img
-          [src]="this.getFullImgPath('poster', 'low', poster.file_path)"
-          (click)="
-            openGalleryModal(
-              this.getFullImgPath('poster', 'hi', poster.file_path)
-            )
-          "
-        ></ion-img>
+      <ion-col text-center>
+        <ion-grid>
+          <ion-note>POSTERS</ion-note>
+          <ion-row>
+            <ion-col
+              size="12"
+              size-sm="6"
+              size-md="4"
+              *ngFor="let poster of moviePosters"
+            >
+              <ion-img
+                [src]="this.getFullImgPath('poster', 'low', poster.file_path)"
+                (click)="
+                  openGalleryModal(
+                    this.getFullImgPath('poster', 'hi', poster.file_path)
+                  )
+                "
+              ></ion-img>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -185,9 +192,9 @@
   <ion-grid class="section" *ngIf="movieTrailers && showMode === 'trailers'">
     <ion-row no-padding>
       <ion-col
-        size="6"
-        size-sm="4"
-        size-md="3"
+        size="12"
+        size-sm="6"
+        size-md="4"
         *ngFor="let trailer of movieTrailers"
       >
         <ion-img

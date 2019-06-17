@@ -51,12 +51,17 @@ export class ActorsPage implements OnInit {
   }
 
   getFullImgPath(type: string, res: string, filePath: string) {
-    const baseURL = this.profileImgParams.baseURL;
-    const size =
-      res === 'low'
-        ? this.profileImgParams.hiRes
-        : this.profileImgParams.lowRes;
-    const fullImgPath = `${baseURL}/${size}${filePath}`;
+    let fullImgPath: string;
+    if (filePath === null) {
+      fullImgPath = '../../../../assets/placeholder.png';
+    } else {
+      const baseURL = this.profileImgParams.baseURL;
+      const size =
+        res === 'low'
+          ? this.profileImgParams.hiRes
+          : this.profileImgParams.lowRes;
+      fullImgPath = `${baseURL}/${size}${filePath}`;
+    }
     return fullImgPath;
   }
 }

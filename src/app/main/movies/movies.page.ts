@@ -50,7 +50,7 @@ export class MoviesPage implements OnInit {
           .getMDBMovies(this.genre, this.sortBy, this.movieYear)
           .subscribe((data: any) => {
             this.movies = data.results;
-            this.navigationService.setCurrentMovie('noMovieDataYet'); // resets current actor
+            this.navigationService.setCurrentMovie('noMovieDataYet'); // resets current movie
             this.posterParams = this.moviesService.getPostersParams();
             this.isLoading = false;
             loadingEl.dismiss();
@@ -63,10 +63,15 @@ export class MoviesPage implements OnInit {
   }
 
   getFullImgPath(type: string, res: string, filePath: string) {
-    const baseURL = this.posterParams.baseURL;
-    const size =
-      res === 'hi' ? this.posterParams.hiRes : this.posterParams.lowRes;
-    const fullImgPath = `${baseURL}/${size}${filePath}`;
+    let fullImgPath: string;
+    if (filePath === null) {
+      fullImgPath = '../../../../assets/placeholder.png';
+    } else {
+      const baseURL = this.posterParams.baseURL;
+      const size =
+        res === 'hi' ? this.posterParams.hiRes : this.posterParams.lowRes;
+      fullImgPath = `${baseURL}/${size}${filePath}`;
+    }
     // console.log(fullImgPath);
     return fullImgPath;
   }

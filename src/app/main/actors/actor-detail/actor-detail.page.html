@@ -1,7 +1,10 @@
 <ion-header>
   <ion-toolbar color="secondary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/main/tabs/actors"></ion-back-button>
+      <ion-back-button
+        defaultHref="/main/tabs/actors"
+        (click)="resetActor()"
+      ></ion-back-button>
     </ion-buttons>
     <ion-title *ngIf="loadedActor">{{ loadedActor.name }}</ion-title>
   </ion-toolbar>
@@ -9,9 +12,15 @@
 
 <ion-content *ngIf="loadedActor">
   <ion-segment [(ngModel)]="showMode" (ionChange)="onSegmentChange($event)">
-    <ion-segment-button value="main">Main</ion-segment-button>
-    <ion-segment-button value="credits">Filmography</ion-segment-button>
-    <ion-segment-button value="gallery">Gallery</ion-segment-button>
+    <ion-segment-button value="main"
+      ><ion-icon name="information-circle"></ion-icon
+    ></ion-segment-button>
+    <ion-segment-button value="credits"
+      ><ion-icon name="film"></ion-icon
+    ></ion-segment-button>
+    <ion-segment-button value="gallery"
+      ><ion-icon name="photos"></ion-icon
+    ></ion-segment-button>
   </ion-segment>
 
   <!-- ACTOR MAIN SEGMENT -->
@@ -60,7 +69,7 @@
       <ion-col no-padding size="12" size-sm="4" offset-sm="4">
         <ion-list lines="none">
           <ion-item
-            class="actor-info-area"
+            class="actor-filmography-item"
             *ngFor="let role of movieCredits"
             [routerLink]="['/main/tabs/movies', role.id]"
           >
@@ -88,7 +97,11 @@
       <ion-col size="6" size-sm="4" size-md="2" *ngFor="let img of actorImages">
         <ion-img
           [src]="this.getFullImgPath('backdrop', 'low', img.file_path)"
-          (click)="openGalleryModal(this.getFullImgPath('backdrop', 'hi', img.file_path))"
+          (click)="
+            openGalleryModal(
+              this.getFullImgPath('backdrop', 'hi', img.file_path)
+            )
+          "
         ></ion-img>
       </ion-col>
     </ion-row>

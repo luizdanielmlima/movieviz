@@ -14,7 +14,9 @@ export class VideoplayerModalComponent implements OnInit {
 
   ngOnInit() {
     const baseURL = 'https://www.youtube.com/embed/';
-    this.fullURL = `${baseURL}${this.trailerID}`;
+    const params = '?showinfo=0&modestbranding=1';
+    this.fullURL = `${baseURL}${this.trailerID}${params}`;
+    // console.log(this.fullURL);
   }
 
   onCancel() {

@@ -9,7 +9,7 @@
   <ion-grid no-padding>
     <ion-row no-padding>
       <ion-col size="12" size-md="8" offset-md="4">
-        <ion-list *ngIf="actors" lines="none">
+        <ion-list class="actors-list" *ngIf="actors" lines="none">
           <ion-item
             *ngFor="let actor of actors"
             [routerLink]="['/main/tabs/actors', actor.id]"
