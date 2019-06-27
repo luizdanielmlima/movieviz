@@ -1,8 +1,8 @@
 {
-  "name": "app",
-  "short_name": "app",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "name": "Movieviz 1.3",
+  "short_name": "movieviz 1.3",
+  "theme_color": "#92d5e6",
+  "background_color": "#92d5e6",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
