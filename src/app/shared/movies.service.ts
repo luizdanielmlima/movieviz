@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { environment } from '../../environments/environment';
+import apiData from '../../assets/mdb-api-key.json';
 
 import { Movie } from './movie.model';
+
+export interface ApiInfo {
+  type: string;
+  key: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class MoviesService {
-  private apiKey = environment.mdbAPIKey;
+  apiKey: string;
+  extData: ApiInfo = apiData;
   private imgConfig: any;
   private baseURL: string;
   private movies: Movie[] = [
@@ -30,31 +36,11 @@ export class MoviesService {
       release_date: '2019',
       vote_average: 8.1,
       overview: 'Lorem ipsum '
-    },
-    {
-      id: 'm3',
-      title: 'Shazam!',
-      poster_path:
-        'https://image.tmdb.org/t/p/w600_and_h900_bestv2/xnopI5Xtky18MPhK40cZAGAOVeV.jpg',
-      release_date: '2019',
-      vote_average: 7.8,
-      overview: 'Lorem ipsum '
-    },
-    {
-      id: 'm4',
-      title: 'Aladdin',
-      poster_path:
-        'https://image.tmdb.org/t/p/w600_and_h900_bestv2/3iYQTLGoy7QnjcUYRJy4YrAgGvp.jpg',
-      release_date: '2019',
-      vote_average: 7.9,
-      overview: 'Lorem ipsum '
     }
   ];
 
-  constructor(private http: HttpClient) {}
-
-  getAPIKey() {
-    return environment.mdbAPIKey;
+  constructor(private http: HttpClient) {
+    this.apiKey = this.extData.key;
   }
 
   setMDBImgConfig() {
@@ -67,7 +53,6 @@ export class MoviesService {
       .subscribe((config: any) => {
         this.imgConfig = config.images;
         this.baseURL = this.imgConfig.secure_base_url;
-        // console.log(this.imgConfig);
       });
   }
 

@@ -37,9 +37,11 @@
       <ion-row>
         <!-- MAIN COVER  -->
         <ion-col no-padding size="7" size-sm="7" size-lg="4">
-          <ion-img
-            [src]="this.getFullImgPath('poster', 'hi', loadedMovie.poster_path)"
-          ></ion-img>
+          <div class="thumb-container">
+            <img class="thumb"
+              [src]="this.getFullImgPath('poster', 'hi', loadedMovie.poster_path)"
+            >
+          </div>
         </ion-col>
 
         <!-- MAIN STATS  -->

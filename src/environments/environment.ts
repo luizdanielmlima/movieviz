@@ -3,8 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  mdbAPIKey: '891a2d7d763b8e20d78ae746c8986811'
+  production: false
 };
 
 /*
