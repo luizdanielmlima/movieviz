@@ -10,15 +10,26 @@ export interface ApiInfo {
   key: string;
 }
 
+export interface FilterParams {
+  genre: string;
+  sortBy: string;
+  year: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class MoviesService {
   apiKey: string;
   extData: ApiInfo = apiData;
-  private imgConfig: any;
-  private baseURL: string;
-  private movies: Movie[] = [
+  currentFilters: FilterParams = {
+    genre: 'all',
+    sortBy: 'popularity.desc',
+    year: '2019'
+  };
+  imgConfig: any;
+  baseURL: string;
+  movies: Movie[] = [
     {
       id: 'm1',
       title: 'Avengers: End Game',
@@ -88,7 +99,44 @@ export class MoviesService {
     return backdropImgParams;
   }
 
-  getMDBMovies(genre: string, sortBy: string, year: string) {
+  setCurrentMovieFilters(genre: string, sortBy: string, year: string) {
+    this.currentFilters = { genre, sortBy, year };
+  }
+
+  setGenre(genre: string) {
+    this.currentFilters.genre = genre;
+  }
+
+  getCurrentMovieFilters(): FilterParams {
+    return this.currentFilters;
+  }
+
+  getMDBMovies() {
+    const genre = this.currentFilters.genre;
+    const sortBy = this.currentFilters.sortBy;
+    const year = this.currentFilters.year;
+    // set query values
+    let genreQuery: string;
+    if (genre === 'all') {
+      genreQuery = ''; // all genres was selected
+    } else {
+      genreQuery = `with_genres=${genre}`;
+    }
+
+    const yearOnlyString = year.substring(0, 4);
+    const yearFromQuery = `primary_release_date.gte=${yearOnlyString}-01-01`;
+    const yearToQuery = `primary_release_date.lte=${yearOnlyString}-12-30`;
+
+    const sortByQuery = `sort_by=${sortBy}`;
+
+    return this.http.get(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${
+        this.apiKey
+      }&language=en-US&${sortByQuery}&include_adult=false&include_video=false&page=1&${genreQuery}&${yearFromQuery}&${yearToQuery}`
+    );
+  }
+
+  getMDBMoviesOLD(genre: string, sortBy: string, year: string) {
     // set query values
     let genreQuery: string;
     if (genre === 'all') {

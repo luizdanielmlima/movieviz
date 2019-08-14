@@ -31,11 +31,22 @@ export class MoviesPage implements OnInit {
     this.showMDBData();
   }
 
+  ionViewWillEnter() {
+    const filterParams = this.moviesService.getCurrentMovieFilters();
+    this.genre = filterParams.genre; // but it keeps the last filters used (sortby and year)
+    this.showMDBData();
+  }
+
   onSetFilters() {
     this.genre = this.form.value['genre'];
     this.sortBy = this.form.value['sortBy'];
     this.movieYear = this.form.value['date-picker'];
     // console.log(`movies.page|onSetFilters|${this.movieYear}`);
+    this.moviesService.setCurrentMovieFilters(
+      this.genre,
+      this.sortBy,
+      this.movieYear
+    );
     this.showMDBData();
   }
 
@@ -46,15 +57,13 @@ export class MoviesPage implements OnInit {
       .create({ keyboardClose: true, message: 'Loading Data..' })
       .then(loadingEl => {
         loadingEl.present();
-        this.moviesService
-          .getMDBMovies(this.genre, this.sortBy, this.movieYear)
-          .subscribe((data: any) => {
-            this.movies = data.results;
-            this.navigationService.setCurrentMovie('noMovieDataYet'); // resets current movie
-            this.posterParams = this.moviesService.getPostersParams();
-            this.isLoading = false;
-            loadingEl.dismiss();
-          });
+        this.moviesService.getMDBMovies().subscribe((data: any) => {
+          this.movies = data.results;
+          this.navigationService.setCurrentMovie('noMovieDataYet'); // resets current movie
+          this.posterParams = this.moviesService.getPostersParams();
+          this.isLoading = false;
+          loadingEl.dismiss();
+        });
       });
   }
 

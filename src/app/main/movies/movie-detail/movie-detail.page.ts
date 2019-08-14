@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { SegmentChangeEventDetail } from '@ionic/core';
 import { ModalController, LoadingController } from '@ionic/angular';
@@ -21,7 +21,6 @@ import { VideoplayerModalComponent } from 'src/app/shared/videoplayer-modal/vide
   styleUrls: ['./movie-detail.page.scss']
 })
 export class MovieDetailPage implements OnInit {
-  // @ViewChild('segment') segment: ElementRef;
   loadedMovie: Movie;
   movieId: string;
   movieCast: Cast[];
@@ -40,6 +39,7 @@ export class MovieDetailPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private moviesService: MoviesService,
     private navigationService: NavigationService,
     private modalCtrl: ModalController,
@@ -94,6 +94,11 @@ export class MovieDetailPage implements OnInit {
             loadingEl.dismiss();
           });
       });
+  }
+
+  setGenreAndNavToMovies(genre: any) {
+    this.moviesService.setGenre(genre.id.toString());
+    this.router.navigate(['/main/tabs/', 'movies']);
   }
 
   resetMovie() {

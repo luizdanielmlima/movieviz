@@ -81,6 +81,7 @@
                   outline
                   color="dark"
                   *ngFor="let genre of loadedMovie.genres"
+                  (click)='setGenreAndNavToMovies(genre)'
                 >
                   <ion-label color="dark">{{
                     getGenreName(genre.id)
