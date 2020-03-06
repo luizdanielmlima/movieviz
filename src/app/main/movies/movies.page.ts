@@ -12,7 +12,7 @@ import { NavigationService } from 'src/app/shared/navigation.service';
   styleUrls: ['./movies.page.scss']
 })
 export class MoviesPage implements OnInit {
-  @ViewChild('f') form: NgForm;
+  @ViewChild('f', { static: true }) form: NgForm;
   movies: Movie[];
   movieYear = '2019-05-31T00:14:09.369Z';
   movieRatingPct: string;

@@ -22,12 +22,12 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: './movies/movies.module#MoviesPageModule'
+            loadChildren: () => import('./movies/movies.module').then(m => m.MoviesPageModule)
           },
           {
             path: ':movieId',
             loadChildren:
-              './movies/movie-detail/movie-detail.module#MovieDetailPageModule'
+              () => import('./movies/movie-detail/movie-detail.module').then(m => m.MovieDetailPageModule)
           }
         ]
       },
@@ -36,12 +36,12 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: './actors/actors.module#ActorsPageModule'
+            loadChildren: () => import('./actors/actors.module').then(m => m.ActorsPageModule)
           },
           {
             path: ':actorId',
             loadChildren:
-              './actors/actor-detail/actor-detail.module#ActorDetailPageModule'
+              () => import('./actors/actor-detail/actor-detail.module').then(m => m.ActorDetailPageModule)
           }
         ]
       }
