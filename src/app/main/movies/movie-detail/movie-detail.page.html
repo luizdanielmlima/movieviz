@@ -15,39 +15,36 @@
 <ion-content>
   <ion-segment [(ngModel)]="showMode" (ionChange)="onSegmentChange($event)">
     <ion-segment-button value="main"
-      ><ion-icon name="information-circle"></ion-icon
+      ><ion-icon name="information-circle-outline"></ion-icon
     ></ion-segment-button>
     <ion-segment-button value="cast"
-      ><ion-icon name="people"></ion-icon
+      ><ion-icon name="people-outline"></ion-icon
     ></ion-segment-button>
     <ion-segment-button value="gallery"
-      ><ion-icon name="photos"></ion-icon
+      ><ion-icon name="images-outline"></ion-icon
     ></ion-segment-button>
-    <!-- <ion-segment-button value="posters"
-      ><ion-icon name="easel"></ion-icon
-    ></ion-segment-button> -->
     <ion-segment-button value="trailers"
-      ><ion-icon name="logo-youtube"></ion-icon
+      ><ion-icon name="film-outline"></ion-icon
     ></ion-segment-button>
   </ion-segment>
 
   <!-- MOVIE MAIN SEGMENT / COVER  -->
   <div class="main-segment" *ngIf="loadedMovie && showMode === 'main'">
-    <ion-grid no-padding>
+    <ion-grid class="ion-no-padding">
       <ion-row>
         <!-- MAIN COVER  -->
-        <ion-col no-padding size="7" size-sm="7" size-lg="4">
+        <ion-col class="ion-no-padding" size="7" size-sm="7" size-lg="4">
           <div class="thumb-container">
-            <img class="thumb"
+            <img
+              class="thumb"
               [src]="this.getFullImgPath('poster', 'hi', loadedMovie.poster_path)"
-            >
+            />
           </div>
         </ion-col>
 
         <!-- MAIN STATS  -->
         <ion-col
-          class="movie-stats"
-          no-padding
+          class="movie-stats ion-no-padding"
           size="5"
           size-sm="5"
           size-lg="2"
@@ -73,19 +70,19 @@
         </ion-col>
 
         <!-- MAIN INFO - Genres, Overview and Crew Members  -->
-        <ion-col no-padding size="12" size-sm="12" size-lg="6">
-          <ion-grid no-padding class="main-info-area">
-            <ion-row no-padding *ngIf="genres">
+        <ion-col class="ion-no-padding" size="12" size-sm="12" size-lg="6">
+          <ion-grid class="main-info-area ion-no-padding">
+            <ion-row class="ion-no-padding" *ngIf="genres">
               <ion-col size="12">
                 <ion-chip
                   outline
                   color="dark"
                   *ngFor="let genre of loadedMovie.genres"
-                  (click)='setGenreAndNavToMovies(genre)'
+                  (click)="setGenreAndNavToMovies(genre)"
                 >
-                  <ion-label color="dark">{{
-                    getGenreName(genre.id)
-                  }}</ion-label>
+                  <ion-label color="dark"
+                    >{{ getGenreName(genre.id) }}</ion-label
+                  >
                 </ion-chip>
               </ion-col>
             </ion-row>
@@ -113,8 +110,8 @@
 
   <!-- MOVIE CAST SEGMENT -->
   <ion-grid class="section">
-    <ion-row no-padding>
-      <ion-col no-padding size="12" size-sm="4" offset-sm="4">
+    <ion-row class="ion-no-padding">
+      <ion-col class="ion-no-padding" size="12" size-sm="4" offset-sm="4">
         <ion-list *ngIf="movieCast && showMode === 'cast'" lines="none">
           <ion-item
             *ngFor="let actor of movieCast"
@@ -143,7 +140,7 @@
     class="section"
     *ngIf="movieImages && moviePosters && showMode === 'gallery'"
   >
-    <ion-row no-padding>
+    <ion-row class="ion-no-padding">
       <ion-col text-center>
         <ion-grid>
           <ion-note>IMAGES</ion-note>
@@ -193,7 +190,7 @@
 
   <!-- TRAILERS SEGMENT -->
   <ion-grid class="section" *ngIf="movieTrailers && showMode === 'trailers'">
-    <ion-row no-padding>
+    <ion-row class="ion-no-padding">
       <ion-col
         size="12"
         size-sm="6"

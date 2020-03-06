@@ -1,18 +1,18 @@
 <ion-header>
   <ion-toolbar color="primary">
     <img class="app-logo" src="../../../assets/app_logo.svg" alt="app logo" />
-    <ion-title text-center>TOP MOVIES</ion-title>
-    <ion-note slot="end" padding>v1.4</ion-note>
+    <ion-title class="ion-text-center">TOP MOVIES</ion-title>
+    <ion-note slot="end" class="ion-padding">v1.4</ion-note>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid no-padding>
-    <ion-row no-padding>
+  <ion-grid class="ion-no-padding">
+    <ion-row class="ion-no-padding">
       <ion-col class="form-container" size="12" size-md="4">
         <form (ngSubmit)="onSetFilters()" #f="ngForm">
           <ion-grid>
-            <ion-row no-padding>
+            <ion-row class="ion-no-padding">
               <ion-col size="12" size-sm="4" size-md="12">
                 <ion-item>
                   <ion-label position="floating">Genre</ion-label>
@@ -87,8 +87,7 @@
       <ion-col size="12" size-md="8">
         <ion-list class="movie-list" *ngIf="movies" lines="none">
           <ion-item
-            no-padding
-            class="movie-info-area"
+            class="movie-info-area ion-no-padding"
             *ngFor="let movie of movies; let i = index"
             [routerLink]="['/main/tabs/movies', movie.id]"
           >
