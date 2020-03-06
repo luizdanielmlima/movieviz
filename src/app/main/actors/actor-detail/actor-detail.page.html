@@ -13,22 +13,28 @@
 <ion-content *ngIf="loadedActor">
   <ion-segment [(ngModel)]="showMode" (ionChange)="onSegmentChange($event)">
     <ion-segment-button value="main"
-      ><ion-icon name="information-circle"></ion-icon
+      ><ion-icon name="information-circle-outline"></ion-icon
     ></ion-segment-button>
     <ion-segment-button value="credits"
-      ><ion-icon name="film"></ion-icon
+      ><ion-icon name="film-outline"></ion-icon
     ></ion-segment-button>
     <ion-segment-button value="gallery"
-      ><ion-icon name="photos"></ion-icon
+      ><ion-icon name="images-outline"></ion-icon
     ></ion-segment-button>
   </ion-segment>
 
   <!-- ACTOR MAIN SEGMENT -->
   <div class="main-segment" *ngIf="loadedActor && showMode === 'main'">
-    <ion-grid no-padding class="actor-main-area">
+    <ion-grid class="actor-main-area ion-no-padding">
       <ion-row>
         <!-- ACTOR´s PHOTO -->
-        <ion-col no-padding size="7" size-sm="7" size-md="3" offset-md="3">
+        <ion-col
+          class="ion-no-padding"
+          size="7"
+          size-sm="7"
+          size-md="3"
+          offset-md="3"
+        >
           <ion-img
             [src]="
               this.getFullImgPath('profile', 'hi', loadedActor.profile_path)
@@ -53,7 +59,13 @@
         </ion-col>
 
         <!-- ACTOR´s BIOGRAPHY -->
-        <ion-col no-padding size="12" size-sm="12" size-md="8" offset-md="2">
+        <ion-col
+          class="ion-no-padding"
+          size="12"
+          size-sm="12"
+          size-md="8"
+          offset-md="2"
+        >
           <div class="biography">
             <h4>Biography</h4>
             <p>{{ loadedActor.biography }}</p>
@@ -65,8 +77,8 @@
 
   <!-- ACTOR´s FILMOGRAPHY -->
   <ion-grid *ngIf="movieCredits && showMode === 'credits'">
-    <ion-row no-padding>
-      <ion-col no-padding size="12" size-sm="4" offset-sm="4">
+    <ion-row class="ion-no-padding">
+      <ion-col class="ion-no-padding" size="12" size-sm="4" offset-sm="4">
         <ion-list lines="none">
           <ion-item
             class="actor-filmography-item"
