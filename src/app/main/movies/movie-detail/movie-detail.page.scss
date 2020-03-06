@@ -105,21 +105,36 @@ ion-thumbnail {
   }
 }
 
-.movie-cast-textarea {
-  // background-color: palegoldenrod;
-  border: none;
+.movie-cast {
+  &__actor {
+    ion-thumbnail {
+      width: 80px;
+      height: 120px;
+    }
 
-  p {
-    padding: 0;
-    margin: 0;
+    ion-img {
+      border-radius: 10px;
+      box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    }
   }
 
-  p:first-child {
-    color: var(--ion-color-primary);
-  }
+  &__textarea {
+    // background-color: palegoldenrod;
+    border: none;
 
-  p:last-child {
-    font-size: 0.8rem;
+    p {
+      padding: 0;
+      margin: 0;
+    }
+
+    p:first-child {
+      color: var(--ion-color-primary);
+    }
+
+    p:last-child {
+      font-size: 0.8rem;
+    }
   }
 }
 

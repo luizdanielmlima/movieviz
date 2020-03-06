@@ -109,11 +109,12 @@
   </div>
 
   <!-- MOVIE CAST SEGMENT -->
-  <ion-grid class="section">
+  <ion-grid class="section" class="movie-cast">
     <ion-row class="ion-no-padding">
       <ion-col class="ion-no-padding" size="12" size-sm="4" offset-sm="4">
         <ion-list *ngIf="movieCast && showMode === 'cast'" lines="none">
           <ion-item
+            class="movie-cast__actor"
             *ngFor="let actor of movieCast"
             [routerLink]="['/main/tabs/actors', actor.id]"
           >
@@ -124,7 +125,7 @@
                 "
               ></ion-img>
             </ion-thumbnail>
-            <div class="movie-cast-textarea">
+            <div class="movie-cast__textarea">
               <p>{{ actor.name }}</p>
               <ion-note>as</ion-note>
               <p>{{ actor.character }}</p>
