@@ -1,6 +1,10 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <img class="app-logo" src="../../../assets/app_logo.svg" alt="app logo" />
+    <img
+      class="app-logo"
+      src="../../../assets/app_logo.svg"
+      alt="app logo"
+    />
     <ion-title class="ion-text-center">TOP MOVIES</ion-title>
     <ion-note slot="end" class="ion-padding">v1.5</ion-note>
   </ion-toolbar>
@@ -20,32 +24,67 @@
                     <ion-select-option value="all"
                       >All Genres</ion-select-option
                     >
-                    <ion-select-option value="28">Action</ion-select-option>
-                    <ion-select-option value="12">Adventure</ion-select-option>
-                    <ion-select-option value="16">Animation</ion-select-option>
-                    <ion-select-option value="35">Comedy</ion-select-option>
-                    <ion-select-option value="80">Crime</ion-select-option>
+                    <ion-select-option value="28"
+                      >Action</ion-select-option
+                    >
+                    <ion-select-option value="12"
+                      >Adventure</ion-select-option
+                    >
+                    <ion-select-option value="16"
+                      >Animation</ion-select-option
+                    >
+                    <ion-select-option value="35"
+                      >Comedy</ion-select-option
+                    >
+                    <ion-select-option value="80"
+                      >Crime</ion-select-option
+                    >
                     <ion-select-option value="99"
                       >Documentary</ion-select-option
                     >
-                    <ion-select-option value="18">Drama</ion-select-option>
-                    <ion-select-option value="10751">Family</ion-select-option>
-                    <ion-select-option value="14">Fantasy</ion-select-option>
-                    <ion-select-option value="36">History</ion-select-option>
-                    <ion-select-option value="27">Horror</ion-select-option>
-                    <ion-select-option value="9648">Mistery</ion-select-option>
-                    <ion-select-option value="10402">Music</ion-select-option>
-                    <ion-select-option value="10749">Romance</ion-select-option>
-                    <ion-select-option value="878">Sci-Fi</ion-select-option>
-                    <ion-select-option value="53">Thriller</ion-select-option>
-                    <ion-select-option value="37">Western</ion-select-option>
+                    <ion-select-option value="18"
+                      >Drama</ion-select-option
+                    >
+                    <ion-select-option value="10751"
+                      >Family</ion-select-option
+                    >
+                    <ion-select-option value="14"
+                      >Fantasy</ion-select-option
+                    >
+                    <ion-select-option value="36"
+                      >History</ion-select-option
+                    >
+                    <ion-select-option value="27"
+                      >Horror</ion-select-option
+                    >
+                    <ion-select-option value="9648"
+                      >Mistery</ion-select-option
+                    >
+                    <ion-select-option value="10402"
+                      >Music</ion-select-option
+                    >
+                    <ion-select-option value="10749"
+                      >Romance</ion-select-option
+                    >
+                    <ion-select-option value="878"
+                      >Sci-Fi</ion-select-option
+                    >
+                    <ion-select-option value="53"
+                      >Thriller</ion-select-option
+                    >
+                    <ion-select-option value="37"
+                      >Western</ion-select-option
+                    >
                   </ion-select>
                 </ion-item>
               </ion-col>
               <ion-col size="12" size-sm="4" size-md="12">
                 <ion-item>
                   <ion-label position="floating">Order By:</ion-label>
-                  <ion-select [ngModel]="'popularity.desc'" name="sortBy">
+                  <ion-select
+                    [ngModel]="'popularity.desc'"
+                    name="sortBy"
+                  >
                     <ion-select-option value="popularity.desc"
                       >Popularity</ion-select-option
                     >
@@ -75,8 +114,17 @@
                   ></ion-datetime>
                 </ion-item>
               </ion-col>
-              <ion-col size="12" size-sm="2" size-md="4" offset-md="4">
-                <ion-button type="submit" color="primary" expand="block">
+              <ion-col
+                size="12"
+                size-sm="2"
+                size-md="4"
+                offset-md="4"
+              >
+                <ion-button
+                  type="submit"
+                  color="primary"
+                  expand="block"
+                >
                   FILTER
                 </ion-button>
               </ion-col>
@@ -103,6 +151,38 @@
               <div class="star-rating">
                 <span [style.width]="getMovieRatingPct(movie)"></span>
               </div>
+            </div>
+          </ion-item>
+        </ion-list>
+
+        <!-- PLACEHOLDERS - SKELETON TEXT -->
+        <ion-list class="skel-list" *ngIf="!movies" lines="none">
+          <ion-item
+            class="skel-item"
+            *ngFor="let movie of [1,2,3,4,5,6,7,8]; let i = index"
+          >
+            <ion-skeleton-text
+              class="skel-thumb"
+              animated
+            ></ion-skeleton-text>
+            <div class="skel-details">
+              <ion-skeleton-text
+                class="skel-number"
+                animated
+              ></ion-skeleton-text>
+              <ion-skeleton-text
+                class="skel-title"
+                animated
+                style="width: 60%"
+              ></ion-skeleton-text>
+              <ion-skeleton-text
+                class="skel-year"
+                animated
+              ></ion-skeleton-text>
+              <ion-skeleton-text
+                class="skel-stars"
+                animated
+              ></ion-skeleton-text>
             </div>
           </ion-item>
         </ion-list>
