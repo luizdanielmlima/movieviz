@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header class="header">
   <ion-toolbar color="secondary">
     <ion-buttons slot="start">
       <ion-back-button
@@ -10,8 +10,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="loadedActor">
-  <ion-segment [(ngModel)]="showMode" (ionChange)="onSegmentChange($event)">
+<ion-content *ngIf="loadedActor" class="content">
+  <ion-segment
+    [(ngModel)]="showMode"
+    (ionChange)="onSegmentChange($event)"
+    class="topmenu"
+  >
     <ion-segment-button value="main"
       ><ion-icon name="information-circle-outline"></ion-icon
     ></ion-segment-button>

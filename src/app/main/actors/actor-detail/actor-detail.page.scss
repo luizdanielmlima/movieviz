@@ -1,24 +1,35 @@
 @import "../../../../theme/variables.scss";
 
 ion-segment {
-  --indicator-color-checked: var(--ion-color-secondary);
+  --indicator-color: var(--ion-color-secondary);
   --color-checked: var(--ion-color-secondary);
+  --background-checked: var(--ion-color-secondary);
+
+  // --background: Background of the segment button
+  // --background-checked: Background of the checked segment button
+  // --background-disabled: Background of the disabled segment button
+  // --background-hover: Background of the segment button on hover
+
+  // --color: Color of the segment button
+  // --color-checked: Color of the checked segment button
+  // --color-disabled: Color of the disabled segment button
+  // --color-hover: Color of the segment button on hover
 }
 
-.ios {
-  ion-segment {
-    padding: 8px;
-    --indicator-color-checked: white;
-    --color-checked: white;
-    --color: var(--ion-color-secondary);
-    --background-checked: var(--ion-color-secondary);
-    --border-color: var(--ion-color-secondary);
-  }
+// .ios {
+//   ion-segment {
+//     padding: 8px;
+//     --indicator-color: white;
+//     --color-checked: white;
+//     --color: var(--ion-color-secondary);
+//     --background-checked: var(--ion-color-secondary);
+//     --border-color: var(--ion-color-secondary);
+//   }
 
-  ion-item {
-    padding: 10px;
-  }
-}
+//   ion-item {
+//     padding: 10px;
+//   }
+// }
 
 ion-thumbnail {
   width: 80px;
