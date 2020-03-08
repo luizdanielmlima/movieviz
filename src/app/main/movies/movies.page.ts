@@ -9,12 +9,12 @@ import { NavigationService } from 'src/app/shared/navigation.service';
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.page.html',
-  styleUrls: ['./movies.page.scss']
+  styleUrls: ['./movies.page.scss'],
 })
 export class MoviesPage implements OnInit {
   @ViewChild('f', { static: true }) form: NgForm;
   movies: Movie[];
-  movieYear = '2019-05-31T00:14:09.369Z';
+  movieYear: string;
   movieRatingPct: string;
   genre = 'all';
   sortBy = 'popularity.desc';
@@ -24,10 +24,11 @@ export class MoviesPage implements OnInit {
   constructor(
     private moviesService: MoviesService,
     private navigationService: NavigationService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
   ) {}
 
   ngOnInit() {
+    this.movieYear = new Date().toString();
     this.showMDBData();
   }
 
@@ -45,7 +46,7 @@ export class MoviesPage implements OnInit {
     this.moviesService.setCurrentMovieFilters(
       this.genre,
       this.sortBy,
-      this.movieYear
+      this.movieYear,
     );
     this.showMDBData();
   }
@@ -78,7 +79,9 @@ export class MoviesPage implements OnInit {
     } else {
       const baseURL = this.posterParams.baseURL;
       const size =
-        res === 'hi' ? this.posterParams.hiRes : this.posterParams.lowRes;
+        res === 'hi'
+          ? this.posterParams.hiRes
+          : this.posterParams.lowRes;
       fullImgPath = `${baseURL}/${size}${filePath}`;
     }
     // console.log(fullImgPath);
