@@ -30,7 +30,10 @@ export class MoviesPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    const curYear = new Date().getFullYear().toString();
+    console.log(curYear);
     this.filters = this.moviesService.getCurrentMovieFilters();
+    console.log(this.filters);
     this.showMDBData();
   }
 
