@@ -18,7 +18,7 @@ import { VideoplayerModalComponent } from 'src/app/shared/videoplayer-modal/vide
 @Component({
   selector: 'app-movie-detail',
   templateUrl: './movie-detail.page.html',
-  styleUrls: ['./movie-detail.page.scss']
+  styleUrls: ['./movie-detail.page.scss'],
 })
 export class MovieDetailPage implements OnInit {
   loadedMovie: Movie;
@@ -31,6 +31,7 @@ export class MovieDetailPage implements OnInit {
   movieTrailers: Trailer[];
   movieYear: string;
   showMode: string; // defines the information shown, when using the upper tabs
+  currentImgType: string;
   isLoading = false;
   genres: any;
   profileParams: any;
@@ -43,7 +44,7 @@ export class MovieDetailPage implements OnInit {
     private moviesService: MoviesService,
     private navigationService: NavigationService,
     private modalCtrl: ModalController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
   ) {}
 
   ngOnInit() {
@@ -135,9 +136,13 @@ export class MovieDetailPage implements OnInit {
     this.modalCtrl
       .create({
         component: ImageviewerModalComponent,
+        cssClass:
+          this.currentImgType === 'poster'
+            ? 'portrait-modal'
+            : 'landscape-modal',
         componentProps: {
-          fullPath: fullImgPath
-        }
+          fullPath: fullImgPath,
+        },
       })
       .then(modalEl => {
         modalEl.present();
@@ -149,8 +154,8 @@ export class MovieDetailPage implements OnInit {
       .create({
         component: VideoplayerModalComponent,
         componentProps: {
-          trailerID: trailerID
-        }
+          trailerID: trailerID,
+        },
       })
       .then(modalEl => {
         modalEl.present();
@@ -163,7 +168,7 @@ export class MovieDetailPage implements OnInit {
       .subscribe((movieCredits: any) => {
         this.movieCast = movieCredits.cast;
         this.movieCrew = movieCredits.crew.filter(
-          (crewMember, idx) => idx < 10 // just take the first 10 crew members, please
+          (crewMember, idx) => idx < 10, // just take the first 10 crew members, please
         );
         // console.table(this.movieCrew);
       });
@@ -175,7 +180,7 @@ export class MovieDetailPage implements OnInit {
       .subscribe((imgData: any) => {
         this.movieImages = imgData.backdrops;
         this.moviePosters = imgData.posters.filter(
-          poster => poster.iso_639_1 === 'en'
+          poster => poster.iso_639_1 === 'en',
         );
       });
   }
@@ -185,7 +190,7 @@ export class MovieDetailPage implements OnInit {
       .getMovieTrailers(this.loadedMovie.id)
       .subscribe((data: any) => {
         this.movieTrailers = data.results.filter(
-          trailer => trailer.type === 'Trailer'
+          trailer => trailer.type === 'Trailer',
         );
       });
   }
@@ -207,6 +212,9 @@ export class MovieDetailPage implements OnInit {
   }
 
   getFullImgPath(type: string, res: string, filePath: string) {
+    // Saving this so I can adjust modal ratio accordingly (poster = portrait...)
+    this.currentImgType = type;
+
     let fullImgPath: string;
     if (filePath === null) {
       fullImgPath = '../../../../assets/placeholder.png';
@@ -216,15 +224,21 @@ export class MovieDetailPage implements OnInit {
       if (type === 'profile') {
         baseURL = this.profileParams.baseURL;
         size =
-          res === 'hi' ? this.profileParams.hiRes : this.profileParams.lowRes;
+          res === 'hi'
+            ? this.profileParams.hiRes
+            : this.profileParams.lowRes;
       } else if (type === 'poster') {
         baseURL = this.posterParams.baseURL;
         size =
-          res === 'hi' ? this.posterParams.hiRes : this.posterParams.lowRes;
+          res === 'hi'
+            ? this.posterParams.hiRes
+            : this.posterParams.lowRes;
       } else if (type === 'backdrop') {
         baseURL = this.backdropParams.baseURL;
         size =
-          res === 'hi' ? this.backdropParams.hiRes : this.backdropParams.lowRes;
+          res === 'hi'
+            ? this.backdropParams.hiRes
+            : this.backdropParams.lowRes;
       }
       fullImgPath = `${baseURL}${size}${filePath}`;
     }

@@ -6,7 +6,7 @@ import { Image } from '../image.model';
 @Component({
   selector: 'app-imageviewer-modal',
   templateUrl: './imageviewer-modal.component.html',
-  styleUrls: ['./imageviewer-modal.component.scss']
+  styleUrls: ['./imageviewer-modal.component.scss'],
 })
 export class ImageviewerModalComponent implements OnInit {
   @Input() fullPath: string;
