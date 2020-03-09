@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { LoadingController } from '@ionic/angular';
 
 import { Movie } from '../../shared/movie.model';
+import { Filters } from 'src/app/shared/filters.model';
+
 import { MoviesService } from '../../shared/movies.service';
 import { NavigationService } from 'src/app/shared/navigation.service';
 
@@ -14,10 +16,10 @@ import { NavigationService } from 'src/app/shared/navigation.service';
 export class MoviesPage implements OnInit {
   @ViewChild('f', { static: true }) form: NgForm;
   movies: Movie[];
-  movieYear: string;
+
+  filters: Filters;
+
   movieRatingPct: string;
-  genre = 'all';
-  sortBy = 'popularity.desc';
   isLoading = false;
   posterParams: any;
 
@@ -28,25 +30,25 @@ export class MoviesPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.movieYear = new Date().toString();
+    this.filters = this.moviesService.getCurrentMovieFilters();
     this.showMDBData();
   }
 
   ionViewWillEnter() {
     const filterParams = this.moviesService.getCurrentMovieFilters();
-    this.genre = filterParams.genre; // but it keeps the last filters used (sortby and year)
+    this.filters.genre = filterParams.genre; // but it keeps the last filters used (sortby and year)
     this.showMDBData();
   }
 
   onSetFilters() {
-    this.genre = this.form.value['genre'];
-    this.sortBy = this.form.value['sortBy'];
-    this.movieYear = this.form.value['date-picker'];
-    // console.log(`movies.page|onSetFilters|${this.movieYear}`);
+    this.filters.genre = this.form.value['genre'];
+    this.filters.sortBy = this.form.value['sortBy'];
+    this.filters.year = this.form.value['date-picker'];
+    // console.log(`movies.page|onSetFilters|${this.year}`);
     this.moviesService.setCurrentMovieFilters(
-      this.genre,
-      this.sortBy,
-      this.movieYear,
+      this.filters.genre,
+      this.filters.sortBy,
+      this.filters.year,
     );
     this.showMDBData();
   }
@@ -60,6 +62,7 @@ export class MoviesPage implements OnInit {
         loadingEl.present();
         this.moviesService.getMDBMovies().subscribe((data: any) => {
           this.movies = data.results;
+          console.log(`showMDBData|this.movies`, this.movies);
           this.navigationService.setCurrentMovie('noMovieDataYet'); // resets current movie
           this.posterParams = this.moviesService.getPostersParams();
           this.isLoading = false;

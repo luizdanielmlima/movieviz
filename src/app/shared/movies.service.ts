@@ -4,62 +4,56 @@ import { HttpClient } from '@angular/common/http';
 import apiData from '../../assets/mdb-api-key.json';
 
 import { Movie } from './movie.model';
+import { Filters } from './filters.model.js';
 
 export interface ApiInfo {
   type: string;
   key: string;
 }
 
-export interface FilterParams {
-  genre: string;
-  sortBy: string;
-  year: string;
-}
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MoviesService {
   apiKey: string;
   extData: ApiInfo = apiData;
-  currentFilters: FilterParams = {
+  currentFilters: Filters = {
     genre: 'all',
     sortBy: 'popularity.desc',
-    year: '2019'
+    year: new Date().getFullYear().toString(),
   };
   imgConfig: any;
   baseURL: string;
-  movies: Movie[] = [
-    {
-      id: 'm1',
-      title: 'Avengers: End Game',
-      poster_path:
-        'https://image.tmdb.org/t/p/w600_and_h900_bestv2/or06FN3Dka5tukK1e9sl16pB3iy.jpg',
-      release_date: '2019',
-      vote_average: 8.3,
-      overview: 'Lorem ipsum '
-    },
-    {
-      id: 'm2',
-      title: 'Captain Marvel',
-      poster_path:
-        'https://image.tmdb.org/t/p/w600_and_h900_bestv2/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg',
-      release_date: '2019',
-      vote_average: 8.1,
-      overview: 'Lorem ipsum '
-    }
-  ];
+  // movies: Movie[] = [
+  //   {
+  //     id: 'm1',
+  //     title: 'Avengers: End Game',
+  //     poster_path:
+  //       'https://image.tmdb.org/t/p/w600_and_h900_bestv2/or06FN3Dka5tukK1e9sl16pB3iy.jpg',
+  //     release_date: '2019',
+  //     vote_average: 8.3,
+  //     overview: 'Lorem ipsum ',
+  //   },
+  //   {
+  //     id: 'm2',
+  //     title: 'Captain Marvel',
+  //     poster_path:
+  //       'https://image.tmdb.org/t/p/w600_and_h900_bestv2/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg',
+  //     release_date: '2019',
+  //     vote_average: 8.1,
+  //     overview: 'Lorem ipsum ',
+  //   },
+  // ];
 
   constructor(private http: HttpClient) {
     this.apiKey = this.extData.key;
+    console.log(this.currentFilters);
   }
 
   setMDBImgConfig() {
     this.http
       .get(
-        `https://api.themoviedb.org/3/configuration?api_key=${
-          this.apiKey
-        }&language=en-US`
+        `https://api.themoviedb.org/3/configuration?api_key=${this.apiKey}&language=en-US`,
       )
       .subscribe((config: any) => {
         this.imgConfig = config.images;
@@ -73,7 +67,7 @@ export class MoviesService {
     const posterParams = {
       baseURL: this.baseURL,
       hiRes: this.imgConfig.poster_sizes[5],
-      lowRes: this.imgConfig.poster_sizes[2]
+      lowRes: this.imgConfig.poster_sizes[2],
     };
     // console.log(posterParams);
     return posterParams;
@@ -83,7 +77,7 @@ export class MoviesService {
     const profileImgParams = {
       baseURL: this.baseURL,
       hiRes: this.imgConfig.profile_sizes[2],
-      lowRes: this.imgConfig.profile_sizes[1]
+      lowRes: this.imgConfig.profile_sizes[1],
     };
     // console.log(profileImgParams);
     return profileImgParams;
@@ -93,13 +87,17 @@ export class MoviesService {
     const backdropImgParams = {
       baseURL: this.baseURL,
       hiRes: this.imgConfig.backdrop_sizes[2],
-      lowRes: this.imgConfig.backdrop_sizes[0]
+      lowRes: this.imgConfig.backdrop_sizes[0],
     };
     // console.log(backdropImgParams);
     return backdropImgParams;
   }
 
-  setCurrentMovieFilters(genre: string, sortBy: string, year: string) {
+  setCurrentMovieFilters(
+    genre: string,
+    sortBy: string,
+    year: string,
+  ) {
     this.currentFilters = { genre, sortBy, year };
   }
 
@@ -107,7 +105,7 @@ export class MoviesService {
     this.currentFilters.genre = genre;
   }
 
-  getCurrentMovieFilters(): FilterParams {
+  getCurrentMovieFilters(): Filters {
     return this.currentFilters;
   }
 
@@ -130,9 +128,7 @@ export class MoviesService {
     const sortByQuery = `sort_by=${sortBy}`;
 
     return this.http.get(
-      `https://api.themoviedb.org/3/discover/movie?api_key=${
-        this.apiKey
-      }&language=en-US&${sortByQuery}&include_adult=false&include_video=false&page=1&${genreQuery}&${yearFromQuery}&${yearToQuery}`
+      `https://api.themoviedb.org/3/discover/movie?api_key=${this.apiKey}&language=en-US&${sortByQuery}&include_adult=false&include_video=false&page=1&${genreQuery}&${yearFromQuery}&${yearToQuery}`,
     );
   }
 
@@ -152,92 +148,74 @@ export class MoviesService {
     const sortByQuery = `sort_by=${sortBy}`;
 
     return this.http.get(
-      `https://api.themoviedb.org/3/discover/movie?api_key=${
-        this.apiKey
-      }&language=en-US&${sortByQuery}&include_adult=false&include_video=false&page=1&${genreQuery}&${yearFromQuery}&${yearToQuery}`
+      `https://api.themoviedb.org/3/discover/movie?api_key=${this.apiKey}&language=en-US&${sortByQuery}&include_adult=false&include_video=false&page=1&${genreQuery}&${yearFromQuery}&${yearToQuery}`,
     );
   }
 
   getMDBMovie(movieId: string) {
     return this.http.get(
-      `https://api.themoviedb.org/3/movie/${movieId}?api_key=${
-        this.apiKey
-      }&language=en-US`
+      `https://api.themoviedb.org/3/movie/${movieId}?api_key=${this.apiKey}&language=en-US`,
     );
   }
 
   getMovieCredits(movieId: string) {
     return this.http.get(
-      `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${
-        this.apiKey
-      }&language=en-US`
+      `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${this.apiKey}&language=en-US`,
     );
   }
 
   getMovieImages(movieId: string) {
     return this.http.get(
-      `https://api.themoviedb.org/3/movie/${movieId}/images?api_key=${
-        this.apiKey
-      }`
+      `https://api.themoviedb.org/3/movie/${movieId}/images?api_key=${this.apiKey}`,
     );
   }
 
   getMovieTrailers(movieId: string) {
     return this.http.get(
-      `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${
-        this.apiKey
-      }`
+      `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${this.apiKey}`,
     );
   }
 
   getGenres() {
     return this.http.get(
-      `https://api.themoviedb.org/3/genre/movie/list?api_key=${this.apiKey}`
+      `https://api.themoviedb.org/3/genre/movie/list?api_key=${this.apiKey}`,
     );
   }
 
   getActors() {
     return this.http.get(
-      `https://api.themoviedb.org/3/person/popular?api_key=${
-        this.apiKey
-      }&language=en-US`
+      `https://api.themoviedb.org/3/person/popular?api_key=${this.apiKey}&language=en-US`,
     );
   }
 
   getActor(actorId: string) {
     return this.http.get(
-      `https://api.themoviedb.org/3/person/${actorId}?api_key=${
-        this.apiKey
-      }&language=en-US`
+      `https://api.themoviedb.org/3/person/${actorId}?api_key=${this.apiKey}&language=en-US`,
     );
   }
 
   getActorMovies(actorId: string) {
     return this.http.get(
-      `https://api.themoviedb.org/3/person/${actorId}/movie_credits?api_key=${
-        this.apiKey
-      }&language=en-US`
+      `https://api.themoviedb.org/3/person/${actorId}/movie_credits?api_key=${this.apiKey}&language=en-US`,
     );
   }
 
   getActorImages(actorId: string) {
     return this.http.get(
-      `https://api.themoviedb.org/3/person/${actorId}/images?api_key=${
-        this.apiKey
-      }&language=en-US`
+      `https://api.themoviedb.org/3/person/${actorId}/images?api_key=${this.apiKey}&language=en-US`,
     );
   }
 
   // methods below are only for local data (testing)
-  getAllMovies() {
-    return [...this.movies];
-  }
+  // getAllMovies() {
+  //   return [...this.movies];
+  // }
 
-  getMovie(movieId: string) {
-    return {
-      ...this.movies.find(movie => {
-        return movie.id === movieId;
-      })
-    };
-  }
+  // getMovie(movieId: string) {
+  //   return {
+  //     ...this.movies.find(movie => {
+  //       return movie.id === movieId;
+  //     }),
+  //   };
+  // }
 }

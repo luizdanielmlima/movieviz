@@ -20,7 +20,7 @@
               <ion-col size="12" size-sm="4" size-md="12">
                 <ion-item>
                   <ion-label position="floating">Genre</ion-label>
-                  <ion-select [ngModel]="genre" name="genre">
+                  <ion-select [ngModel]="filters.genre" name="genre">
                     <ion-select-option value="all"
                       >All Genres</ion-select-option
                     >
@@ -82,7 +82,7 @@
                 <ion-item>
                   <ion-label position="floating">Order By:</ion-label>
                   <ion-select
-                    [ngModel]="'popularity.desc'"
+                    [ngModel]="filters.sortBy"
                     name="sortBy"
                   >
                     <ion-select-option value="popularity.desc"
@@ -106,10 +106,9 @@
                   <ion-datetime
                     display-format="YYYY"
                     picker-format="YYYY"
-                    [ngModel]="movieYear"
+                    [ngModel]="filters.year"
                     name="date-picker"
                     min="1900"
-                    max="2022"
                     required
                   ></ion-datetime>
                 </ion-item>
