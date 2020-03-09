@@ -136,10 +136,7 @@ export class MovieDetailPage implements OnInit {
     this.modalCtrl
       .create({
         component: ImageviewerModalComponent,
-        cssClass:
-          this.currentImgType === 'poster'
-            ? 'portrait-modal'
-            : 'landscape-modal',
+        cssClass: 'mediaviewer-modal',
         componentProps: {
           fullPath: fullImgPath,
         },

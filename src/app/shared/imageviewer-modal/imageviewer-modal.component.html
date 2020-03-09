@@ -9,18 +9,16 @@
   </ion-toolbar>
 </ion-header> -->
 
-<ion-content>
-  <div>
-    <figure>
-      <ion-chip color="dark" (click)="onCancel()">
-        <ion-label>CLOSE</ion-label>
-        <ion-icon name="close-circle"></ion-icon>
-      </ion-chip>
-      <img *ngIf="fullPath" [src]="fullPath" alt="gallery img" />
-      <div class="wait">
-        <p>LOADING</p>
-        <p>...</p>
-      </div>
-    </figure>
+<ion-content class="content">
+  <figure>
+    <ion-chip color="dark" (click)="onCancel()">
+      <ion-label>CLOSE</ion-label>
+      <ion-icon name="close-circle"></ion-icon>
+    </ion-chip>
+    <img *ngIf="fullPath" [src]="fullPath" alt="gallery img" />
+  </figure>
+  <div class="wait">
+    <p>LOADING</p>
+    <p>...</p>
   </div>
 </ion-content>

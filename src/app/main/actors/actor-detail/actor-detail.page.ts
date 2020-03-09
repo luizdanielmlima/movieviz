@@ -14,7 +14,7 @@ import { ImageviewerModalComponent } from 'src/app/shared/imageviewer-modal/imag
 @Component({
   selector: 'app-actor-detail',
   templateUrl: './actor-detail.page.html',
-  styleUrls: ['./actor-detail.page.scss']
+  styleUrls: ['./actor-detail.page.scss'],
 })
 export class ActorDetailPage implements OnInit {
   loadedActor: Cast;
@@ -32,7 +32,7 @@ export class ActorDetailPage implements OnInit {
     private moviesService: MoviesService,
     private navigationService: NavigationService,
     private modalCtrl: ModalController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
   ) {}
 
   ngOnInit() {
@@ -60,22 +60,24 @@ export class ActorDetailPage implements OnInit {
       .create({ keyboardClose: true, message: 'Loading Data..' })
       .then(loadingEl => {
         loadingEl.present();
-        this.moviesService.getActor(this.actorId).subscribe((actor: Cast) => {
-          this.loadedActor = actor;
-          this.showMode = 'main';
-          this.getActorFilmography();
-          this.getActorImages();
-          this.posterParams = this.moviesService.getPostersParams();
-          this.profileParams = this.moviesService.getProfileImgParams();
-          this.backdropParams = this.moviesService.getBackdropImgParams();
+        this.moviesService
+          .getActor(this.actorId)
+          .subscribe((actor: Cast) => {
+            this.loadedActor = actor;
+            this.showMode = 'main';
+            this.getActorFilmography();
+            this.getActorImages();
+            this.posterParams = this.moviesService.getPostersParams();
+            this.profileParams = this.moviesService.getProfileImgParams();
+            this.backdropParams = this.moviesService.getBackdropImgParams();
 
-          // sets the active segment, so when navigating back from Actors content, it shows the last segment visited
-          this.showMode = this.navigationService.getActorNavMode();
+            // sets the active segment, so when navigating back from Actors content, it shows the last segment visited
+            this.showMode = this.navigationService.getActorNavMode();
 
-          // hides loader
-          this.isLoading = false;
-          loadingEl.dismiss();
-        });
+            // hides loader
+            this.isLoading = false;
+            loadingEl.dismiss();
+          });
       });
   }
 
@@ -84,9 +86,11 @@ export class ActorDetailPage implements OnInit {
   }
 
   getActorImages() {
-    this.moviesService.getActorImages(this.actorId).subscribe((images: any) => {
-      this.actorImages = images.profiles;
-    });
+    this.moviesService
+      .getActorImages(this.actorId)
+      .subscribe((images: any) => {
+        this.actorImages = images.profiles;
+      });
   }
 
   getActorFilmography() {
@@ -98,7 +102,8 @@ export class ActorDetailPage implements OnInit {
           .filter(item => item.poster_path !== null)
           .sort((a, b) => {
             return (
-              this.dateToNum(a.release_date) - this.dateToNum(b.release_date)
+              this.dateToNum(a.release_date) -
+              this.dateToNum(b.release_date)
             );
           })
           .reverse();
@@ -110,9 +115,10 @@ export class ActorDetailPage implements OnInit {
     this.modalCtrl
       .create({
         component: ImageviewerModalComponent,
+        cssClass: 'mediaviewer-modal',
         componentProps: {
-          fullPath: fullImgPath
-        }
+          fullPath: fullImgPath,
+        },
       })
       .then(modalEl => {
         modalEl.present();
@@ -150,15 +156,21 @@ export class ActorDetailPage implements OnInit {
       if (type === 'profile') {
         baseURL = this.profileParams.baseURL;
         size =
-          res === 'hi' ? this.profileParams.hiRes : this.profileParams.lowRes;
+          res === 'hi'
+            ? this.profileParams.hiRes
+            : this.profileParams.lowRes;
       } else if (type === 'poster') {
         baseURL = this.posterParams.baseURL;
         size =
-          res === 'hi' ? this.posterParams.hiRes : this.posterParams.lowRes;
+          res === 'hi'
+            ? this.posterParams.hiRes
+            : this.posterParams.lowRes;
       } else if (type === 'backdrop') {
         baseURL = this.backdropParams.baseURL;
         size =
-          res === 'hi' ? this.backdropParams.hiRes : this.backdropParams.lowRes;
+          res === 'hi'
+            ? this.backdropParams.hiRes
+            : this.backdropParams.lowRes;
       }
       fullImgPath = `${baseURL}${size}${filePath}`;
     }
