@@ -24,7 +24,6 @@ coverage/
 www/
 node_modules/
 design/
-src
 tmp/
 temp/
 platforms/
