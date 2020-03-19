@@ -1,13 +1,20 @@
 <ion-tabs>
   <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="movies" selected (click)="onTabClicked('movies')">
-      <!-- <ion-icon name="film"></ion-icon> -->
+    <ion-tab-button
+      tab="movies"
+      selected
+      (click)="onTabClicked('movies')"
+    >
       <ion-label>MOVIES</ion-label>
     </ion-tab-button>
-    <ion-note>&</ion-note>
     <ion-tab-button tab="actors" (click)="onTabClicked('actors')">
-      <!-- <ion-icon name="people"></ion-icon> -->
       <ion-label>ACTORS</ion-label>
+    </ion-tab-button>
+    <ion-tab-button
+      tab="watchlist"
+      (click)="onTabClicked('watchlist')"
+    >
+      <ion-label>WATCHLIST</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>

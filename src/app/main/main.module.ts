@@ -15,43 +15,60 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: 'movies',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'movies',
         children: [
           {
             path: '',
-            loadChildren: () => import('./movies/movies.module').then(m => m.MoviesPageModule)
+            loadChildren: () =>
+              import('./movies/movies.module').then(
+                m => m.MoviesPageModule,
+              ),
           },
           {
             path: ':movieId',
-            loadChildren:
-              () => import('./movies/movie-detail/movie-detail.module').then(m => m.MovieDetailPageModule)
-          }
-        ]
+            loadChildren: () =>
+              import(
+                './movies/movie-detail/movie-detail.module'
+              ).then(m => m.MovieDetailPageModule),
+          },
+        ],
       },
       {
         path: 'actors',
         children: [
           {
             path: '',
-            loadChildren: () => import('./actors/actors.module').then(m => m.ActorsPageModule)
+            loadChildren: () =>
+              import('./actors/actors.module').then(
+                m => m.ActorsPageModule,
+              ),
           },
           {
             path: ':actorId',
-            loadChildren:
-              () => import('./actors/actor-detail/actor-detail.module').then(m => m.ActorDetailPageModule)
-          }
-        ]
-      }
-    ]
+            loadChildren: () =>
+              import(
+                './actors/actor-detail/actor-detail.module'
+              ).then(m => m.ActorDetailPageModule),
+          },
+        ],
+      },
+      {
+        path: 'watchlist',
+        loadChildren: () =>
+          import('./watchlist/watchlist.module').then(
+            m => m.WatchlistPageModule,
+          ),
+      },
+    ],
   },
   {
     path: '',
     redirectTo: 'tabs',
-    pathMatch: 'full'
-  }
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
@@ -59,8 +76,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
-  declarations: [MainPage]
+  declarations: [MainPage],
 })
 export class MainPageModule {}

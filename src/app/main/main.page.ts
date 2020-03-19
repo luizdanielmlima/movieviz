@@ -6,7 +6,7 @@ import { MoviesService } from '../shared/movies.service';
 @Component({
   selector: 'app-main',
   templateUrl: './main.page.html',
-  styleUrls: ['./main.page.scss']
+  styleUrls: ['./main.page.scss'],
 })
 export class MainPage implements OnInit {
   activeTab = 'movies';
@@ -14,7 +14,7 @@ export class MainPage implements OnInit {
 
   constructor(
     private navigationService: NavigationService,
-    private moviesService: MoviesService
+    private moviesService: MoviesService,
   ) {}
 
   ngOnInit() {
@@ -30,6 +30,8 @@ export class MainPage implements OnInit {
         this.navigationService.setCurrentMovie('noMovieDataYet');
       } else if (whichTab === 'actors') {
         this.navigationService.setCurrentActor('noActorDataYet');
+      } else if (whichTab === 'watchlist') {
+        // nothing here... for now
       }
     }
     this.activeTab = whichTab;
