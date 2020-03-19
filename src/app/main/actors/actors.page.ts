@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { LoadingController } from '@ionic/angular';
 
-import { MoviesService } from 'src/app/shared/movies.service';
+import { MoviesService } from 'src/app/services/movies.service';
 import { NavigationService } from 'src/app/shared/navigation.service';
 import { Cast } from 'src/app/models/cast.model';
 

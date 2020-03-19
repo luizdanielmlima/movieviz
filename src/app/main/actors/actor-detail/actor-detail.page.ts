@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SegmentChangeEventDetail } from '@ionic/core';
 import { ModalController, LoadingController } from '@ionic/angular';
 
-import { MoviesService } from '../../../shared/movies.service';
+import { MoviesService } from '../../../services/movies.service';
 import { NavigationService } from 'src/app/shared/navigation.service';
 import { Movie } from '../../../models/movie.model';
 import { Cast } from 'src/app/models/cast.model';
