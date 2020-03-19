@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { ModalController } from '@ionic/angular';
-import { Image } from '../image.model';
+import { Image } from '../../models/image.model';
 
 @Component({
   selector: 'app-imageviewer-modal',

@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 
 import apiData from '../../assets/mdb-api-key.json';
 
-import { Movie } from './movie.model';
-import { Filters } from './filters.model.js';
+import { Movie } from '../models/movie.model';
+import { Filters } from '../models/filters.model.js';
 
 export interface ApiInfo {
   type: string;

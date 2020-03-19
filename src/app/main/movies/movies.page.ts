@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { LoadingController } from '@ionic/angular';
 
-import { Movie } from '../../shared/movie.model';
-import { Filters } from 'src/app/shared/filters.model';
+import { Movie } from '../../models/movie.model';
+import { Filters } from 'src/app/models/filters.model';
 
 import { MoviesService } from '../../shared/movies.service';
 import { NavigationService } from 'src/app/shared/navigation.service';

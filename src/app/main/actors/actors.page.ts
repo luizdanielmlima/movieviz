@@ -4,12 +4,12 @@ import { LoadingController } from '@ionic/angular';
 
 import { MoviesService } from 'src/app/shared/movies.service';
 import { NavigationService } from 'src/app/shared/navigation.service';
-import { Cast } from 'src/app/shared/cast.model';
+import { Cast } from 'src/app/models/cast.model';
 
 @Component({
   selector: 'app-actors',
   templateUrl: './actors.page.html',
-  styleUrls: ['./actors.page.scss']
+  styleUrls: ['./actors.page.scss'],
 })
 export class ActorsPage implements OnInit {
   actors: Cast[];
@@ -19,7 +19,7 @@ export class ActorsPage implements OnInit {
   constructor(
     private moviesService: MoviesService,
     private loadingCtrl: LoadingController,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
   ) {}
 
   ngOnInit() {
@@ -47,7 +47,9 @@ export class ActorsPage implements OnInit {
   // I created this function to filter out the TV series
   // it was generating erros when trying to display it below the actor´s name
   getKnownMoviesOnly(actor: Cast) {
-    return actor.known_for.filter(item => item.media_type === 'movie');
+    return actor.known_for.filter(
+      item => item.media_type === 'movie',
+    );
   }
 
   getFullImgPath(type: string, res: string, filePath: string) {

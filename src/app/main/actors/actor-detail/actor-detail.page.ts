@@ -6,9 +6,9 @@ import { ModalController, LoadingController } from '@ionic/angular';
 
 import { MoviesService } from '../../../shared/movies.service';
 import { NavigationService } from 'src/app/shared/navigation.service';
-import { Movie } from '../../../shared/movie.model';
-import { Cast } from 'src/app/shared/cast.model';
-import { Image } from 'src/app/shared/image.model';
+import { Movie } from '../../../models/movie.model';
+import { Cast } from 'src/app/models/cast.model';
+import { Image } from 'src/app/models/image.model';
 import { ImageviewerModalComponent } from 'src/app/shared/imageviewer-modal/imageviewer-modal.component';
 
 @Component({
