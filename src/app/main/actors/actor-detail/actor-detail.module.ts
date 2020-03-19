@@ -6,14 +6,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ActorDetailPage } from './actor-detail.page';
-import { ImageviewerModalComponent } from 'src/app/shared/imageviewer-modal/imageviewer-modal.component';
+import { ImageviewerModalComponent } from 'src/app/components/imageviewer-modal/imageviewer-modal.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: ActorDetailPage
-  }
+    component: ActorDetailPage,
+  },
 ];
 
 @NgModule({
@@ -22,8 +22,8 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    SharedModule
+    SharedModule,
   ],
-  declarations: [ActorDetailPage]
+  declarations: [ActorDetailPage],
 })
 export class ActorDetailPageModule {}

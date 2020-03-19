@@ -12,8 +12,8 @@ import { Crew } from 'src/app/models/crew.model';
 import { Image } from 'src/app/models/image.model';
 import { Trailer } from 'src/app/models/trailer.model';
 
-import { ImageviewerModalComponent } from 'src/app/shared/imageviewer-modal/imageviewer-modal.component';
-import { VideoplayerModalComponent } from 'src/app/shared/videoplayer-modal/videoplayer-modal.component';
+import { ImageviewerModalComponent } from 'src/app/components/imageviewer-modal/imageviewer-modal.component';
+import { VideoplayerModalComponent } from 'src/app/components/videoplayer-modal/videoplayer-modal.component';
 
 @Component({
   selector: 'app-movie-detail',

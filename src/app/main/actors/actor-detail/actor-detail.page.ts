@@ -9,7 +9,7 @@ import { NavigationService } from 'src/app/services/navigation.service';
 import { Movie } from '../../../models/movie.model';
 import { Cast } from 'src/app/models/cast.model';
 import { Image } from 'src/app/models/image.model';
-import { ImageviewerModalComponent } from 'src/app/shared/imageviewer-modal/imageviewer-modal.component';
+import { ImageviewerModalComponent } from 'src/app/components/imageviewer-modal/imageviewer-modal.component';
 
 @Component({
   selector: 'app-actor-detail',
