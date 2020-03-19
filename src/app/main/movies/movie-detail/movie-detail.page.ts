@@ -5,7 +5,7 @@ import { SegmentChangeEventDetail } from '@ionic/core';
 import { ModalController, LoadingController } from '@ionic/angular';
 
 import { MoviesService } from '../../../services/movies.service';
-import { NavigationService } from 'src/app/shared/navigation.service';
+import { NavigationService } from 'src/app/services/navigation.service';
 import { Movie } from '../../../models/movie.model';
 import { Cast } from 'src/app/models/cast.model';
 import { Crew } from 'src/app/models/crew.model';
