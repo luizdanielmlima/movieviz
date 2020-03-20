@@ -21,3 +21,35 @@
     </div>
   </ion-item>
 </ion-list>
+
+<!-- PLACEHOLDERS - SKELETON TEXT -->
+<ion-list class="skel-list" *ngIf="!movies" lines="none">
+  <ion-item
+    class="skel-item"
+    *ngFor="let movie of [1, 2, 3, 4, 5, 6, 7, 8]; let i = index"
+  >
+    <ion-skeleton-text
+      class="skel-thumb"
+      animated
+    ></ion-skeleton-text>
+    <div class="skel-details">
+      <ion-skeleton-text
+        class="skel-number"
+        animated
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        class="skel-title"
+        animated
+        style="width: 60%"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        class="skel-year"
+        animated
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        class="skel-stars"
+        animated
+      ></ion-skeleton-text>
+    </div>
+  </ion-item>
+</ion-list>

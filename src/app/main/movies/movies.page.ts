@@ -72,33 +72,4 @@ export class MoviesPage implements OnInit {
         });
       });
   }
-
-  getMovieRatingPct(movie: Movie) {
-    return (this.movieRatingPct = movie.vote_average * 10 + '%');
-  }
-
-  getFullImgPath(type: string, res: string, filePath: string) {
-    let fullImgPath: string;
-    if (filePath === null) {
-      fullImgPath = '../../../../assets/placeholder.png';
-    } else {
-      const baseURL = this.posterParams.baseURL;
-      const size =
-        res === 'hi'
-          ? this.posterParams.hiRes
-          : this.posterParams.lowRes;
-      fullImgPath = `${baseURL}/${size}${filePath}`;
-    }
-    // console.log(fullImgPath);
-    return fullImgPath;
-  }
-
-  getYear(fullDate: string) {
-    if (fullDate) {
-      const movieYear = fullDate.substring(0, 4);
-      return movieYear;
-    } else {
-      return '';
-    }
-  }
 }
