@@ -7,6 +7,7 @@ import { Filters } from 'src/app/models/filters.model';
 
 import { MoviesService } from '../../services/movies.service';
 import { NavigationService } from 'src/app/services/navigation.service';
+import { MovieListComponent } from 'src/app/components/movie-list/movie-list.component';
 
 @Component({
   selector: 'app-movies',

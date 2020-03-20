@@ -11,8 +11,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 const routes: Routes = [
   {
     path: '',
-    component: MovieDetailPage
-  }
+    component: MovieDetailPage,
+  },
 ];
 
 @NgModule({
@@ -21,8 +21,8 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    SharedModule
+    SharedModule,
   ],
-  declarations: [MovieDetailPage]
+  declarations: [MovieDetailPage],
 })
 export class MovieDetailPageModule {}

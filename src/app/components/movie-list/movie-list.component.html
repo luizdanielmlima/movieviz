@@ -1,0 +1,23 @@
+<ion-list class="movie-list" *ngIf="movies" lines="none">
+  <ion-item
+    class="movie-info-area ion-no-padding"
+    *ngFor="let movie of movies; let i = index"
+    (click)="goToMoviePage(movie.id)"
+  >
+    <ion-thumbnail slot="start" size="300">
+      <ion-img
+        [src]="
+          this.getFullImgPath('poster', 'low', movie.poster_path)
+        "
+      ></ion-img>
+    </ion-thumbnail>
+    <div class="movie-text-items">
+      <p>{{ i + 1 }}</p>
+      <p class="title">{{ movie.title }}</p>
+      <ion-note>{{ getYear(movie.release_date) }}</ion-note>
+      <div class="star-rating">
+        <span [style.width]="getMovieRatingPct(movie)"></span>
+      </div>
+    </div>
+  </ion-item>
+</ion-list>

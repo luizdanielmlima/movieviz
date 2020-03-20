@@ -133,27 +133,11 @@
         </form>
       </ion-col>
       <ion-col size="12" size-md="8">
-        <ion-list class="movie-list" *ngIf="movies" lines="none">
-          <ion-item
-            class="movie-info-area ion-no-padding"
-            *ngFor="let movie of movies; let i = index"
-            [routerLink]="['/main/tabs/movies', movie.id]"
-          >
-            <ion-thumbnail slot="start" size="300">
-              <ion-img
-                [src]="this.getFullImgPath('poster', 'low', movie.poster_path)"
-              ></ion-img>
-            </ion-thumbnail>
-            <div class="movie-text-items">
-              <p>{{ i + 1 }}</p>
-              <p class="title">{{ movie.title }}</p>
-              <ion-note>{{ getYear(movie.release_date) }}</ion-note>
-              <div class="star-rating">
-                <span [style.width]="getMovieRatingPct(movie)"></span>
-              </div>
-            </div>
-          </ion-item>
-        </ion-list>
+        <!-- MOVIES LIST !!! -->
+        <app-movie-list
+          [movies]="movies"
+          [posterParams]="posterParams"
+        ></app-movie-list>
 
         <!-- PLACEHOLDERS - SKELETON TEXT -->
         <ion-list class="skel-list" *ngIf="!movies" lines="none">
