@@ -30,11 +30,10 @@ export class WatchlistPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    const filterParams = this.moviesService.getCurrentMovieFilters();
-    this.filters.genre = filterParams.genre; // but it keeps the last filters used (sortby and year)
+    this.filters.genre = 'all';
     this.posterParams = this.moviesService.getPostersParams();
     this.watchlist = this.watchlistService.getMovieFavs();
-    console.log('watchlist: ', this.watchlist);
+    // console.log('watchlist: ', this.watchlist);
     this.filteredWatchlist = [...this.watchlist];
   }
 
