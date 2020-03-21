@@ -27,6 +27,10 @@ export class WatchlistPage implements OnInit {
   ngOnInit() {
     this.filters = this.moviesService.getCurrentMovieFilters();
     this.genres = this.moviesService.getMainGenres();
+    this.watchlistService.currentFavData.subscribe(data => {
+      this.filteredWatchlist = [...this.watchlist];
+      this.filterWatchlist();
+    });
   }
 
   ionViewWillEnter() {
@@ -37,7 +41,7 @@ export class WatchlistPage implements OnInit {
     this.filteredWatchlist = [...this.watchlist];
   }
 
-  onSetFilters() {
+  filterWatchlist() {
     this.filteredWatchlist = [];
     this.filters.genre = this.form.value['genre'];
 
