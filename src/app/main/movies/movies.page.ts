@@ -17,8 +17,8 @@ import { MovieListComponent } from 'src/app/components/movie-list/movie-list.com
 export class MoviesPage implements OnInit {
   @ViewChild('f', { static: true }) form: NgForm;
   movies: Movie[];
-
   filters: Filters;
+  genres: any[];
 
   movieRatingPct: string;
   isLoading = false;
@@ -33,6 +33,7 @@ export class MoviesPage implements OnInit {
   ngOnInit() {
     const curYear = new Date().getFullYear().toString();
     this.filters = this.moviesService.getCurrentMovieFilters();
+    this.genres = this.moviesService.getMainGenres();
     this.showMDBData();
   }
 

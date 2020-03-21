@@ -21,59 +21,10 @@
                 <ion-item>
                   <ion-label position="floating">Genre</ion-label>
                   <ion-select [ngModel]="filters.genre" name="genre">
-                    <ion-select-option value="all"
-                      >All Genres</ion-select-option
-                    >
-                    <ion-select-option value="28"
-                      >Action</ion-select-option
-                    >
-                    <ion-select-option value="12"
-                      >Adventure</ion-select-option
-                    >
-                    <ion-select-option value="16"
-                      >Animation</ion-select-option
-                    >
-                    <ion-select-option value="35"
-                      >Comedy</ion-select-option
-                    >
-                    <ion-select-option value="80"
-                      >Crime</ion-select-option
-                    >
-                    <ion-select-option value="99"
-                      >Documentary</ion-select-option
-                    >
-                    <ion-select-option value="18"
-                      >Drama</ion-select-option
-                    >
-                    <ion-select-option value="10751"
-                      >Family</ion-select-option
-                    >
-                    <ion-select-option value="14"
-                      >Fantasy</ion-select-option
-                    >
-                    <ion-select-option value="36"
-                      >History</ion-select-option
-                    >
-                    <ion-select-option value="27"
-                      >Horror</ion-select-option
-                    >
-                    <ion-select-option value="9648"
-                      >Mistery</ion-select-option
-                    >
-                    <ion-select-option value="10402"
-                      >Music</ion-select-option
-                    >
-                    <ion-select-option value="10749"
-                      >Romance</ion-select-option
-                    >
-                    <ion-select-option value="878"
-                      >Sci-Fi</ion-select-option
-                    >
-                    <ion-select-option value="53"
-                      >Thriller</ion-select-option
-                    >
-                    <ion-select-option value="37"
-                      >Western</ion-select-option
+                    <ion-select-option
+                      *ngFor="let genre of genres"
+                      [value]="genre.id"
+                      >{{ genre.name }}</ion-select-option
                     >
                   </ion-select>
                 </ion-item>

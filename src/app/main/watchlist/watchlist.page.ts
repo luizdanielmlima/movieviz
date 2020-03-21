@@ -15,6 +15,7 @@ export class WatchlistPage implements OnInit {
   @ViewChild('f', { static: true }) form: NgForm;
   watchlist: Movie[];
   filteredWatchlist: Movie[];
+  genres: any[];
   posterParams: any;
   filters: Filters;
 
@@ -25,6 +26,7 @@ export class WatchlistPage implements OnInit {
 
   ngOnInit() {
     this.filters = this.moviesService.getCurrentMovieFilters();
+    this.genres = this.moviesService.getMainGenres();
   }
 
   ionViewWillEnter() {
