@@ -70,7 +70,7 @@ export class MoviesService {
       hiRes: this.imgConfig.poster_sizes[5],
       lowRes: this.imgConfig.poster_sizes[2],
     };
-    console.log(posterParams);
+    // console.log(posterParams);
     return posterParams;
   }
 
