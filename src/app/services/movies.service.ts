@@ -47,10 +47,11 @@ export class MoviesService {
 
   constructor(private http: HttpClient) {
     this.apiKey = this.extData.key;
-    console.log(this.currentFilters);
+    // console.log(this.currentFilters);
   }
 
   setMDBImgConfig() {
+    console.log(this.currentFilters);
     this.http
       .get(
         `https://api.themoviedb.org/3/configuration?api_key=${this.apiKey}&language=en-US`,
@@ -69,7 +70,7 @@ export class MoviesService {
       hiRes: this.imgConfig.poster_sizes[5],
       lowRes: this.imgConfig.poster_sizes[2],
     };
-    // console.log(posterParams);
+    console.log(posterParams);
     return posterParams;
   }
 
