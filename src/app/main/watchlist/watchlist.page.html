@@ -4,4 +4,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content>
+  <app-movie-list
+    [movies]="watchlist"
+    [posterParams]="posterParams"
+  ></app-movie-list>
+</ion-content>

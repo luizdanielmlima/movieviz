@@ -1,0 +1,10 @@
+<div
+  (click)="setFav()"
+  *ngIf="mode === 'compact'"
+  [ngClass]="{
+    'fav-btn-bg': true,
+    'fav-btn-bg-on': isFav()
+  }"
+>
+  <ion-icon class="fav-btn-icon" name="heart"></ion-icon>
+</div>

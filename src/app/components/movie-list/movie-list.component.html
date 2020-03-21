@@ -1,8 +1,7 @@
-<ion-list class="movie-list" *ngIf="movies" lines="none">
+<!-- <ion-list class="movie-list" *ngIf="movies" lines="none">
   <ion-item
     class="movie-info-area ion-no-padding"
     *ngFor="let movie of movies; let i = index"
-    (click)="goToMoviePage(movie.id)"
   >
     <ion-thumbnail slot="start" size="300">
       <ion-img
@@ -19,6 +18,44 @@
         <span [style.width]="getMovieRatingPct(movie)"></span>
       </div>
     </div>
+    <app-watchlist-btn class="fav-btn" [movie]="movie"  [mode]="'compact'">
+    </app-watchlist-btn>
+  </ion-item>
+</ion-list> -->
+
+<ion-list class="movie-list" *ngIf="movies" lines="none">
+  <ion-item
+    class="ion-no-padding movie-info-area"
+    *ngFor="let movie of movies; let i = index"
+  >
+    <ion-thumbnail
+      slot="start"
+      size="300"
+      (click)="goToMoviePage(movie.id)"
+    >
+      <ion-img
+        [src]="
+          this.getFullImgPath('poster', 'low', movie.poster_path)
+        "
+      ></ion-img>
+    </ion-thumbnail>
+
+    <div class="movie-text-items">
+      <p>{{ i + 1 }}</p>
+      <p class="title" (click)="goToMoviePage(movie.id)">
+        {{ movie.title }}
+      </p>
+      <ion-note>{{ getYear(movie.release_date) }}</ion-note>
+      <div class="star-rating">
+        <span [style.width]="getMovieRatingPct(movie)"></span>
+      </div>
+    </div>
+    <app-watchlist-btn
+      class="fav-btn"
+      [movie]="movie"
+      [mode]="'compact'"
+    >
+    </app-watchlist-btn>
   </ion-item>
 </ion-list>
 

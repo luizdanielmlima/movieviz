@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { WatchlistPageRoutingModule } from './watchlist-routing.module';
 
 import { WatchlistPage } from './watchlist.page';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    WatchlistPageRoutingModule
+    WatchlistPageRoutingModule,
+    SharedModule,
   ],
-  declarations: [WatchlistPage]
+  declarations: [WatchlistPage],
 })
 export class WatchlistPageModule {}

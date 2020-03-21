@@ -2,10 +2,10 @@
 // http://ionicframework.com/docs/theming/
 
 /** Ionic CSS Variables **/
-@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap');
 
 :root {
-  --ion-font-family: "Montserrat", sans-serif;
+  --ion-font-family: 'Montserrat', sans-serif;
   --ion-color-primary: #92d5e6;
   --ion-color-primary-rgb: 146, 213, 230;
   --ion-color-primary-contrast: #000000;
@@ -69,3 +69,50 @@
   --ion-color-light-shade: #a9bcc4;
   --ion-color-light-tint: #c6dae2;
 }
+
+// App Mixins
+// ----------------------------------------------------------------------------
+@mixin prefix(
+  $property,
+  $value,
+  $vendors: webkit moz ms o,
+  $default: true
+) {
+  @if $vendors {
+    @each $vendor in $vendors {
+      #{"-" + $vendor + "-" + $property}: #{$value};
+    }
+  }
+  @if $default {
+    #{$property}: #{$value};
+  }
+}
+
+@mixin centerH {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  @include prefix(transform, translate(-50%, 0), 'webkit' 'ms');
+}
+
+@mixin centerV {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  @include prefix(transform, translate(-50%, 0), 'webkit' 'ms');
+}
+
+@mixin centerAll {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  @include prefix(transform, translate(-50%, -50%), 'webkit' 'ms');
+}
+
+// App Variables
+// ----------------------------------------------------------------------------
+$card-radius: 8px;
+$card-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+  0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+  0px 1px 5px 0px rgba(0, 0, 0, 0.12);

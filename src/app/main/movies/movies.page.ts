@@ -64,7 +64,7 @@ export class MoviesPage implements OnInit {
         loadingEl.present();
         this.moviesService.getMDBMovies().subscribe((data: any) => {
           this.movies = data.results;
-          console.log(`showMDBData|this.movies`, this.movies);
+          // console.log(`showMDBData|this.movies`, this.movies);
           this.navigationService.setCurrentMovie('noMovieDataYet'); // resets current movie
           this.posterParams = this.moviesService.getPostersParams();
           this.isLoading = false;

@@ -6,6 +6,7 @@ import { ImageviewerModalComponent } from '../components/imageviewer-modal/image
 import { VideoplayerModalComponent } from '../components/videoplayer-modal/videoplayer-modal.component';
 import { YoutubePipe } from './youtube.pipe';
 import { MovieListComponent } from '../components/movie-list/movie-list.component';
+import { WatchlistBtnComponent } from '../components/watchlist-btn/watchlist-btn.component';
 
 @NgModule({
   imports: [CommonModule, IonicModule],
@@ -13,9 +14,10 @@ import { MovieListComponent } from '../components/movie-list/movie-list.componen
     ImageviewerModalComponent,
     VideoplayerModalComponent,
     MovieListComponent,
+    WatchlistBtnComponent,
     YoutubePipe,
   ],
-  exports: [MovieListComponent],
+  exports: [MovieListComponent, WatchlistBtnComponent],
   entryComponents: [
     ImageviewerModalComponent,
     VideoplayerModalComponent,

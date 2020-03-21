@@ -1,4 +1,79 @@
+@import '../../../theme/variables.scss';
+
 .movie-list {
+  ion-item {
+    position: relative;
+    margin: 8px 12px 16px 12px;
+    border-radius: $card-radius;
+    // border: 1px solid #eee;
+    box-shadow: $card-shadow;
+    --background: linear-gradient(to right bottom, #eee, #fff);
+
+    ion-thumbnail {
+      margin: 0;
+      padding: 0;
+      width: 100px;
+      height: 150px;
+      // border: 1px solid blueviolet;
+      border-radius: $card-radius;
+      cursor: pointer;
+    }
+
+    ion-img {
+      border-radius: 10px;
+      box-shadow: 1px 1px 1px rgba(30, 30, 30, 0.3);
+    }
+
+    p {
+      padding: 0;
+      margin: 0;
+    }
+
+    .movie-text-items {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      margin-left: 16px;
+      // border: 1px solid red;
+
+      ion-icon {
+        // font-size: 16px;
+        margin: 0 0 16px 0;
+        cursor: pointer;
+      }
+
+      p:first-child {
+        // background-color: #555;
+        text-align: center;
+        width: 2rem;
+        padding: 4px;
+        margin-bottom: 16px;
+        border: 1px solid #666;
+        border-radius: 8px;
+        color: #444;
+      }
+
+      .title {
+        color: var(--ion-color-primary);
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      p:last-child {
+        font-size: 0.8rem;
+      }
+    }
+
+    .fav-btn {
+      position: absolute;
+      top: 0;
+      right: 10px;
+    }
+  }
+}
+
+.movie-listOLD {
   ion-item {
     margin: 8px 12px 16px 12px;
     border-radius: 10px;

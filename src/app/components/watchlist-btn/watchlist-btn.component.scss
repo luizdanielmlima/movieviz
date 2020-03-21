@@ -1,0 +1,42 @@
+@import '../../../theme/variables.scss';
+
+.fav-btn-bg {
+  position: relative;
+  background-color: var(--ion-color-dark) !important;
+  opacity: 0.85;
+  cursor: pointer;
+  height: 36px;
+  width: 36px;
+  box-shadow: 1px 1px 1px rgba(30, 30, 30, 0.3);
+  border-bottom-left-radius: $card-radius;
+  border-bottom-right-radius: $card-radius;
+  transition: opacity 2s;
+}
+
+.fav-btn-bg-on {
+  background-color: var(--ion-color-secondary) !important;
+  opacity: 1;
+}
+
+.fav-btn-full-bg {
+  position: relative;
+  margin: 16px auto;
+  width: 200px;
+  --background: white;
+  opacity: 0.9;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px rgba(30, 30, 30, 0.3);
+  border-bottom-left-radius: $card-radius;
+  border-bottom-right-radius: $card-radius;
+  transition: opacity 1s;
+}
+
+.fav-btn-full-bg-on {
+  --background: var(--ion-color-secondary) !important;
+  opacity: 1;
+}
+
+.fav-btn-icon {
+  @include centerAll();
+  color: white;
+}
