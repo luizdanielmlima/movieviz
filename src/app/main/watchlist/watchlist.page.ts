@@ -27,6 +27,8 @@ export class WatchlistPage implements OnInit {
   ngOnInit() {
     this.filters = this.moviesService.getCurrentMovieFilters();
     this.genres = this.moviesService.getMainGenres();
+
+    // This updates the watchlist when user adds/removes a movie by clicking the cover icon
     this.watchlistService.currentFavData.subscribe(data => {
       this.filteredWatchlist = [...this.watchlist];
       this.filterWatchlist();

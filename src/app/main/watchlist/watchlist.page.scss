@@ -1,7 +1,17 @@
+@import '../../../theme/variables.scss';
+
 .app-logo {
   position: absolute;
   top: 16px;
   left: 12px;
   max-height: 22px;
   fill: white;
+}
+
+.notfound {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  text-align: center;
+  color: var(--ion-color-medium-shade);
 }

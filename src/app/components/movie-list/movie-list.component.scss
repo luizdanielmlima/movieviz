@@ -7,7 +7,7 @@
     border-radius: $card-radius;
     // border: 1px solid #eee;
     box-shadow: $card-shadow;
-    --background: linear-gradient(to right bottom, #eee, #fff);
+    --background: linear-gradient(to right bottom, #f6f6f6, #fff);
 
     ion-thumbnail {
       margin: 0;
@@ -20,8 +20,8 @@
     }
 
     ion-img {
-      border-radius: 10px;
-      box-shadow: 1px 1px 1px rgba(30, 30, 30, 0.3);
+      border-radius: $card-radius;
+      box-shadow: 1px 1px 1px rgba(30, 30, 30, 0.1);
     }
 
     p {
