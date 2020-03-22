@@ -1,0 +1,27 @@
+@import '../../theme/variables.scss';
+
+.watchlist {
+  position: relative;
+
+  &__icon {
+    fill: var(--ion-color-tertiary-shade) !important;
+    position: absolute;
+    top: 0;
+    left: 0px;
+    transform: translate(40%, 40%);
+    opacity: 0;
+
+    &--anim {
+      animation: pop-up 200ms alternate 4;
+    }
+  }
+}
+
+@keyframes pop-up {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

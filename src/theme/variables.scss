@@ -20,12 +20,12 @@
   --ion-color-secondary-shade: #88ad36;
   --ion-color-secondary-tint: #a5cb50;
 
-  --ion-color-tertiary: #5bc0eb;
-  --ion-color-tertiary-rgb: 91, 192, 235;
+  --ion-color-tertiary: #e88d67;
+  --ion-color-tertiary-rgb: 232, 141, 103;
   --ion-color-tertiary-contrast: #000000;
   --ion-color-tertiary-contrast-rgb: 0, 0, 0;
-  --ion-color-tertiary-shade: #50a9cf;
-  --ion-color-tertiary-tint: #6bc6ed;
+  --ion-color-tertiary-shade: #cc7c5b;
+  --ion-color-tertiary-tint: #ea9876;
 
   --ion-color-success: #9bc53d;
   --ion-color-success-rgb: 155, 197, 61;
@@ -113,6 +113,6 @@
 // App Variables
 // ----------------------------------------------------------------------------
 $card-radius: 8px;
-$card-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.12),
-  0px 2px 2px 0px rgba(0, 0, 0, 0.12),
-  0px 1px 5px 0px rgba(0, 0, 0, 0.1);
+$card-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.1),
+  0px 2px 2px 0px rgba(0, 0, 0, 0.1),
+  0px 1px 5px 0px rgba(0, 0, 0, 0.08);

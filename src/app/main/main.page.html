@@ -11,9 +11,15 @@
       <ion-label>ACTORS</ion-label>
     </ion-tab-button>
     <ion-tab-button
+      class="watchlist"
       tab="watchlist"
       (click)="onTabClicked('watchlist')"
     >
+      <ion-icon
+        color="accent"
+        [ngClass]="{ 'watchlist__icon': true, 'watchlist__icon--anim': this.animIcon }"
+        name="eye"
+      ></ion-icon>
       <ion-label>WATCHLIST</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
